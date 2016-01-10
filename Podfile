@@ -3,8 +3,9 @@ inhibit_all_warnings!
 use_frameworks!
 platform :ios, '8.0'
 
-target '' do
+target 'RealmS' do
   
-  pod 'Alamofire', '3.1.4'
+  pod 'Realm', '0.97.0'
+  pod 'RealmSwift', '0.97.0'
   
 end
