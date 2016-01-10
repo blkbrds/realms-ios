@@ -1,0 +1,1 @@
+Safe method for Realm.
