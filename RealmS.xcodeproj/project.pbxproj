@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29327B2FC7ADBDF1E412B7BD /* Pods_RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C0359151A839962C529289 /* Pods_RealmS.framework */; };
-		F401DF441C42A8F800870925 /* RealmS.h in Headers */ = {isa = PBXBuildFile; fileRef = F401DF431C42A8F800870925 /* RealmS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AB1401C42B26D00C74C39 /* RealmS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,8 +16,8 @@
 		60C0359151A839962C529289 /* Pods_RealmS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D43A6641C4DCD8C476783539 /* Pods-RealmS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmS.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmS/Pods-RealmS.release.xcconfig"; sourceTree = "<group>"; };
 		F401DF401C42A8F800870925 /* RealmS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F401DF431C42A8F800870925 /* RealmS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealmS.h; sourceTree = "<group>"; };
 		F401DF451C42A8F800870925 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F40AB1401C42B26D00C74C39 /* RealmS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +70,8 @@
 		F401DF421C42A8F800870925 /* RealmS */ = {
 			isa = PBXGroup;
 			children = (
-				F401DF431C42A8F800870925 /* RealmS.h */,
 				F401DF451C42A8F800870925 /* Info.plist */,
+				F40AB1401C42B26D00C74C39 /* RealmS.swift */,
 			);
 			path = RealmS;
 			sourceTree = "<group>";
@@ -83,7 +83,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F401DF441C42A8F800870925 /* RealmS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +232,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -274,7 +274,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -288,6 +288,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1DBECDF63D1F599AFB1E6750 /* Pods-RealmS.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -298,6 +299,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apple.RealmS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -305,6 +307,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D43A6641C4DCD8C476783539 /* Pods-RealmS.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
