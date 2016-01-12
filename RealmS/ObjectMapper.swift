@@ -9,10 +9,10 @@
 import RealmSwift
 import ObjectMapper
 
-// MARK: Extend
+// MARK: Import
 extension RealmS {
   /*
-  Insert an object has primaryKey.
+  Import object from json.
   
   - warning: This method can only be called during a write transaction.
   
@@ -39,6 +39,24 @@ extension RealmS {
     } else {
       return nil
     }
+  }
+  
+  /*
+  Import array from json.
+  
+  - warning: This method can only be called during a write transaction.
+  
+  - parameter type:   The object type to create.
+  - parameter json:   The value used to populate the object.
+  */
+  public func add<T: Object where T: Mappable>(type: T.Type, json: [[String : AnyObject]]) -> [T] {
+    var objs = [T]()
+    for (_, js) in json.enumerate() {
+      if let obj = add(type, json: js) {
+        objs.append(obj)
+      }
+    }
+    return objs
   }
 }
 
@@ -93,6 +111,19 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T!, ri
             left = Mapper<T>().map(value)
           }
         }
+      }
+    }
+  }
+}
+
+/// Implicitly unwrapped optional Mappable objects
+public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(left: List<T>, right: Map) {
+  if right.mappingType == MappingType.FromJSON {
+    if let json = right.currentValue {
+      left.removeAll()
+      if let array = json as? [[String : AnyObject]] {
+        let objs = RealmS().add(T.self, json: array)
+        left.appendContentsOf(objs)
       }
     }
   }
