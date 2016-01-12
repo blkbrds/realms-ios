@@ -76,14 +76,10 @@ public final class RealmS {
   
   - parameter block: The block to be executed inside a write transaction.
   */
-  public func write(@noescape block: (() -> Void)) {
+  public func write(@noescape block: ((realm: RealmS) -> Void)) {
     let needsUnlock = lock.tryLock()
     beginWrite()
-    do {
-      try realm.write(block)
-    } catch {
-      debugPrint((error as NSError).localizedDescription)
-    }
+    block(realm: self)
     commitWrite()
     if needsUnlock { lock.unlock() }
   }
