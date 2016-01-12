@@ -604,7 +604,7 @@ extension RealmS {
   /*
   Insert an object has primaryKey.
   */
-  func insert<T: Object>(type: T.Type, id: AnyObject) -> T! {
+  public func insert<T: Object>(type: T.Type, id: AnyObject) -> T! {
     if let key = T.primaryKey() {
       if let object = objects(T).filter("%K = %@", key, id).first {
         return object
