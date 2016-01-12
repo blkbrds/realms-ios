@@ -7,5 +7,6 @@ target 'RealmS' do
   
   pod 'Realm', '0.97.0'
   pod 'RealmSwift', '0.97.0'
+  pod 'ObjectMapper', '1.1.1'
   
 end

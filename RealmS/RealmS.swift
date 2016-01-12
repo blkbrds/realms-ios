@@ -598,25 +598,3 @@ public final class RealmS {
     self.realm = realm
   }
 }
-
-// MARK: Extend
-extension RealmS {
-  /*
-  Insert an object has primaryKey.
-  */
-  public func insert<T: Object>(type: T.Type, id: AnyObject) -> T! {
-    if let key = T.primaryKey() {
-      if let object = objects(T).filter("%K = %@", key, id).first {
-        return object
-      } else {
-        var object: T!
-        write { realm in
-          object = realm.create(T.self, value: [key : id])
-        }
-        return object
-      }
-    } else {
-      return nil
-    }
-  }
-}

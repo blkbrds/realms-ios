@@ -10,6 +10,7 @@
 		29327B2FC7ADBDF1E412B7BD /* Pods_RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C0359151A839962C529289 /* Pods_RealmS.framework */; };
 		F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AB1401C42B26D00C74C39 /* RealmS.swift */; };
 		F47245581C44B7BD00D02B89 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47245571C44B7BD00D02B89 /* Aliases.swift */; };
+		F49E5D041C4549A4002A1292 /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49E5D031C4549A4002A1292 /* ObjectMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		F401DF451C42A8F800870925 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F40AB1401C42B26D00C74C39 /* RealmS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmS.swift; sourceTree = "<group>"; };
 		F47245571C44B7BD00D02B89 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
+		F49E5D031C4549A4002A1292 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			children = (
 				F401DF451C42A8F800870925 /* Info.plist */,
 				F40AB1401C42B26D00C74C39 /* RealmS.swift */,
+				F49E5D031C4549A4002A1292 /* ObjectMapper.swift */,
 				F47245571C44B7BD00D02B89 /* Aliases.swift */,
 			);
 			path = RealmS;
@@ -193,6 +196,7 @@
 			files = (
 				F47245581C44B7BD00D02B89 /* Aliases.swift in Sources */,
 				F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */,
+				F49E5D041C4549A4002A1292 /* ObjectMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
