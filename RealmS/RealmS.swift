@@ -35,7 +35,7 @@ public final class RealmS {
   
   - parameter configuration: The configuration to use when creating the Realm instance.
   */
-  public convenience init?(configuration: Realm.Configuration = Realm.Configuration.defaultConfiguration) {
+  public convenience init!(configuration: Realm.Configuration = Realm.Configuration.defaultConfiguration) {
     do {
       let realm = try Realm(configuration: configuration)
       self.init(realm)
@@ -50,9 +50,14 @@ public final class RealmS {
    
    - parameter path: Path to the realm file.
    */
-  public convenience init(path: String) throws {
-    let realm = try Realm(path: path)
-    self.init(realm)
+  public convenience init!(path: String) {
+    do {
+      let realm = try Realm(path: path)
+      self.init(realm)
+    } catch {
+      print((error as NSError).localizedDescription)
+      return nil
+    }
   }
   
   // MARK: Transactions
