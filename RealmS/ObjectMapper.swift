@@ -10,6 +10,15 @@ import RealmSwift
 import ObjectMapper
 
 // MARK: Import
+extension Map {
+  public func pk<T>(jsKey: String?) -> T! {
+    if let jsKey = jsKey {
+      return self[jsKey].value()
+    }
+    return nil
+  }
+}
+
 extension RealmS {
   /*
   Import object from json.
@@ -19,16 +28,17 @@ extension RealmS {
   - parameter type:   The object type to create.
   - parameter json:   The value used to populate the object.
   */
-  public func add<T: Object where T: Mappable>(type: T.Type, json: [String : AnyObject]) -> T! {
+  public func add<T: Object where T: Mappable, T: JSPrimaryKey>(type: T.Type, json: [String : AnyObject]) -> T! {
     if let key = T.primaryKey() {
-      if let id = json[key] {
+      if let jsKey = T.jsPrimaryKey(), id = json[jsKey] {
         var obj: T!
         if let exist = objects(T).filter("%K = %@", key, id).first {
           obj = exist
+          Mapper<T>().map(json, toObject: obj)
         } else {
-          obj = create(T.self, value: [key : id])
+          obj = Mapper<T>().map(json)
+          add(obj)
         }
-        Mapper<T>().map(json, toObject: obj)
         return obj
       } else {
         return nil
@@ -49,7 +59,7 @@ extension RealmS {
   - parameter type:   The object type to create.
   - parameter json:   The value used to populate the object.
   */
-  public func add<T: Object where T: Mappable>(type: T.Type, json: [[String : AnyObject]]) -> [T] {
+  public func add<T: Object where T: Mappable, T: JSPrimaryKey>(type: T.Type, json: [[String : AnyObject]]) -> [T] {
     var objs = [T]()
     for (_, js) in json.enumerate() {
       if let obj = add(type, json: js) {
