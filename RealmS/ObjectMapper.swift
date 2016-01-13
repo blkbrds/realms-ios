@@ -90,10 +90,12 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T?, ri
                 Mapper<T>().map(value, toObject: left!)
               } else {
                 left = Mapper<T>().map(value)
+                RealmS().add(left!)
               }
             }
           } else {
             left = Mapper<T>().map(value)
+            RealmS().add(left!)
           }
         }
       }
@@ -108,18 +110,8 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T!, ri
       if left != nil {
         if value is NSNull {
           left = nil
-        } else if let json = value as? [String : AnyObject] {
-          if let key = T.primaryKey() {
-            if let id = left.valueForKey(key), jsKey = T.jsPrimaryKey(), jsID = json[jsKey] {
-              if "\(id)" == "\(jsID)" {
-                Mapper<T>().map(value, toObject: left!)
-              } else {
-                left = Mapper<T>().map(value)
-              }
-            }
-          } else {
-            left = Mapper<T>().map(value)
-          }
+        } else if let json = value as? [String : AnyObject], obj = RealmS().add(T.self, json: json) {
+          left = obj
         }
       }
     }
