@@ -80,24 +80,12 @@ public protocol JSPrimaryKey {
 public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T?, right: Map) {
   if right.mappingType == MappingType.FromJSON {
     if let value = right.currentValue {
-      if left != nil {
-        if value is NSNull {
-          left = nil
-        } else if let json = value as? [String : AnyObject] {
-          if let key = T.primaryKey() {
-            if let id = left!.valueForKey(key), jsKey = T.jsPrimaryKey(), jsID = json[jsKey] {
-              if "\(id)" == "\(jsID)" {
-                Mapper<T>().map(value, toObject: left!)
-              } else {
-                left = Mapper<T>().map(value)
-                RealmS().add(left!)
-              }
-            }
-          } else {
-            left = Mapper<T>().map(value)
-            RealmS().add(left!)
-          }
-        }
+      if left != nil && value is NSNull {
+        left = nil
+        return
+      }
+      if let json = value as? [String : AnyObject], obj = RealmS().add(T.self, json: json) {
+        left = obj
       }
     }
   }
@@ -107,12 +95,12 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T?, ri
 public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T!, right: Map) {
   if right.mappingType == MappingType.FromJSON {
     if let value = right.currentValue {
-      if left != nil {
-        if value is NSNull {
-          left = nil
-        } else if let json = value as? [String : AnyObject], obj = RealmS().add(T.self, json: json) {
-          left = obj
-        }
+      if left != nil && value is NSNull {
+        left = nil
+        return
+      }
+      if let json = value as? [String : AnyObject], obj = RealmS().add(T.self, json: json) {
+        left = obj
       }
     }
   }
@@ -121,10 +109,10 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T!, ri
 /// Implicitly unwrapped optional Mappable objects
 public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(left: List<T>, right: Map) {
   if right.mappingType == MappingType.FromJSON {
-    if let json = right.currentValue {
+    if let value = right.currentValue {
       left.removeAll()
-      if let array = json as? [[String : AnyObject]] {
-        let objs = RealmS().add(T.self, json: array)
+      if let json = value as? [[String : AnyObject]] {
+        let objs = RealmS().add(T.self, json: json)
         left.appendContentsOf(objs)
       }
     }
