@@ -77,11 +77,11 @@ public final class RealmS {
   - parameter block: The block to be executed inside a write transaction.
   */
   public func write(@noescape block: ((realm: RealmS) -> Void)) {
-    let needsUnlock = lock.tryLock()
+    lock.lock()
     beginWrite()
     block(realm: self)
     commitWrite()
-    if needsUnlock { lock.unlock() }
+    lock.unlock()
   }
   
   /**
@@ -104,12 +104,9 @@ public final class RealmS {
    is committed.
    */
   public func beginWrite() {
-    let needsUnlock = lock.tryLock()
-    writing += 1
-    if writing == 1 {
+    if !inWriteTransaction {
       realm.beginWrite()
     }
-    if needsUnlock { lock.unlock() }
   }
   
   /**
@@ -119,16 +116,13 @@ public final class RealmS {
    Calling this when not in a write transaction will throw an exception.
    */
   public func commitWrite() {
-    let needsUnlock = lock.tryLock()
-    writing -= 1
-    if writing == 0 {
+    if inWriteTransaction {
       do {
         try realm.commitWrite()
       } catch {
         debugPrint((error as NSError).localizedDescription)
       }
     }
-    if needsUnlock { lock.unlock() }
   }
   
   /**
@@ -159,11 +153,9 @@ public final class RealmS {
    Calling this when not in a write transaction will throw an exception.
    */
   public func cancelWrite() {
-    let needsUnlock = lock.tryLock()
-    if writing > 0 {
+    if inWriteTransaction {
       realm.cancelWrite()
     }
-    if needsUnlock { lock.unlock() }
   }
   
   /**
@@ -214,14 +206,10 @@ public final class RealmS {
    - parameter update: If true will try to update existing objects with the same primary key.
    */
   public func add<S: SequenceType where S.Generator.Element: Object>(objects: S) {
-    let needsUnlock = lock.tryLock()
-    beginWrite()
     let update = S.Generator.Element.primaryKey() != nil
     for obj in objects {
       realm.add(obj, update: update)
     }
-    commitWrite()
-    if needsUnlock { lock.unlock() }
   }
   
   /**
@@ -248,12 +236,8 @@ public final class RealmS {
    - returns: The created object.
    */
   public func create<T: Object>(type: T.Type, value: AnyObject = [:]) -> T {
-    let needsUnlock = lock.tryLock()
-    beginWrite()
     let update = T.primaryKey() != nil
     let obj = realm.create(type, value: value, update: update)
-    commitWrite()
-    if needsUnlock { lock.unlock() }
     return obj
   }
   
@@ -286,13 +270,9 @@ public final class RealmS {
    :nodoc:
    */
   public func dynamicCreate(className: String, value: AnyObject = [:], update: Bool = false) -> DynamicObject {
-    let needsUnlock = lock.tryLock()
-    beginWrite()
     let clazz = NSClassFromString(className) as? Object.Type
     let update = clazz?.primaryKey() != nil
     let obj = realm.dynamicCreate(className, value: value, update: update)
-    commitWrite()
-    if needsUnlock { lock.unlock() }
     return obj
   }
   
@@ -306,11 +286,7 @@ public final class RealmS {
   - parameter object: The object to be deleted.
   */
   public func delete(object: Object) {
-    let needsUnlock = lock.tryLock()
-    beginWrite()
     realm.delete(object)
-    commitWrite()
-    if needsUnlock { lock.unlock() }
   }
   
   /**
@@ -322,13 +298,9 @@ public final class RealmS {
    or any other enumerable SequenceType which generates Object.
    */
   public func delete<S: SequenceType where S.Generator.Element: Object>(objects: S) {
-    let needsUnlock = lock.tryLock()
-    beginWrite()
     for obj in objects {
       realm.delete(obj)
     }
-    commitWrite()
-    if needsUnlock { lock.unlock() }
   }
   
   /**
@@ -341,11 +313,7 @@ public final class RealmS {
    :nodoc:
    */
   public func delete<T: Object>(objects: List<T>) {
-    let needsUnlock = lock.tryLock()
-    beginWrite()
     realm.delete(objects)
-    commitWrite()
-    if needsUnlock { lock.unlock() }
   }
   
   /**
@@ -358,11 +326,7 @@ public final class RealmS {
    :nodoc:
    */
   public func delete<T: Object>(objects: Results<T>) {
-    let needsUnlock = lock.tryLock()
-    beginWrite()
     realm.delete(objects)
-    commitWrite()
-    if needsUnlock { lock.unlock() }
   }
   
   /**
@@ -371,11 +335,7 @@ public final class RealmS {
    - warning: This method can only be called during a write transaction.
    */
   public func deleteAll() {
-    let needsUnlock = lock.tryLock()
-    beginWrite()
     realm.deleteAll()
-    commitWrite()
-    if needsUnlock { lock.unlock() }
   }
   
   // MARK: Object Retrieval
@@ -592,7 +552,6 @@ public final class RealmS {
   // MARK: Internal
   internal var realm: Realm
   internal var lock = NSLock()
-  internal var writing: Int = 0
   
   internal init(_ realm: Realm) {
     self.realm = realm
