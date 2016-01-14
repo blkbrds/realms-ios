@@ -9,16 +9,6 @@
 import RealmSwift
 import ObjectMapper
 
-// MARK: Import
-extension Map {
-  public func pk<T>(jsKey: String?) -> T! {
-    if let jsKey = jsKey {
-      return self[jsKey].value()
-    }
-    return nil
-  }
-}
-
 extension RealmS {
   /*
   Import object from json.
@@ -31,24 +21,19 @@ extension RealmS {
   public func add<T: Object where T: Mappable, T: JSPrimaryKey>(type: T.Type, json: [String : AnyObject]) -> T! {
     if let key = T.primaryKey() {
       if let jsKey = T.jsPrimaryKey(), id = json[jsKey] {
-        var obj: T!
-        if let exist = objects(T).filter("%K = %@", key, id).first {
-          obj = exist
+        if let obj = objects(T).filter("%K = %@", key, id).first {
           Mapper<T>().map(json, toObject: obj)
-        } else {
-          obj = Mapper<T>().map(json)
+          return obj
+        } else if let obj = Mapper<T>().map(json) {
           add(obj)
+          return obj
         }
-        return obj
-      } else {
-        return nil
       }
     } else if let obj = Mapper<T>().map(json) {
       add(obj)
       return obj
-    } else {
-      return nil
     }
+    return nil
   }
   
   /*
