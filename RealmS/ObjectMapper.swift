@@ -18,7 +18,7 @@ extension RealmS {
   - parameter type:   The object type to create.
   - parameter json:   The value used to populate the object.
   */
-  public func add<T: Object where T: Mappable, T: JSPrimaryKey>(type: T.Type, json: [String : AnyObject]) -> T! {
+  public func add<T: Object where T: Mappable, T: JSPrimaryKey>(type: T.Type, json: [String : AnyObject]) -> T? {
     if let key = T.primaryKey() {
       if let jsKey = T.jsPrimaryKey(), id = json[jsKey] {
         if let obj = objects(T).filter("%K = %@", key, id).first {
