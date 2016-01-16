@@ -1,4 +1,4 @@
-Realm
+[Realm](https://github.com/realm/realm-cocoa/tree/v0.97.0)
 ============
 
 Realm is a mobile database that runs directly inside phones, tablets or wearables.
@@ -11,7 +11,7 @@ This repository holds the source code for the iOS & OSX versions of Realm, for b
 * **Modern:** Realm supports relationships, generics, vectorization and even Swift.
 * **Fast:** Realm is faster than even raw SQLite on common operations, while maintaining an extremely rich feature set.
 
-ObjectMapper
+[ObjectMapper](https://github.com/Hearst-DD/ObjectMapper/tree/1.1.1)
 ============
 
 ObjectMapper is a framework written in Swift that makes it easy for you to convert your model objects (classes and structs) to and from JSON. 
