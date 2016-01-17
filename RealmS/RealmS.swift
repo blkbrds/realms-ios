@@ -120,7 +120,7 @@ public final class RealmS {
       do {
         try realm.commitWrite()
       } catch {
-        debugPrint((error as NSError).localizedDescription)
+        print((error as NSError).localizedDescription)
       }
     }
   }
@@ -545,7 +545,7 @@ public final class RealmS {
     do {
       try realm.writeCopyToPath(path, encryptionKey: encryptionKey)
     } catch {
-      debugPrint((error as NSError).localizedDescription)
+      print((error as NSError).localizedDescription)
     }
   }
   

@@ -7,8 +7,7 @@ Pod::Spec.new do |s|
   s.authors  = { 'Dao Nguyen' => 'zendobk' }
   s.source   = { :git => 'https://github.com/zendobk/RealmS.git', :tag => s.version}
   s.requires_arc = true
-  s.ios.deployment_target = '8.0'  
-  s.ios.frameworks = 'Foundation', 'UIKit'
+  s.ios.deployment_target = '8.0'
   s.dependency 'Realm', '0.97.0'
   s.dependency 'RealmSwift', '0.97.0'
   s.dependency 'ObjectMapper', '1.1.1'

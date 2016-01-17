@@ -6,7 +6,6 @@
 //  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
-import RealmSwift
 import ObjectMapper
 
 extension RealmS {
@@ -55,13 +54,12 @@ extension RealmS {
   }
 }
 
-// MARK:- Mappable Objects - <T: Object where T: Mappable>
+// MARK:- <T: Object where T: Mappable, T: JSPrimaryKey>
 
 public protocol JSPrimaryKey {
   static func jsPrimaryKey() -> String?
 }
 
-/// Optional Mappable objects
 public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T?, right: Map) {
   if right.mappingType == MappingType.FromJSON {
     if let value = right.currentValue {
@@ -76,7 +74,6 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T?, ri
   }
 }
 
-/// Implicitly unwrapped optional Mappable objects
 public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T!, right: Map) {
   if right.mappingType == MappingType.FromJSON {
     if let value = right.currentValue {
@@ -91,7 +88,6 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T!, ri
   }
 }
 
-/// Implicitly unwrapped optional Mappable objects
 public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(left: List<T>, right: Map) {
   if right.mappingType == MappingType.FromJSON {
     if let value = right.currentValue {
