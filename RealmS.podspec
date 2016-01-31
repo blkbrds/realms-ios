@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name   = 'RealmS'
-  s.version  = '1.2.7'
+  s.version  = '1.2.8'
   s.license  = 'MIT'
   s.summary  = 'RealmS'
   s.homepage = 'https://github.com/zendobk/RealmS'
@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   s.source   = { :git => 'https://github.com/zendobk/RealmS.git', :tag => s.version}
   s.requires_arc = true
   s.ios.deployment_target = '8.0'
-  s.dependency 'Realm', '0.97.0'
-  s.dependency 'RealmSwift', '0.97.0'
+  s.dependency 'Realm', '0.97.1'
+  s.dependency 'RealmSwift', '0.97.1'
   s.dependency 'ObjectMapper', '1.1.1'
   s.source_files = 'RealmS/*.swift'
 end

@@ -1,4 +1,4 @@
-[Realm](https://github.com/realm/realm-cocoa/tree/v0.97.0)
+[Realm](https://github.com/realm/realm-cocoa/tree/v0.97.1)
 ============
 
 Realm is a mobile database that runs directly inside phones, tablets or wearables.
@@ -28,5 +28,4 @@ RealmS
 
 ## Features:
 - Import data from JSON.
-- Support mapping Realm.List type with ObjectMapper.
-- I hate try catch, disable it now.
+- Map Realm.List type with ObjectMapper.

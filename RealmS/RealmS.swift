@@ -6,6 +6,7 @@
 //  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
+import Realm
 import RealmSwift
 
 public final class RealmS {
@@ -40,7 +41,8 @@ public final class RealmS {
       let realm = try Realm(configuration: configuration)
       self.init(realm)
     } catch {
-      print((error as NSError).localizedDescription)
+      let error = error as NSError
+      print(error.localizedDescription)
       return nil
     }
   }
@@ -55,7 +57,8 @@ public final class RealmS {
       let realm = try Realm(path: path)
       self.init(realm)
     } catch {
-      print((error as NSError).localizedDescription)
+      let error = error as NSError
+      print(error.localizedDescription)
       return nil
     }
   }
@@ -115,13 +118,14 @@ public final class RealmS {
    
    Calling this when not in a write transaction will throw an exception.
    */
-  public func commitWrite() {
-    if inWriteTransaction {
-      do {
-        try realm.commitWrite()
-      } catch {
-        print((error as NSError).localizedDescription)
-      }
+  public func commitWrite() -> NSError? {
+    do {
+      try realm.commitWrite()
+      return nil
+    } catch {
+      let error = error as NSError
+      print(error.localizedDescription)
+      return error
     }
   }
   
@@ -436,7 +440,9 @@ public final class RealmS {
   to remove this notification.
   */
   public func addNotificationBlock(block: NotificationBlock) -> NotificationToken {
-    return realm.addNotificationBlock(block)
+    return realm.addNotificationBlock({ (notification, realm) -> Void in
+      block(notification: notification, realm: RealmS(realm))
+    })
   }
   
   /**
@@ -541,11 +547,14 @@ public final class RealmS {
   - parameter path:          Path to save the Realm to.
   - parameter encryptionKey: Optional 64-byte encryption key to encrypt the new file with.
   */
-  public func writeCopyToPath(path: String, encryptionKey: NSData? = nil) {
+  public func writeCopyToPath(path: String, encryptionKey: NSData? = nil) -> NSError? {
     do {
       try realm.writeCopyToPath(path, encryptionKey: encryptionKey)
+      return nil
     } catch {
-      print((error as NSError).localizedDescription)
+      let error = error as NSError
+      print(error.localizedDescription)
+      return error
     }
   }
   
@@ -557,3 +566,15 @@ public final class RealmS {
     self.realm = realm
   }
 }
+
+// MARK: Equatable
+
+extension RealmS: Equatable { }
+
+/// Returns whether the two realms are equal.
+public func == (lhs: RealmS, rhs: RealmS) -> Bool {
+  return lhs.realm == rhs.realm
+}
+
+/// Closure to run when the data in a Realm was modified.
+public typealias NotificationBlock = (notification: Notification, realm: RealmS) -> Void

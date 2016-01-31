@@ -1,19 +1,19 @@
 PODS:
   - ObjectMapper (1.1.1)
-  - Realm (0.97.0):
-    - Realm/Headers (= 0.97.0)
-  - Realm/Headers (0.97.0)
-  - RealmSwift (0.97.0):
-    - Realm (= 0.97.0)
+  - Realm (0.97.1):
+    - Realm/Headers (= 0.97.1)
+  - Realm/Headers (0.97.1)
+  - RealmSwift (0.97.1):
+    - Realm (= 0.97.1)
 
 DEPENDENCIES:
   - ObjectMapper (= 1.1.1)
-  - Realm (= 0.97.0)
-  - RealmSwift (= 0.97.0)
+  - Realm (= 0.97.1)
+  - RealmSwift (= 0.97.1)
 
 SPEC CHECKSUMS:
   ObjectMapper: 4143abed1dbd49b73d75092fe8fa1c88ed6434b7
-  Realm: b498a6fb9d288b171ff98d0e2d4384c295be8990
-  RealmSwift: d014810dec75c9a3f1a33926d2dabfed855c582c
+  Realm: 6854f49cc788171573a0605fe5e55d3224bc39f9
+  RealmSwift: 21aa38ae5210a8e7d3ca2fd02a0ce82476672101
 
 COCOAPODS: 0.39.0
