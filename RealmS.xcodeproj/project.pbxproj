@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		29327B2FC7ADBDF1E412B7BD /* Pods_RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C0359151A839962C529289 /* Pods_RealmS.framework */; };
+		F4095A101C68E3CB0077F92E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A0F1C68E3CB0077F92E /* UIKit.framework */; };
+		F4095A121C68E3D30077F92E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A111C68E3D30077F92E /* Foundation.framework */; };
 		F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AB1401C42B26D00C74C39 /* RealmS.swift */; };
 		F47245581C44B7BD00D02B89 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47245571C44B7BD00D02B89 /* Aliases.swift */; };
 		F49E5D041C4549A4002A1292 /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49E5D031C4549A4002A1292 /* ObjectMapper.swift */; };
@@ -31,6 +33,8 @@
 		D43A6641C4DCD8C476783539 /* Pods-RealmS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmS.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmS/Pods-RealmS.release.xcconfig"; sourceTree = "<group>"; };
 		F401DF401C42A8F800870925 /* RealmS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F401DF451C42A8F800870925 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4095A0F1C68E3CB0077F92E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F4095A111C68E3D30077F92E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F40AB1401C42B26D00C74C39 /* RealmS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmS.swift; sourceTree = "<group>"; };
 		F47245571C44B7BD00D02B89 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		F49E5D031C4549A4002A1292 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
@@ -44,6 +48,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4095A121C68E3D30077F92E /* Foundation.framework in Frameworks */,
+				F4095A101C68E3CB0077F92E /* UIKit.framework in Frameworks */,
 				29327B2FC7ADBDF1E412B7BD /* Pods_RealmS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +68,8 @@
 		514C9BD87075020B9C4459A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4095A111C68E3D30077F92E /* Foundation.framework */,
+				F4095A0F1C68E3CB0077F92E /* UIKit.framework */,
 				60C0359151A839962C529289 /* Pods_RealmS.framework */,
 			);
 			name = Frameworks;
@@ -459,6 +467,7 @@
 				F4E9AF951C6639C6001559A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
