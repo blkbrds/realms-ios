@@ -8,6 +8,10 @@
 
 import ObjectMapper
 
+public protocol JSPrimaryKey {
+    static func jsPrimaryKey() -> String?
+}
+
 extension RealmS {
   /*
   Import object from json.
@@ -55,10 +59,6 @@ extension RealmS {
 }
 
 // MARK:- <T: Object where T: Mappable, T: JSPrimaryKey>
-
-public protocol JSPrimaryKey {
-  static func jsPrimaryKey() -> String?
-}
 
 public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T?, right: Map) {
   if right.mappingType == MappingType.FromJSON {
