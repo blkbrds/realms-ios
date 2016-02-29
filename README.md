@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/zendobk/RealmS.svg?branch=master)](https://travis-ci.org/zendobk/RealmS)
+
 [Realm](https://github.com/realm/realm-cocoa/tree/v0.97.1)
 ============
 
@@ -7,6 +9,7 @@ This repository holds the source code for the iOS & OSX versions of Realm, for b
 ## Features
 
 * **Mobile-first:** Realm is the first database built from the ground up to run directly inside phones, tablets and wearables.
+ 
 * **Simple:** Data is directly [exposed as objects](https://realm.io/docs/objc/latest/#models) and [queryable by code](https://realm.io/docs/objc/latest/#queries), removing the need for ORM's riddled with performance & maintenance issues. Plus, we've worked hard to [keep our API down to just 4 common classes](https://realm.io/docs/objc/latest/api/) (Object, Array, Results and Realms) and 1 utility class (Migrations): most of our users pick it up intuitively, getting simple apps up & running in minutes.
 * **Modern:** Realm supports relationships, generics, vectorization and even Swift.
 * **Fast:** Realm is faster than even raw SQLite on common operations, while maintaining an extremely rich feature set.
@@ -56,7 +59,7 @@ RealmS
  platform :ios, '8.0'
  use_frameworks!
  
- pod 'RealmS', '1.2.9'
+ pod 'RealmS', '1.3.0'
  ```
  
  Then, run the following command:

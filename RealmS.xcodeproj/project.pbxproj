@@ -12,7 +12,7 @@
 		F4095A121C68E3D30077F92E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A111C68E3D30077F92E /* Foundation.framework */; };
 		F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AB1401C42B26D00C74C39 /* RealmS.swift */; };
 		F47245581C44B7BD00D02B89 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47245571C44B7BD00D02B89 /* Aliases.swift */; };
-		F49E5D041C4549A4002A1292 /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49E5D031C4549A4002A1292 /* ObjectMapper.swift */; };
+		F49E5D041C4549A4002A1292 /* RealmS+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49E5D031C4549A4002A1292 /* RealmS+ObjectMapper.swift */; };
 		F4E9AF8F1C6639C6001559A1 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9AF8E1C6639C6001559A1 /* Tests.swift */; };
 		F4E9AF911C6639C6001559A1 /* RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F401DF401C42A8F800870925 /* RealmS.framework */; };
 /* End PBXBuildFile section */
@@ -37,7 +37,7 @@
 		F4095A111C68E3D30077F92E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F40AB1401C42B26D00C74C39 /* RealmS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmS.swift; sourceTree = "<group>"; };
 		F47245571C44B7BD00D02B89 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
-		F49E5D031C4549A4002A1292 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
+		F49E5D031C4549A4002A1292 /* RealmS+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RealmS+ObjectMapper.swift"; sourceTree = "<group>"; };
 		F4E9AF8C1C6639C6001559A1 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E9AF8E1C6639C6001559A1 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		F4E9AF901C6639C6001559A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 			children = (
 				F401DF451C42A8F800870925 /* Info.plist */,
 				F40AB1401C42B26D00C74C39 /* RealmS.swift */,
-				F49E5D031C4549A4002A1292 /* ObjectMapper.swift */,
+				F49E5D031C4549A4002A1292 /* RealmS+ObjectMapper.swift */,
 				F47245571C44B7BD00D02B89 /* Aliases.swift */,
 			);
 			path = RealmS;
@@ -268,7 +268,7 @@
 			files = (
 				F47245581C44B7BD00D02B89 /* Aliases.swift in Sources */,
 				F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */,
-				F49E5D041C4549A4002A1292 /* ObjectMapper.swift in Sources */,
+				F49E5D041C4549A4002A1292 /* RealmS+ObjectMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
