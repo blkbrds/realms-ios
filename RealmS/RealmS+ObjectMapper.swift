@@ -19,7 +19,7 @@ extension RealmS {
   */
   public func add<T: Object where T: Mappable>(type: T.Type, json: [String : AnyObject]) -> T? {
     if let obj = Mapper<T>().map(json) {
-        add(obj, update: T.primaryKey() != nil)
+        add(obj)
         return obj
     }
     return nil
