@@ -8,10 +8,6 @@
 
 import ObjectMapper
 
-public protocol JSPrimaryKey {
-    static func jsPrimaryKey() -> String?
-}
-
 extension RealmS {
   /*
   Import object from json.
@@ -21,20 +17,10 @@ extension RealmS {
   - parameter type:   The object type to create.
   - parameter json:   The value used to populate the object.
   */
-  public func add<T: Object where T: Mappable, T: JSPrimaryKey>(type: T.Type, json: [String : AnyObject]) -> T? {
-    if let key = T.primaryKey() {
-      if let jsKey = T.jsPrimaryKey(), id = json[jsKey] {
-        if let obj = objects(T).filter("%K = %@", key, id).first {
-          Mapper<T>().map(json, toObject: obj)
-          return obj
-        } else if let obj = Mapper<T>().map(json) {
-          add(obj)
-          return obj
-        }
-      }
-    } else if let obj = Mapper<T>().map(json) {
-      add(obj)
-      return obj
+  public func add<T: Object where T: Mappable>(type: T.Type, json: [String : AnyObject]) -> T? {
+    if let obj = Mapper<T>().map(json) {
+        add(obj)
+        return obj
     }
     return nil
   }
@@ -47,7 +33,7 @@ extension RealmS {
   - parameter type:   The object type to create.
   - parameter json:   The value used to populate the object.
   */
-  public func add<T: Object where T: Mappable, T: JSPrimaryKey>(type: T.Type, json: [[String : AnyObject]]) -> [T] {
+  public func add<T: Object where T: Mappable>(type: T.Type, json: [[String : AnyObject]]) -> [T] {
     var objs = [T]()
     for (_, js) in json.enumerate() {
       if let obj = add(type, json: js) {
@@ -58,9 +44,9 @@ extension RealmS {
   }
 }
 
-// MARK:- <T: Object where T: Mappable, T: JSPrimaryKey>
+// MARK:- <T: Object where T: Mappable>
 
-public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T?, right: Map) {
+public func <- <T: Object where T: Mappable>(inout left: T?, right: Map) {
   if right.mappingType == MappingType.FromJSON {
     if let value = right.currentValue {
       if left != nil && value is NSNull {
@@ -74,7 +60,7 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T?, ri
   }
 }
 
-public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T!, right: Map) {
+public func <- <T: Object where T: Mappable>(inout left: T!, right: Map) {
   if right.mappingType == MappingType.FromJSON {
     if let value = right.currentValue {
       if left != nil && value is NSNull {
@@ -88,7 +74,7 @@ public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(inout left: T!, ri
   }
 }
 
-public func <- <T: Object where T: Mappable, T: JSPrimaryKey>(left: List<T>, right: Map) {
+public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
   if right.mappingType == MappingType.FromJSON {
     if let value = right.currentValue {
       left.removeAll()
