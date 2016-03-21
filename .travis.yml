@@ -17,14 +17,13 @@ env:
 before_install:
 	- rvm use system
 	- sudo gem install cocoapods -v '0.39.0'
-	- sudo gem install xcpretty
+	- sudo gem install xcpretty -v '0.2.2'
 
 script:
   - set -o pipefail
   - pod --version
   - xcodebuild -version
-  - xcodebuild -showsdks
-  
+  - xcodebuild -showsdks  
   - pod install
   
   # Build Framework in Debug and Run Tests if specified
