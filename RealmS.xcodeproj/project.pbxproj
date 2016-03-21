@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		29327B2FC7ADBDF1E412B7BD /* Pods_RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C0359151A839962C529289 /* Pods_RealmS.framework */; };
+		EC287A5C1C96B80600FE7106 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC287A5B1C96B80600FE7106 /* Tests.swift */; };
+		EC287A621C96BE0100FE7106 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC287A611C96BE0100FE7106 /* Model.swift */; };
 		F4095A101C68E3CB0077F92E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A0F1C68E3CB0077F92E /* UIKit.framework */; };
 		F4095A121C68E3D30077F92E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A111C68E3D30077F92E /* Foundation.framework */; };
 		F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AB1401C42B26D00C74C39 /* RealmS.swift */; };
-		F47245581C44B7BD00D02B89 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47245571C44B7BD00D02B89 /* Aliases.swift */; };
 		F49E5D041C4549A4002A1292 /* RealmS+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49E5D031C4549A4002A1292 /* RealmS+ObjectMapper.swift */; };
-		F4E9AF8F1C6639C6001559A1 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9AF8E1C6639C6001559A1 /* Tests.swift */; };
 		F4E9AF911C6639C6001559A1 /* RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F401DF401C42A8F800870925 /* RealmS.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,15 +31,15 @@
 		1DBECDF63D1F599AFB1E6750 /* Pods-RealmS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmS/Pods-RealmS.debug.xcconfig"; sourceTree = "<group>"; };
 		60C0359151A839962C529289 /* Pods_RealmS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D43A6641C4DCD8C476783539 /* Pods-RealmS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmS.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmS/Pods-RealmS.release.xcconfig"; sourceTree = "<group>"; };
+		EC287A5B1C96B80600FE7106 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		EC287A611C96BE0100FE7106 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		F401DF401C42A8F800870925 /* RealmS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F401DF451C42A8F800870925 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4095A0F1C68E3CB0077F92E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F4095A111C68E3D30077F92E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F40AB1401C42B26D00C74C39 /* RealmS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmS.swift; sourceTree = "<group>"; };
-		F47245571C44B7BD00D02B89 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		F49E5D031C4549A4002A1292 /* RealmS+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RealmS+ObjectMapper.swift"; sourceTree = "<group>"; };
 		F4E9AF8C1C6639C6001559A1 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4E9AF8E1C6639C6001559A1 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		F4E9AF901C6639C6001559A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +84,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EC287A601C96BDE600FE7106 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EC287A611C96BE0100FE7106 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F401DF361C42A8F800870925 = {
 			isa = PBXGroup;
 			children = (
@@ -110,7 +118,6 @@
 				F401DF451C42A8F800870925 /* Info.plist */,
 				F40AB1401C42B26D00C74C39 /* RealmS.swift */,
 				F49E5D031C4549A4002A1292 /* RealmS+ObjectMapper.swift */,
-				F47245571C44B7BD00D02B89 /* Aliases.swift */,
 			);
 			path = RealmS;
 			sourceTree = "<group>";
@@ -118,8 +125,9 @@
 		F4E9AF8D1C6639C6001559A1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F4E9AF8E1C6639C6001559A1 /* Tests.swift */,
+				EC287A601C96BDE600FE7106 /* Model */,
 				F4E9AF901C6639C6001559A1 /* Info.plist */,
+				EC287A5B1C96B80600FE7106 /* Tests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -266,7 +274,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F47245581C44B7BD00D02B89 /* Aliases.swift in Sources */,
 				F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */,
 				F49E5D041C4549A4002A1292 /* RealmS+ObjectMapper.swift in Sources */,
 			);
@@ -276,7 +283,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4E9AF8F1C6639C6001559A1 /* Tests.swift in Sources */,
+				EC287A5C1C96B80600FE7106 /* Tests.swift in Sources */,
+				EC287A621C96BE0100FE7106 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

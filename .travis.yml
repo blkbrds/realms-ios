@@ -15,9 +15,10 @@ env:
     - DESTINATION="OS=9.2,name=iPhone 6S Plus"     SCHEME="$SCHEME"     SDK="$SDK"     RUN_TESTS="YES" POD_LINT="NO"
     
 before_install:
-   - rvm use system
-   - sudo gem install cocoapods -v '0.39.0'
-   
+	- rvm use system
+	- sudo gem install cocoapods -v '0.39.0'
+	- sudo gem install xcpretty
+
 script:
   - set -o pipefail
   - pod --version

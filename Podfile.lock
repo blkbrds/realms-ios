@@ -7,9 +7,8 @@ PODS:
     - Realm (= 0.98.3)
 
 DEPENDENCIES:
-  - ObjectMapper (= 1.1.5)
-  - Realm (= 0.98.3)
-  - RealmSwift (= 0.98.3)
+  - ObjectMapper (~> 1.1.0)
+  - RealmSwift (~> 0.98.0)
 
 SPEC CHECKSUMS:
   ObjectMapper: 528b1a6677a6acac7747edd508576983e76a9148
