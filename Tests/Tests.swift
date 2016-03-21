@@ -68,7 +68,6 @@ class Test_RealmS: XCTestCase {
 			realm.add(User.self, json: jsUser)
 		}
 		XCTAssertEqual(realm.objects(User).count, 1)
-		log()
 	}
 
 	func testUpdate() {
@@ -82,15 +81,5 @@ class Test_RealmS: XCTestCase {
 			}
 			XCTAssertEqual(dog.color, color)
 		}
-		log()
-	}
-
-	func log() {
-		print("\n")
-		let realm = RealmS()
-		NSLog("\(realm.objects(User))")
-		NSLog("\(realm.objects(Address))")
-		NSLog("\(realm.objects(Dog))")
-		print("\n")
 	}
 }
