@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/zendobk/RealmS.svg?branch=master)](https://travis-ci.org/zendobk/RealmS)
 
-[Realm](https://github.com/realm/realm-cocoa/tree/v0.97.1)
+[Realm](https://github.com/realm/realm-cocoa)
 ============
 
 Realm is a mobile database that runs directly inside phones, tablets or wearables.
@@ -14,7 +14,7 @@ This repository holds the source code for the iOS & OSX versions of Realm, for b
 * **Modern:** Realm supports relationships, generics, vectorization and even Swift.
 * **Fast:** Realm is faster than even raw SQLite on common operations, while maintaining an extremely rich feature set.
 
-[ObjectMapper](https://github.com/Hearst-DD/ObjectMapper/tree/1.1.1)
+[ObjectMapper](https://github.com/Hearst-DD/ObjectMapper)
 ============
 
 ObjectMapper is a framework written in Swift that makes it easy for you to convert your model objects (classes and structs) to and from JSON. 
@@ -26,12 +26,12 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - Custom transformations during mapping
 - Struct support
 
-RealmS
+[RealmS](https://github.com/zendobk/RealmS)
 ============
 
 ## Features:
-- Import data from JSON.
-- Map Realm.List type with ObjectMapper.
+- Import data from JSON with truly update*.
+- Map List with ObjectMapper.
 
 ## Requirements
 
@@ -44,30 +44,56 @@ RealmS
 
 ### CocoaPods
  
- [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
  
- ```bash
- $ gem install cocoapods
+```bash
+$ gem install cocoapods
  ```
  
- > CocoaPods 0.39.0+ is required to build RealmS 1.2+.
+> CocoaPods 0.39.0+ is required to build RealmS 1.2+.
  
- To integrate RealmS into your Xcode project using CocoaPods, specify it in your `Podfile`:
+To integrate RealmS into your Xcode project using CocoaPods, specify it in your `Podfile`:
  
- ```ruby
- source 'https://github.com/CocoaPods/Specs.git'
- platform :ios, '8.0'
- use_frameworks!
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
  
- pod 'RealmS', '1.4.0'
- ```
+pod 'RealmS', '1.4.0'
+```
  
- Then, run the following command:
+Then, run the following command:
  
- ```bash
- $ pod install
- ```
+```bash
+$ pod install
+```
  
- ### Usage
- 
- 
+## Usage
+
+### Mapping
+```swift
+override class func primaryKey() -> String? {
+  return "id"
+}
+    
+convenience required init?(_ map: Map) {
+  self.init()
+  id <- map["id"] // primary key must be mapped here
+}
+
+func mapping(map: Map) {
+  name <- map["name"]
+  address <- map["address"]
+  dogs <- map["dogs"]
+}
+```
+### Import json to Realm
+```swift
+let realm = RealmS()
+realm.write {
+  realm.add(User.self, jsUser)
+  realm.add(Shop.self, jsShops)
+}
+```
+
+> nil value will be bypass, if you want set ```nil``` please use ```NSNull()``` instead
