@@ -7,6 +7,7 @@
 //
 
 @testable import RealmS
+import ObjectMapper
 import XCTest
 
 extension XCTestCase {
@@ -14,8 +15,8 @@ extension XCTestCase {
 	}
 }
 
-class Test_RealmS: XCTestCase {
-	let jsUser: JSObject = [
+class Tests: XCTestCase {
+	var jsUser: JSObject = [
 		"id": "1",
 		"name": "User",
 		"address": [
@@ -57,29 +58,52 @@ class Test_RealmS: XCTestCase {
 		super.tearDown()
 	}
 
-	func testAdd() {
+	func test() {
 		let realm = RealmS()
 		realm.write {
 			realm.add(User.self, json: jsUser)
 		}
-		let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first
+		let user: User! = realm.objects(User).filter("id = %@", jsUser["id"]!).first
 		XCTAssertNotNil(user)
+
 		realm.write {
 			realm.add(User.self, json: jsUser)
 		}
 		XCTAssertEqual(realm.objects(User).count, 1)
-	}
 
-	func testUpdate() {
-		let realm = RealmS()
+		let dog: Dog! = user.dogs.first
+		XCTAssertNotNil(dog)
+
+		let color: String! = jsDogs.first?["color"] as? String
+		XCTAssertNotNil(color)
+
+		realm.write {
+			realm.add(Dog.self, json: jsDogs)
+		}
+		XCTAssertEqual(dog.color, color)
+
+		jsUser["address"] = nil
 		realm.write {
 			realm.add(User.self, json: jsUser)
 		}
-		if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first, dog = user.dogs.first, color = jsDogs.first?["color"] as? String {
-			realm.write {
-				realm.add(Dog.self, json: jsDogs)
-			}
-			XCTAssertEqual(dog.color, color)
+		XCTAssertNotNil(user.address)
+
+		jsUser["address"] = NSNull()
+		realm.write {
+			realm.add(User.self, json: jsUser)
 		}
+		XCTAssertNil(user.address)
+
+		jsUser["dogs"] = nil
+		realm.write {
+			realm.add(User.self, json: jsUser)
+		}
+		XCTAssertEqual(user.dogs.count, 1)
+
+		jsUser["dogs"] = NSNull()
+		realm.write {
+			realm.add(User.self, json: jsUser)
+		}
+		XCTAssertEqual(user.dogs.count, 0)
 	}
 }
