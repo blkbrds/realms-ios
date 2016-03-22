@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/zendobk/RealmS.svg?branch=master)](https://travis-ci.org/zendobk/RealmS)
+[![travis-ci.org](https://travis-ci.org/zendobk/RealmS.svg?branch=master)](https://travis-ci.org/zendobk/RealmS)
+[![codecov.io](http://codecov.io/github/zendobk/realms/coverage.svg?branch=master)](http://codecov.io/github/zendobk/realms?branch=master)
 
 [Realm](https://github.com/realm/realm-cocoa)
 ============
