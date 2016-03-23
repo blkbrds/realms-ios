@@ -11,99 +11,152 @@ import ObjectMapper
 import XCTest
 
 extension XCTestCase {
-	func initialize() {
-	}
+  func initialize() {
+  }
 }
 
 class Tests: XCTestCase {
-	var jsUser: JSObject = [
-		"id": "1",
-		"name": "User",
-		"address": [
-			"street": "123 Street",
-			"city": "City",
-			"country": "Country"
-		],
-		"dogs": [
-			[
-				"id": "1",
-				"name": "Pluto",
-				"color": "Black"
-			]
-		]
-	]
+  var jsUser: JSObject = [
+    "id": "1",
+    "name": "User",
+    "address": [
+      "street": "123 Street",
+      "city": "City",
+      "country": "Country"
+    ],
+    "dogs": [
+      [
+        "id": "1",
+        "name": "Pluto",
+        "color": "Black"
+      ]
+    ]
+  ]
 
-	let jsDogs: JSArray = [
-		[
-			"id": "1",
-			"name": "Pluto",
-			"color": "Black new"
-		],
-		[
-			"id": "2",
-			"name": "Lux",
-			"color": "White"
-		]
-	]
+  let jsDogs: JSArray = [
+    [
+      "id": "1",
+      "name": "Pluto",
+      "color": "Black new"
+    ],
+    [
+      "id": "2",
+      "name": "Lux",
+      "color": "White"
+    ]
+  ]
 
-	override func setUp() {
-		super.setUp()
-	}
+  override func setUp() {
+    super.setUp()
+  }
 
-	override func tearDown() {
-		let realm = RealmS()
-		realm.write {
-			realm.deleteAll()
-		}
-		super.tearDown()
-	}
+  override func tearDown() {
+    let realm = RealmS()
+    realm.write {
+      realm.deleteAll()
+    }
+    super.tearDown()
+  }
 
-	func test() {
-		let realm = RealmS()
-		realm.write {
-			realm.add(User.self, json: jsUser)
-		}
-		let user: User! = realm.objects(User).filter("id = %@", jsUser["id"]!).first
-		XCTAssertNotNil(user)
+  func testAdd() {
+    let realm = RealmS()
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    let user: User! = realm.objects(User).filter("id = %@", jsUser["id"]!).first
+    XCTAssertNotNil(user)
+  }
 
-		realm.write {
-			realm.add(User.self, json: jsUser)
-		}
-		XCTAssertEqual(realm.objects(User).count, 1)
+  func testAddRepeat() {
+    let realm = RealmS()
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    XCTAssertEqual(realm.objects(User).count, 1)
+  }
 
-		let dog: Dog! = user.dogs.first
-		XCTAssertNotNil(dog)
+  func testRelation() {
+    let realm = RealmS()
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
+      let dog: Dog! = user.dogs.first
+      XCTAssertNotNil(dog)
+    }
+  }
 
-		let color: String! = jsDogs.first?["color"] as? String
-		XCTAssertNotNil(color)
+  func testRelationChange() {
+    let realm = RealmS()
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first,
+      dog = user.dogs.first,
+      color = jsDogs.first?["color"] as? String {
+        realm.write {
+          realm.add(Dog.self, json: jsDogs)
+        }
+        XCTAssertEqual(dog.color, color)
+    }
+  }
 
-		realm.write {
-			realm.add(Dog.self, json: jsDogs)
-		}
-		XCTAssertEqual(dog.color, color)
+  func testAddNilObject() {
+    let realm = RealmS()
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
+      jsUser["address"] = nil
+      realm.write {
+        realm.add(User.self, json: jsUser)
+      }
+      XCTAssertNotNil(user.address)
+    }
+  }
 
-		jsUser["address"] = nil
-		realm.write {
-			realm.add(User.self, json: jsUser)
-		}
-		XCTAssertNotNil(user.address)
+  func testAddNullObject() {
+    let realm = RealmS()
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
+      jsUser["address"] = NSNull()
+      realm.write {
+        realm.add(User.self, json: jsUser)
+      }
+      XCTAssertNil(user.address)
+    }
+  }
 
-		jsUser["address"] = NSNull()
-		realm.write {
-			realm.add(User.self, json: jsUser)
-		}
-		XCTAssertNil(user.address)
+  func testAddNilList() {
+    let realm = RealmS()
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
+      jsUser["dogs"] = nil
+      realm.write {
+        realm.add(User.self, json: jsUser)
+      }
+      XCTAssertEqual(user.dogs.count, 1)
+    }
+  }
 
-		jsUser["dogs"] = nil
-		realm.write {
-			realm.add(User.self, json: jsUser)
-		}
-		XCTAssertEqual(user.dogs.count, 1)
-
-		jsUser["dogs"] = NSNull()
-		realm.write {
-			realm.add(User.self, json: jsUser)
-		}
-		XCTAssertEqual(user.dogs.count, 0)
-	}
+  func testAddNullList() {
+    let realm = RealmS()
+    realm.write {
+      realm.add(User.self, json: jsUser)
+    }
+    if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
+      jsUser["dogs"] = NSNull()
+      realm.write {
+        realm.add(User.self, json: jsUser)
+      }
+      XCTAssertEqual(user.dogs.count, 0)
+    }
+  }
 }

@@ -157,6 +157,8 @@
 				F401DF3D1C42A8F800870925 /* Headers */,
 				F401DF3E1C42A8F800870925 /* Resources */,
 				7066FCCDEF8C6EE0471DB062 /* Copy Pods Resources */,
+				ECEBF5821CA285D90025CB91 /* SwiftLint */,
+				ECEBF5811CA285A20025CB91 /* TravisLint */,
 			);
 			buildRules = (
 			);
@@ -268,6 +270,34 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		ECEBF5811CA285A20025CB91 /* TravisLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = TravisLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "travis lint \"${SRCROOT}/.travis.yml\"\n";
+		};
+		ECEBF5821CA285D90025CB91 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

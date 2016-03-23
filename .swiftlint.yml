@@ -1,0 +1,18 @@
+# reporter: xcode
+disabled_rules:
+  - todo
+  - trailing_whitespace
+excluded:
+  - Carthage
+  - Pods
+line_length: 300
+file_length: 1000
+function_body_length:
+  - 50
+  - 100
+type_body_length:
+  - 300
+  - 500
+variable_name:
+  excluded:
+    - id
