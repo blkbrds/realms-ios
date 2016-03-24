@@ -283,7 +283,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "travis lint \"${SRCROOT}/.travis.yml\"\n";
+			shellScript = "if which travis >/dev/null; then\ntravis lint \"${SRCROOT}/.travis.yml\"\nelse\necho \"warning: travis not installed\"\nfi";
 		};
 		ECEBF5821CA285D90025CB91 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
