@@ -5,7 +5,7 @@
 ============
 
 ## Features:
-- Data importing from JSON with truly update*.
+- Data importing from JSON with truly update.
 - Object, List mapping with ObjectMapper.
 
 ## Requirements
@@ -34,6 +34,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
  
+
 pod 'RealmS', '1.4.0'
 ```
  
@@ -42,7 +43,7 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
- 
+
 ## Usage
 
 ### Mapping
