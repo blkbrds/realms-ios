@@ -12,6 +12,15 @@ import ObjectMapper
 // MARK: Mapping
 extension RealmS {
   /*
+   Remove store of default realm.
+   */
+  public class func reset() throws {
+    if let storePath = Realm.Configuration.defaultConfiguration.path {
+      try NSFileManager.defaultManager().removeItemAtPath(storePath)
+    }
+  }
+
+  /*
    Import object from json.
 
    - warning: This method can only be called during a write transaction.

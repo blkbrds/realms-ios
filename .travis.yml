@@ -21,7 +21,7 @@ before_install:
   - set -o pipefail
   - sudo gem install bundler
   - bundle install --path=vendor/bundle --without=documentation
-  - pod install
+  - bundler exec pod install
 script:
   # Build Framework in Debug and Run Tests if specified
   - if [ $RUN_TESTS == "YES" ]; then
