@@ -40,4 +40,5 @@ script:
       bundler exec pod lib lint;
     fi
 after_success:
+  - xcodebuild -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "OS=9.2,name=iPhone 6S Plus" -configuration ReleaseTest ONLY_ACTIVE_ARCH=YES build | bundler exec xcpretty -c;
   - bundler exec slather
