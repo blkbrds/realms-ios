@@ -35,9 +35,8 @@ To integrate RealmS into your Xcode project using CocoaPods, specify it in your 
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
- 
 
-pod 'RealmS', '1.4.0'
+pod 'RealmS', '~> 1.4.0'
 ```
  
 Then, run the following command:
@@ -76,7 +75,7 @@ class User: Object, Mappable {
   }
 }
 ```
-### Import json to Realm
+### Import JSON to Realm
 ```swift
 let realm = RealmS()
 realm.write {
