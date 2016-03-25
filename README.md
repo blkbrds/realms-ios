@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/zendobk/RealmS.svg?branch=master)](https://travis-ci.org/zendobk/RealmS)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/RealmS.svg)](https://img.shields.io/cocoapods/v/RealmS.svg)
 [![Platform](https://img.shields.io/cocoapods/p/RealmS.svg?style=flat)](http://cocoadocs.org/docsets/RealmS)
-[![Code Coverage](http://codecov.io/github/zendobk/realms/coverage.svg?branch=master)](http://codecov.io/github/zendobk/realms?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/zendobk/RealmS/badge.svg?branch=master)](https://coveralls.io/github/zendobk/RealmS?branch=master)
 
 [RealmS](https://github.com/zendobk/RealmS)
 ============
