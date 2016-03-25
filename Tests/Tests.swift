@@ -67,7 +67,7 @@ class Tests: XCTestCase {
     XCTAssertNotNil(user)
   }
 
-  func testAddRepeat() {
+  func testAddMore() {
     let realm = RealmS()
     realm.write {
       realm.add(User.self, json: jsUser)
