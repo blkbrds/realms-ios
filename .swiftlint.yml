@@ -5,6 +5,7 @@ disabled_rules:
 excluded:
   - Carthage
   - Pods
+  - vendor
 line_length: 300
 file_length: 1000
 function_body_length:
