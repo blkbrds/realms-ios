@@ -1,7 +1,0 @@
-coverage_service: coveralls
-xcodeproj: RealmS.xcodeproj
-source_directory: RealmS
-ignore:
-  - Pods/*
-  - Carthage/*
-  - vendor/*
