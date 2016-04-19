@@ -15,20 +15,19 @@ env:
 before_install:
   - set -o pipefail
   - brew install xctool
-  - pip install codecov
   - pod install
 script:
   # Build Framework in Debug and Run Tests if specified
   - if [ $RUN_TESTS == "YES" ]; then
-      xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES -configuration Debug test
+      xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug test
     else
-      xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES -configuration Debug build
+      xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug build
     fi
   # Build Framework in ReleaseTest and Run Tests if specified
   - if [ $RUN_TESTS == "YES" ]; then
-      xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES -configuration ReleaseTest test
+      xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration ReleaseTest test
     else
-      xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES -configuration ReleaseTest build
+      xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration ReleaseTest build
     fi
   # Run `pod lib lint` if specified
   - if [ $POD_LINT == "YES" ]; then
@@ -37,4 +36,4 @@ script:
 notifications:
   email: false
 after_success:
-  - codecov
+  - bash <(curl -s https://codecov.io/bash)
