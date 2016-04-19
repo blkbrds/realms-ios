@@ -14,13 +14,13 @@ env:
     - DESTINATION="OS=9.2,name=iPhone 6s Plus"  SCHEME="$IOS_SCHEME"  SDK="$IOS_SDK"  POD_LINT="YES"
 before_install:
   - set -o pipefail
-  - brew install xctool
+  - gem install xcpretty
   - pod install
 script:
   # Build Framework in Debug and Run Tests if specified
-  - xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug test
+  - xcodebuild -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug test | xcpretty -c
   # Build Framework in ReleaseTest and Run Tests if specified
-  - xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration ReleaseTest test
+  - xcodebuild -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration ReleaseTest test | xcpretty -c
   # Run `pod lib lint` if specified
   - if [ $POD_LINT == "YES" ]; then
       pod lib lint --quick
