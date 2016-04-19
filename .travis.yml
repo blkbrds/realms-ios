@@ -10,8 +10,8 @@ env:
   - IOS_SDK="iphonesimulator9.2"
   - CONFIGURATION="ReleaseTest"
   matrix:
-    - DESTINATION="OS=8.1,name=iPhone 6 Plus"   SCHEME="$IOS_SCHEME"  SDK="$IOS_SDK"  POD_LINT="NO"
-    - DESTINATION="OS=9.2,name=iPhone 6s Plus"  SCHEME="$IOS_SCHEME"  SDK="$IOS_SDK"  POD_LINT="YES"
+    - DESTINATION="OS=8.1,name=iPhone 6 Plus"   POD_LINT="NO"
+    - DESTINATION="OS=9.2,name=iPhone 6s Plus"  POD_LINT="YES"
 before_install:
   - set -o pipefail
   - gem install xcpretty
