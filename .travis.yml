@@ -10,8 +10,8 @@ env:
   - IOS_SDK="iphonesimulator9.2"
   - CONFIGURATION="ReleaseTest"
   matrix:
-    - DESTINATION="OS=8.1,name=iPhone 5S"          SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     POD_LINT="NO"
-    - DESTINATION="OS=9.2,name=iPhone 6S Plus"     SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     POD_LINT="YES"
+    - DESTINATION="OS=8.1,name=iPhone 6 Plus"   SCHEME="$IOS_SCHEME"  SDK="$IOS_SDK"  POD_LINT="NO"
+    - DESTINATION="OS=9.2,name=iPhone 6s Plus"  SCHEME="$IOS_SCHEME"  SDK="$IOS_SDK"  POD_LINT="YES"
 before_install:
   - set -o pipefail
   - brew install xctool
@@ -23,7 +23,7 @@ script:
   - xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration ReleaseTest test
   # Run `pod lib lint` if specified
   - if [ $POD_LINT == "YES" ]; then
-      pod lib lint --quick;
+      pod lib lint --quick
     fi
 notifications:
   email: false
