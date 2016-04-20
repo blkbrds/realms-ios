@@ -5,10 +5,8 @@ cache:
 env:
   global:
   - WORKSPACE="RealmS.xcworkspace"
-  - PROJECT="RealmS.xcodeproj"
-  - IOS_SCHEME="RealmS"
-  - IOS_SDK="iphonesimulator9.2"
-  - CONFIGURATION="ReleaseTest"
+  - SCHEME="RealmS"
+  - SDK="iphonesimulator9.2"
   matrix:
     - DESTINATION="OS=8.1,name=iPhone 6 Plus"   POD_LINT="NO"
     - DESTINATION="OS=9.2,name=iPhone 6s Plus"  POD_LINT="YES"
@@ -17,11 +15,11 @@ before_install:
   - gem install xcpretty
   - pod install
 script:
-  # Build Framework in Debug and Run Tests if specified
-  - xcodebuild -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug test | xcpretty -c
-  # Build Framework in ReleaseTest and Run Tests if specified
-  - xcodebuild -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration ReleaseTest test | xcpretty -c
-  # Run `pod lib lint` if specified
+  # test Debug
+  - xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug build test | xcpretty -c;
+  # test Release
+  - xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration ReleaseTest build test | xcpretty -c;
+  # pod lint if needs
   - if [ $POD_LINT == "YES" ]; then
       pod lib lint --quick
     fi
