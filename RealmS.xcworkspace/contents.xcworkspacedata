@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:RealmS.podspec">
+      location = "group:README.md">
    </FileRef>
    <FileRef
-      location = "group:README.md">
+      location = "group:RealmS.podspec">
    </FileRef>
    <FileRef
       location = "group:RealmS.xcodeproj">
