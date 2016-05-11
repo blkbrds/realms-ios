@@ -11,9 +11,6 @@ import RealmSwift
 import ObjectMapper
 @testable import RealmS
 
-typealias JSObject = [String: AnyObject]
-typealias JSArray = [JSObject]
-
 class User: Object, Mappable {
   dynamic var id: String!
   dynamic var name: String?

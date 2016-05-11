@@ -9,16 +9,11 @@
 import RealmSwift
 import ObjectMapper
 
+public typealias JSObject = [String: AnyObject]
+public typealias JSArray = [JSObject]
+
 // MARK: Mapping
-extension RealmS {
-  /*
-   Remove store of default realm.
-   */
-  public class func reset() throws {
-    if let storePath = Realm.Configuration.defaultConfiguration.path {
-      try NSFileManager.defaultManager().removeItemAtPath(storePath)
-    }
-  }
+extension Realm {
 
   /*
    Import object from json.
@@ -28,7 +23,7 @@ extension RealmS {
    - parameter type:   The object type to create.
    - parameter json:   The value used to populate the object.
    */
-  public func add<T: Object where T: Mappable>(type: T.Type, json: [String: AnyObject]) -> T? {
+  public func add<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
     if let obj = Mapper<T>().map(json) {
       if obj.realm == nil {
         add(obj)
@@ -46,7 +41,7 @@ extension RealmS {
    - parameter type:   The object type to create.
    - parameter json:   The value used to populate the object.
    */
-  public func add<T: Object where T: Mappable>(type: T.Type, json: [[String: AnyObject]]) -> [T] {
+  public func add<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
     var objs = [T]()
     for js in json {
       if let obj = add(type, json: js) {
@@ -58,12 +53,12 @@ extension RealmS {
 }
 
 extension Mapper where N: Object {
-  public func map(json: [String: AnyObject]) -> N? {
+  public func map(json: JSObject) -> N? {
     let mapper = Mapper<N>()
     if let key = N.primaryKey() {
       if let obj = test(N.self, json: json) {
         if let id = obj.valueForKey(key) {
-          if let old = RealmS().objectForPrimaryKey(N.self, key: id) {
+          if let old = RLM.objectForPrimaryKey(N.self, key: id) {
             return mapper.map(json, toObject: old)
           } else {
             return mapper.map(json, toObject: obj)
@@ -81,7 +76,7 @@ extension Mapper where N: Object {
     return nil
   }
 
-  public func map(jsArray: [[String: AnyObject]]) -> [N] {
+  public func map(jsArray: JSArray) -> [N] {
     var objs = [N]()
     for json in jsArray {
       if let obj = map(json) {
@@ -91,7 +86,7 @@ extension Mapper where N: Object {
     return objs
   }
 
-  private func test<T: Mappable>(type: T.Type, json: [String: AnyObject]) -> T? {
+  private func test<T: Mappable>(type: T.Type, json: JSObject) -> T? {
     let map = Map(mappingType: .FromJSON, JSONDictionary: json, toObject: true)
     return T.init(map)
   }
@@ -100,15 +95,15 @@ extension Mapper where N: Object {
 // MARK: Operators
 public func <- <T: Object where T: Mappable>(inout left: T?, right: Map) {
   if right.mappingType == MappingType.FromJSON {
-    if let value = right.currentValue {
-      if left != nil && value is NSNull {
-        left = nil
-        return
-      }
-      if let json = value as? [String: AnyObject], obj = Mapper<T>().map(json) {
-        left = obj
-      }
+    guard let value = right.currentValue else {
+      return
     }
+    if value is NSNull {
+      left = nil
+      return
+    }
+    guard let json = value as? JSObject, let obj = Mapper<T>().map(json) else { return }
+    left = obj
   } else {
     left <- (right, ObjTrans<T>())
   }
@@ -125,13 +120,11 @@ public func <- <T: Object where T: Mappable>(inout left: T, right: Map) {
 
 public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
   if right.mappingType == MappingType.FromJSON {
-    if let value = right.currentValue {
-      left.removeAll()
-      if let json = value as? [[String: AnyObject]] {
-        let objs = Mapper<T>().map(json)
-        left.appendContentsOf(objs)
-      }
-    }
+    guard let value = right.currentValue else { return }
+    left.removeAll()
+    guard let json = value as? JSArray else { return }
+    let objs = Mapper<T>().map(json)
+    left.appendContentsOf(objs)
   } else {
     var _left = left
     _left <- (right, ListTrans<T>())
@@ -145,14 +138,12 @@ private class ObjTrans<T: Object where T: Mappable>: TransformType {
   }
 
   func transformToJSON(value: T?) -> AnyObject? {
-    if let value = value {
-      var json = Mapper<T>().toJSON(value)
-      if let key = T.primaryKey() {
-        json[key] = value.valueForKey(key)
-      }
-      return json
+    guard let obj = value else { return NSNull() }
+    var json = Mapper<T>().toJSON(obj)
+    if let key = T.primaryKey() {
+      json[key] = obj.valueForKey(key)
     }
-    return NSNull()
+    return json
   }
 }
 
@@ -162,14 +153,12 @@ private class ListTrans<T: Object where T: Mappable>: TransformType {
   }
 
   func transformToJSON(value: List<T>?) -> AnyObject? {
-    if let list = value {
-      var json = [[String: AnyObject]]()
-      let mapper = Mapper<T>()
-      for obj in list {
-        json.append(mapper.toJSON(obj))
-      }
-      return json
+    guard let list = value else { return NSNull() }
+    var json = JSArray()
+    let mapper = Mapper<T>()
+    for obj in list {
+      json.append(mapper.toJSON(obj))
     }
-    return NSNull()
+    return json
   }
 }

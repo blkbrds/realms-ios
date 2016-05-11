@@ -7,6 +7,7 @@
 //
 
 @testable import RealmS
+import RealmSwift
 import ObjectMapper
 import XCTest
 
@@ -48,39 +49,40 @@ class Tests: XCTestCase {
 
   override func setUp() {
     super.setUp()
+    Realm.removeDefaultStoreIfNeeds()
   }
 
   override func tearDown() {
-    let realm = RealmS()
-    realm.write {
+    let realm = RLM
+    realm.writeS {
       realm.deleteAll()
     }
     super.tearDown()
   }
 
-  func testAdd() {
-    let realm = RealmS()
-    realm.write {
+  func test_add() {
+    let realm = RLM
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
     let user: User! = realm.objects(User).filter("id = %@", jsUser["id"]!).first
     XCTAssertNotNil(user)
   }
 
-  func testAddMore() {
-    let realm = RealmS()
-    realm.write {
+  func test_addMore() {
+    let realm = RLM
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
-    realm.write {
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
     XCTAssertEqual(realm.objects(User).count, 1)
   }
 
-  func testRelation() {
-    let realm = RealmS()
-    realm.write {
+  func test_relation() {
+    let realm = RLM
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
     if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
@@ -89,74 +91,96 @@ class Tests: XCTestCase {
     }
   }
 
-  func testRelationChange() {
-    let realm = RealmS()
-    realm.write {
+  func test_relationChange() {
+    let realm = RLM
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
     if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first,
       dog = user.dogs.first,
       color = jsDogs.first?["color"] as? String {
-        realm.write {
+        realm.writeS {
           realm.add(Dog.self, json: jsDogs)
         }
         XCTAssertEqual(dog.color, color)
     }
   }
 
-  func testAddNilObject() {
-    let realm = RealmS()
-    realm.write {
+  func test_addNilObject() {
+    let realm = RLM
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
     if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
       jsUser["address"] = nil
-      realm.write {
+      realm.writeS {
         realm.add(User.self, json: jsUser)
       }
       XCTAssertNotNil(user.address)
     }
   }
 
-  func testAddNullObject() {
-    let realm = RealmS()
-    realm.write {
+  func test_addNullObject() {
+    let realm = RLM
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
-    if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
-      jsUser["address"] = NSNull()
-      realm.write {
-        realm.add(User.self, json: jsUser)
-      }
-      XCTAssertNil(user.address)
+    guard let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first else { return }
+    jsUser["address"] = NSNull()
+    realm.writeS {
+      realm.add(User.self, json: jsUser)
     }
+    XCTAssertNil(user.address)
   }
 
-  func testAddNilList() {
-    let realm = RealmS()
-    realm.write {
+  func test_addNilList() {
+    let realm = RLM
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
     if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
       jsUser["dogs"] = nil
-      realm.write {
+      realm.writeS {
         realm.add(User.self, json: jsUser)
       }
       XCTAssertEqual(user.dogs.count, 1)
     }
   }
 
-  func testAddNullList() {
-    let realm = RealmS()
-    realm.write {
+  func test_addNullList() {
+    let realm = RLM
+    realm.writeS {
       realm.add(User.self, json: jsUser)
     }
     if let user = realm.objects(User).filter("id = %@", jsUser["id"]!).first {
       jsUser["dogs"] = NSNull()
-      realm.write {
+      realm.writeS {
         realm.add(User.self, json: jsUser)
       }
       XCTAssertEqual(user.dogs.count, 0)
     }
+  }
+
+  func test_multiThread() {
+    let expect = expectationWithDescription("test_multiThread")
+    let queue = dispatch_queue_create("test_multiThread", DISPATCH_QUEUE_CONCURRENT)
+    let group = dispatch_group_create()
+    for i in 0 ..< 10 {
+      dispatch_group_enter(group)
+      dispatch_async(queue, {
+        let realm = RLM
+        let error = realm.writeS {
+          realm.add(User.self, json: self.jsUser)
+        }
+        let thread = NSThread.currentThread()
+        print("thread \(thread), task \(i)")
+        XCTAssertNil(error)
+        dispatch_group_leave(group)
+      })
+    }
+    dispatch_group_notify(group, dispatch_get_main_queue()) {
+      expect.fulfill()
+    }
+    waitForExpectationsWithTimeout(10, handler: nil)
   }
 }
