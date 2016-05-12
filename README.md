@@ -6,6 +6,8 @@
 [RealmS](https://github.com/zendobk/RealmS)
 ============
 
+A RealmSwift extension.
+
 ## Features:
 - Data importing from JSON with truly update.
 - Object, List mapping with ObjectMapper.
@@ -77,10 +79,10 @@ class User: Object, Mappable {
 ```
 ### Import JSON to Realm
 ```swift
-let realm = RealmS()
-realm.write {
-  realm.add(User.self, jsUser)
-  realm.add(Shop.self, jsShops)
+let realm = RLM
+realm.writes {
+  realm.adds(User.self, jsUser)
+  realm.adds(Shop.self, jsShops)
 }
 ```
 
