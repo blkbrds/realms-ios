@@ -95,10 +95,8 @@ extension Mapper where N: Object {
 // MARK: Operators
 public func <- <T: Object where T: Mappable>(inout left: T?, right: Map) {
   if right.mappingType == MappingType.FromJSON {
+    if !right.isKeyPresent { return }
     guard let value = right.currentValue else {
-      return
-    }
-    if value is NSNull {
       left = nil
       return
     }
@@ -120,9 +118,9 @@ public func <- <T: Object where T: Mappable>(inout left: T, right: Map) {
 
 public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
   if right.mappingType == MappingType.FromJSON {
-    guard let value = right.currentValue else { return }
+    if !right.isKeyPresent { return }
     left.removeAll()
-    guard let json = value as? JSArray else { return }
+    guard let json = right.currentValue as? JSArray else { return }
     let objs = Mapper<T>().map(json)
     left.appendContentsOf(objs)
   } else {
