@@ -23,10 +23,10 @@ extension Realm {
    - parameter type:   The object type to create.
    - parameter json:   The value used to populate the object.
    */
-  public func add<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
+  public func adds<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
     if let obj = Mapper<T>().map(json) {
       if obj.realm == nil {
-        add(obj)
+        adds(obj)
       }
       return obj
     }
@@ -41,10 +41,10 @@ extension Realm {
    - parameter type:   The object type to create.
    - parameter json:   The value used to populate the object.
    */
-  public func add<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
+  public func adds<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
     var objs = [T]()
     for js in json {
-      if let obj = add(type, json: js) {
+      if let obj = adds(type, json: js) {
         objs.append(obj)
       }
     }

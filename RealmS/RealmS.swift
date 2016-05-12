@@ -30,7 +30,7 @@ public extension Realm {
     return nil
   }
 
-  public func writeS(@noescape block: (() -> Void)) -> NSError? {
+  public func writes(@noescape block: (() -> Void)) -> NSError? {
     do {
       try write(block)
     } catch {
@@ -39,13 +39,13 @@ public extension Realm {
     return nil
   }
 
-  public func beginWriteS() {
+  public func beginWrites() {
     if !inWriteTransaction {
       beginWrite()
     }
   }
 
-  public func commitWriteS() -> NSError? {
+  public func commitWrites() -> NSError? {
     do {
       try commitWrite()
       return nil
@@ -54,30 +54,30 @@ public extension Realm {
     }
   }
 
-  public func cancelWriteS() {
+  public func cancelWrites() {
     if inWriteTransaction {
       cancelWrite()
     }
   }
 
-  public func addS<T: Object>(object: T) {
+  public func adds<T: Object>(object: T) {
     add(object, update: T.primaryKey() != nil)
   }
 
-  public func addS<S: SequenceType where S.Generator.Element: Object>(objects: S) {
+  public func adds<S: SequenceType where S.Generator.Element: Object>(objects: S) {
     let update = S.Generator.Element.primaryKey() != nil
     for obj in objects {
       add(obj, update: update)
     }
   }
 
-  public func createS<T: Object>(type: T.Type, value: AnyObject = [:]) -> T {
+  public func creates<T: Object>(type: T.Type, value: AnyObject = [:]) -> T {
     let update = T.primaryKey() != nil
     let obj = create(type, value: value, update: update)
     return obj
   }
 
-  public func dynamicCreateS(className: String, value: AnyObject = [:]) -> DynamicObject {
+  public func dynamicCreates(className: String, value: AnyObject = [:]) -> DynamicObject {
     let clazz = NSClassFromString(className) as? Object.Type
     let update = clazz?.primaryKey() != nil
     let obj = dynamicCreate(className, value: value, update: update)
