@@ -1,7 +1,6 @@
 # reporter: xcode
 disabled_rules:
   - todo
-  - trailing_whitespace
 excluded:
   - Carthage
   - Pods

@@ -8,29 +8,49 @@
 
 import RealmSwift
 
-public var RLM: Realm! {
-  do {
-    return try Realm()
-  } catch {
-    return nil
-  }
-}
+extension Realm {
 
-public extension Realm {
+  /**
+   Obtains an instance of the default Realm.
 
-  public static func removeDefaultStoreIfNeeds() -> NSError? {
-    if RLM == nil {
-      guard let url = Configuration.defaultConfiguration.fileURL else { return nil }
-      do {
-        try NSFileManager.defaultManager().removeItemAtURL(url)
-      } catch {
-        return error as NSError
-      }
+   The default Realm is used by the `Object` class methods
+   which do not take a `Realm` parameter, but is otherwise not special. The
+   default Realm is persisted as `default.realm` under the Documents directory of
+   your Application on iOS, and in your application's Application Support
+   directory on OS X.
+
+   The default Realm is created using the default `Configuration`, which
+   can be changed via `Configuration.defaultConfiguration` setter.
+
+   @return The default `Realm` instance for the current thread.
+   */
+  public static var defaultRealm: Realm! {
+    do {
+      return try Realm()
+    } catch {
+      return nil
     }
-    return nil
   }
 
-  public func writes(@noescape block: (() -> Void)) -> NSError? {
+  // MARK: Transactions
+
+  /**
+   Performs actions contained within the given block inside a write transaction.
+
+   Write transactions cannot be nested, and trying to execute a write transaction
+   on a `Realm` which is already in a write transaction will return an exception.
+   Calls to `write` from `Realm` instances in other threads will block
+   until the current write transaction completes.
+
+   Before executing the write transaction, `write` updates the `Realm` to the
+   latest Realm version, as if `refresh()` was called, and generates notifications
+   if applicable. This has no effect if the `Realm` was already up to date.
+
+   - parameter block: The block to be executed inside a write transaction.
+
+   - returns: An NSError if the transaction could not be written.
+   */
+  public func writeBlock(@noescape block: (() -> Void)) -> NSError? {
     do {
       try write(block)
     } catch {
@@ -39,48 +59,42 @@ public extension Realm {
     return nil
   }
 
-  public func beginWrites() {
-    if !inWriteTransaction {
-      beginWrite()
-    }
-  }
+  // MARK: Insert
 
-  public func commitWrites() -> NSError? {
-    do {
-      try commitWrite()
-      return nil
-    } catch {
-      return error as NSError
-    }
-  }
+  /**
+   Adds or updates an object to be persisted it in this Realm.
 
-  public func cancelWrites() {
-    if inWriteTransaction {
-      cancelWrite()
-    }
-  }
+   When the object has a primary key: If no objects exist in
+   the Realm instance with the same primary key value, the object is inserted. Otherwise,
+   the existing object is updated with any changed values.
 
-  public func adds<T: Object>(object: T) {
+   When added, all (child) relationships referenced by this object will also be
+   added to the Realm if they are not already in it. If the object or any related
+   objects already belong to a different Realm an exception will be thrown. Use one
+   of the `create` functions to insert a copy of a persisted object into a different
+   Realm.
+
+   The object to be added must be valid and cannot have been previously deleted
+   from a Realm (i.e. `invalidated` must be false).
+
+   - parameter object: Object to be added to this Realm.
+   */
+
+  public func addOrUpdate<T: Object>(object: T) {
     add(object, update: T.primaryKey() != nil)
   }
 
-  public func adds<S: SequenceType where S.Generator.Element: Object>(objects: S) {
+  /**
+   Adds or updates objects in the given sequence to be persisted it in this Realm.
+
+   - warning: This method can only be called during a write transaction.
+
+   - parameter objects: A sequence which contains objects to be added to this Realm.
+   */
+  public func addOrUpdate<S: SequenceType where S.Generator.Element: Object>(objects: S) {
     let update = S.Generator.Element.primaryKey() != nil
     for obj in objects {
       add(obj, update: update)
     }
-  }
-
-  public func creates<T: Object>(type: T.Type, value: AnyObject = [:]) -> T {
-    let update = T.primaryKey() != nil
-    let obj = create(type, value: value, update: update)
-    return obj
-  }
-
-  public func dynamicCreates(className: String, value: AnyObject = [:]) -> DynamicObject {
-    let clazz = NSClassFromString(className) as? Object.Type
-    let update = clazz?.primaryKey() != nil
-    let obj = dynamicCreate(className, value: value, update: update)
-    return obj
   }
 }

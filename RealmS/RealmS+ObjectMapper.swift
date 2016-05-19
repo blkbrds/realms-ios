@@ -15,18 +15,20 @@ public typealias JSArray = [JSObject]
 // MARK: Mapping
 extension Realm {
 
+  // MARK: Import
+
   /*
-   Import object from json.
+   Add object from json.
 
    - warning: This method can only be called during a write transaction.
 
    - parameter type:   The object type to create.
    - parameter json:   The value used to populate the object.
    */
-  public func adds<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
+  public func add<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
     if let obj = Mapper<T>().map(json) {
       if obj.realm == nil {
-        adds(obj)
+        addOrUpdate(obj)
       }
       return obj
     }
@@ -34,17 +36,17 @@ extension Realm {
   }
 
   /*
-   Import array from json.
+   Add array from json.
 
    - warning: This method can only be called during a write transaction.
 
    - parameter type:   The object type to create.
    - parameter json:   The value used to populate the object.
    */
-  public func adds<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
+  public func add<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
     var objs = [T]()
     for js in json {
-      if let obj = adds(type, json: js) {
+      if let obj = add(type, json: js) {
         objs.append(obj)
       }
     }
@@ -58,13 +60,13 @@ extension Mapper where N: Object {
     if let key = N.primaryKey() {
       if let obj = test(N.self, json: json) {
         if let id = obj.valueForKey(key) {
-          if let old = RLM.objectForPrimaryKey(N.self, key: id) {
+          if let old = Realm.defaultRealm.objectForPrimaryKey(N.self, key: id) {
             return mapper.map(json, toObject: old)
           } else {
             return mapper.map(json, toObject: obj)
           }
         } else {
-          NSLog("\(N.self) must map primary key in init?(_ map: Map)")
+          fatalError("\(N.self)'s primary key must be mapped in init?(_ map: Map)")
         }
       }
       return nil
@@ -103,7 +105,7 @@ public func <- <T: Object where T: Mappable>(inout left: T?, right: Map) {
     guard let json = value as? JSObject, let obj = Mapper<T>().map(json) else { return }
     left = obj
   } else {
-    left <- (right, ObjTrans<T>())
+    left <- (right, ObjectTransform<T>())
   }
 }
 
@@ -112,8 +114,9 @@ public func <- <T: Object where T: Mappable>(inout left: T!, right: Map) {
   _left <- right
 }
 
+@available( *, deprecated = 1, message = "relation must be marked as being optional or implicitly unwrapped optional")
 public func <- <T: Object where T: Mappable>(inout left: T, right: Map) {
-  fatalError("relation must be optional or implicitly unwrapped optional")
+  fatalError("relation must be marked as being optional or implicitly unwrapped optional")
 }
 
 public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
@@ -125,12 +128,14 @@ public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
     left.appendContentsOf(objs)
   } else {
     var _left = left
-    _left <- (right, ListTrans<T>())
+    _left <- (right, ListTransform<T>())
   }
 }
 
-// MARK: Private
-private class ObjTrans<T: Object where T: Mappable>: TransformType {
+// MARK: Transform
+
+private class ObjectTransform<T: Object where T: Mappable>: TransformType {
+  @available( *, deprecated = 1, message = "please use direct mapping without transform")
   func transformFromJSON(value: AnyObject?) -> T? {
     fatalError("please use direct mapping without transform")
   }
@@ -145,7 +150,8 @@ private class ObjTrans<T: Object where T: Mappable>: TransformType {
   }
 }
 
-private class ListTrans<T: Object where T: Mappable>: TransformType {
+private class ListTransform<T: Object where T: Mappable>: TransformType {
+  @available( *, deprecated = 1, message = "please use direct mapping without transform")
   func transformFromJSON(value: AnyObject?) -> List<T>? {
     fatalError("please use direct mapping without transform")
   }

@@ -15,6 +15,7 @@ class User: Object, Mappable {
   dynamic var id: String!
   dynamic var name: String?
   dynamic var address: Address?
+//  dynamic var oldAddress = Address()
   let dogs = List<Dog>()
 
   override class func primaryKey() -> String? {
@@ -29,6 +30,7 @@ class User: Object, Mappable {
   func mapping(map: Map) {
     name <- map["name"]
     address <- map["address"]
+//    oldAddress <- map["old_address"]
     dogs <- map["dogs"]
   }
 }
