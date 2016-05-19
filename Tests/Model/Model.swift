@@ -6,10 +6,9 @@
 //  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
-import Foundation
 import RealmSwift
 import ObjectMapper
-@testable import RealmS
+@testable import RealmMapper
 
 class User: Object, Mappable {
   dynamic var id: String!

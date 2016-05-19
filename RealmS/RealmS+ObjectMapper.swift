@@ -13,7 +13,7 @@ public typealias JSObject = [String: AnyObject]
 public typealias JSArray = [JSObject]
 
 // MARK: Mapping
-extension Realm {
+extension RealmS {
 
   // MARK: Import
 
@@ -25,10 +25,10 @@ extension Realm {
    - parameter type:   The object type to create.
    - parameter json:   The value used to populate the object.
    */
-  public func add<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
+  public func map<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
     if let obj = Mapper<T>().map(json) {
       if obj.realm == nil {
-        addOrUpdate(obj)
+        add(obj)
       }
       return obj
     }
@@ -43,10 +43,10 @@ extension Realm {
    - parameter type:   The object type to create.
    - parameter json:   The value used to populate the object.
    */
-  public func add<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
+  public func map<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
     var objs = [T]()
     for js in json {
-      if let obj = add(type, json: js) {
+      if let obj = map(type, json: js) {
         objs.append(obj)
       }
     }
@@ -60,7 +60,7 @@ extension Mapper where N: Object {
     if let key = N.primaryKey() {
       if let obj = test(N.self, json: json) {
         if let id = obj.valueForKey(key) {
-          if let old = Realm.defaultRealm.objectForPrimaryKey(N.self, key: id) {
+          if let old = RealmS().objectForPrimaryKey(N.self, key: id) {
             return mapper.map(json, toObject: old)
           } else {
             return mapper.map(json, toObject: obj)
