@@ -159,8 +159,9 @@ class Tests: XCTestCase {
 
   func test_multiThread() {
     let expect = expectationWithDescription("test_multiThread")
-    let queue = dispatch_queue_create("test_multiThread", DISPATCH_QUEUE_CONCURRENT)
+    let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
     let group = dispatch_group_create()
+
     for i in 0 ..< 10 {
       dispatch_group_enter(group)
       dispatch_async(queue, {
@@ -175,9 +176,40 @@ class Tests: XCTestCase {
         dispatch_group_leave(group)
       })
     }
+
     dispatch_group_notify(group, dispatch_get_main_queue()) {
       expect.fulfill()
     }
     waitForExpectationsWithTimeout(10, handler: nil)
+  }
+
+  func test_notif() {
+    let expect = expectationWithDescription("test_notif")
+    let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
+
+    let users = RealmS().objects(User)
+    let token = users.addNotificationBlock { (change: RealmCollectionChange<Results<(User)>>) in
+      switch change {
+      case .Update(_, let deletions, let insertions, let modifications):
+        XCTAssertEqual(deletions.count, 0)
+        XCTAssertEqual(insertions.count, 1)
+        XCTAssertEqual(modifications.count, 0)
+        expect.fulfill()
+      case .Error(let error):
+        XCTAssertThrowsError(error)
+      default:
+        break
+      }
+    }
+
+    dispatch_async(queue, {
+      let realm = RealmS()
+      realm.write {
+        realm.map(User.self, json: self.jsUser)
+      }
+    })
+
+    waitForExpectationsWithTimeout(10, handler: nil)
+    token.stop()
   }
 }
