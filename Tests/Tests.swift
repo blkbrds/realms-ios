@@ -9,7 +9,7 @@
 import XCTest
 import RealmSwift
 import ObjectMapper
-@testable import RealmMapper
+@testable import RealmS
 
 class Tests: XCTestCase {
   var jsUser: JSObject = [

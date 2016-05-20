@@ -8,7 +8,7 @@
 
 import RealmSwift
 import ObjectMapper
-@testable import RealmMapper
+@testable import RealmS
 
 class User: Object, Mappable {
   dynamic var id: String!

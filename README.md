@@ -38,7 +38,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'RealmS', '~> 1.6.0'
+pod 'RealmS', '~> 1.5.2'
 ```
 
 Then, run the following command:
@@ -79,10 +79,10 @@ class User: Object, Mappable {
 ```
 ### Import JSON to Realm
 ```swift
-let realm = RLM
-realm.writes {
-  realm.adds(User.self, jsUser)
-  realm.adds(Shop.self, jsShops)
+let realm = RealmS()
+realm.write {
+  realm.map(User.self, jsUser)
+  realm.map(Shop.self, jsShops)
 }
 ```
 

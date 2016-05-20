@@ -14,7 +14,7 @@
 		F4095A121C68E3D30077F92E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A111C68E3D30077F92E /* Foundation.framework */; };
 		F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AB1401C42B26D00C74C39 /* RealmS.swift */; };
 		F49E5D041C4549A4002A1292 /* RealmS+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49E5D031C4549A4002A1292 /* RealmS+ObjectMapper.swift */; };
-		F4E9AF911C6639C6001559A1 /* RealmMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F401DF401C42A8F800870925 /* RealmMapper.framework */; };
+		F4E9AF911C6639C6001559A1 /* RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F401DF401C42A8F800870925 /* RealmS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +34,7 @@
 		D43A6641C4DCD8C476783539 /* Pods-RealmS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmS.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmS/Pods-RealmS.release.xcconfig"; sourceTree = "<group>"; };
 		EC287A5B1C96B80600FE7106 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		EC287A611C96BE0100FE7106 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		F401DF401C42A8F800870925 /* RealmMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F401DF401C42A8F800870925 /* RealmS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F401DF451C42A8F800870925 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4095A0F1C68E3CB0077F92E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F4095A111C68E3D30077F92E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4E9AF911C6639C6001559A1 /* RealmMapper.framework in Frameworks */,
+				F4E9AF911C6639C6001559A1 /* RealmS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +110,7 @@
 		F401DF411C42A8F800870925 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F401DF401C42A8F800870925 /* RealmMapper.framework */,
+				F401DF401C42A8F800870925 /* RealmS.framework */,
 				F4E9AF8C1C6639C6001559A1 /* Tests.xctest */,
 			);
 			name = Products;
@@ -149,9 +149,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		F401DF3F1C42A8F800870925 /* RealmMapper */ = {
+		F401DF3F1C42A8F800870925 /* RealmS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F401DF481C42A8F800870925 /* Build configuration list for PBXNativeTarget "RealmMapper" */;
+			buildConfigurationList = F401DF481C42A8F800870925 /* Build configuration list for PBXNativeTarget "RealmS" */;
 			buildPhases = (
 				8C6E9795D7AF074FDF48FB37 /* Check Pods Manifest.lock */,
 				F401DF3B1C42A8F800870925 /* Sources */,
@@ -165,9 +165,9 @@
 			);
 			dependencies = (
 			);
-			name = RealmMapper;
+			name = RealmS;
 			productName = RealmS;
-			productReference = F401DF401C42A8F800870925 /* RealmMapper.framework */;
+			productReference = F401DF401C42A8F800870925 /* RealmS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		F4E9AF8B1C6639C6001559A1 /* Tests */ = {
@@ -218,7 +218,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F401DF3F1C42A8F800870925 /* RealmMapper */,
+				F401DF3F1C42A8F800870925 /* RealmS */,
 				F4E9AF8B1C6639C6001559A1 /* Tests */,
 			);
 		};
@@ -312,7 +312,7 @@
 /* Begin PBXTargetDependency section */
 		F4E9AF931C6639C6001559A1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F401DF3F1C42A8F800870925 /* RealmMapper */;
+			target = F401DF3F1C42A8F800870925 /* RealmS */;
 			targetProxy = F4E9AF921C6639C6001559A1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -556,7 +556,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F401DF481C42A8F800870925 /* Build configuration list for PBXNativeTarget "RealmMapper" */ = {
+		F401DF481C42A8F800870925 /* Build configuration list for PBXNativeTarget "RealmS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F401DF491C42A8F800870925 /* Debug */,

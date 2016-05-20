@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F401DF3F1C42A8F800870925"
-               BuildableName = "RealmMapper.framework"
-               BlueprintName = "RealmMapper"
+               BuildableName = "RealmS.framework"
+               BlueprintName = "RealmS"
                ReferencedContainer = "container:RealmS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -58,8 +58,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F401DF3F1C42A8F800870925"
-            BuildableName = "RealmMapper.framework"
-            BlueprintName = "RealmMapper"
+            BuildableName = "RealmS.framework"
+            BlueprintName = "RealmS"
             ReferencedContainer = "container:RealmS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F401DF3F1C42A8F800870925"
-            BuildableName = "RealmMapper.framework"
-            BlueprintName = "RealmMapper"
+            BuildableName = "RealmS.framework"
+            BlueprintName = "RealmS"
             ReferencedContainer = "container:RealmS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -98,8 +98,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F401DF3F1C42A8F800870925"
-            BuildableName = "RealmMapper.framework"
-            BlueprintName = "RealmMapper"
+            BuildableName = "RealmS.framework"
+            BlueprintName = "RealmS"
             ReferencedContainer = "container:RealmS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
