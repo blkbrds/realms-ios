@@ -13,6 +13,7 @@ env:
 before_install:
   - set -o pipefail
   - gem install xcpretty
+  - gem install cocoapods 1.0.0
   - pod install
 script:
   # test Debug
