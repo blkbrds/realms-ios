@@ -8,13 +8,12 @@ env:
   - SCHEME="RealmS"
   - SDK="iphonesimulator9.3"
   matrix:
-    - DESTINATION="OS=8.1,name=iPhone 6 Plus"   POD_LINT="NO"
-    - DESTINATION="OS=9.3,name=iPhone 6s Plus"  POD_LINT="YES"
+    - DESTINATION="OS=8.1,name=iPhone 6"    POD_LINT="NO"
+    - DESTINATION="OS=9.3,name=iPhone 6"    POD_LINT="YES"
 before_install:
   - set -o pipefail
   - gem install xcpretty
   - gem install cocoapods
-  - pod repo update
   - pod install
 script:
   # test Debug
