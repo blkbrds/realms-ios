@@ -6,8 +6,9 @@ platform :ios, '8.0'
 target 'RealmS' do
     pod 'RealmSwift', '~> 1.0'
     pod 'ObjectMapper', '~> 1.2.0'
-    
-    target 'Tests' do
-        inherit! :search_paths
-    end
+end
+
+target 'Tests' do
+    pod 'RealmSwift', '~> 1.0'
+    pod 'ObjectMapper', '~> 1.2.0'
 end

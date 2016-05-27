@@ -174,8 +174,8 @@
 				F401DF3C1C42A8F800870925 /* Frameworks */,
 				F401DF3D1C42A8F800870925 /* Headers */,
 				F401DF3E1C42A8F800870925 /* Resources */,
-				ECEBF5821CA285D90025CB91 /* SwiftLint */,
 				60B1383FBD180FE76B3E683E /* 📦 Copy Pods Resources */,
+				ECEBF5821CA285D90025CB91 /* SwiftLint */,
 			);
 			buildRules = (
 			);
