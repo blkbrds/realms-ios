@@ -14,7 +14,7 @@ before_install:
   - set -o pipefail
   - gem install xcpretty
   - gem install cocoapods
-  - pod update repo
+  - pod repo update
   - pod install
 script:
   # test Debug
