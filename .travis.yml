@@ -13,6 +13,8 @@ env:
 before_install:
     - set -o pipefail
     - gem install xcpretty
+    - gem install pod
+    - pod repo update
     - pod install
 script:
     # test Debug

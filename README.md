@@ -32,7 +32,7 @@ A RealmSwift extension.
 $ gem install cocoapods
  ```
 
-> CocoaPods 0.39.0+ is required to build RealmS 1.6.0+
+> CocoaPods 1.0.0+ is required to build RealmS 1.6.0+
 
 To integrate RealmS into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
