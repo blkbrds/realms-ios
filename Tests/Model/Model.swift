@@ -37,6 +37,8 @@ class Address: Object, Mappable {
     dynamic var city = ""
     dynamic var country = ""
 
+    dynamic var phone: Phone?
+
     let users = LinkingObjects(fromType: User.self, property: "address")
 
     convenience required init?(_ map: Map) {
@@ -47,6 +49,28 @@ class Address: Object, Mappable {
         street <- map["street"]
         city <- map["city"]
         country <- map["country"]
+        phone <- map["phone"]
+    }
+}
+
+class Phone: Object, Mappable {
+    enum Type: String {
+        case Work = "Work"
+        case Home = "Home"
+    }
+
+    dynamic var number = ""
+    dynamic var type = Type.Home.rawValue
+
+    let addresses = LinkingObjects(fromType: Address.self, property: "phone")
+
+    convenience required init?(_ map: Map) {
+        self.init()
+    }
+
+    func mapping(map: Map) {
+        number <- map["number"]
+        type <- map["type"]
     }
 }
 

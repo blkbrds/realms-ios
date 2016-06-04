@@ -67,6 +67,7 @@ public final class RealmS {
 
     private var deletedTypes: [Object.Type] = []
     private func clean() {
+        guard deletedTypes.count > 0 else { return }
         for type in deletedTypes {
             for ty in type.relativedTypes() {
                 ty.clean()

@@ -18,7 +18,11 @@ class Tests: XCTestCase {
         "address": [
             "street": "123 Street",
             "city": "City",
-            "country": "Country"
+            "country": "Country",
+            "phone": [
+                "number": "+849876543210",
+                "type": "Work"
+            ]
         ],
         "dogs": [
             [
@@ -47,7 +51,6 @@ class Tests: XCTestCase {
     func load() {
         Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
         RealmS.handleError { (realm, error, type) in
-            print("ERROR: \(error.localizedDescription)")
             XCTAssertThrowsError(error)
         }
     }
@@ -67,42 +70,96 @@ class Tests: XCTestCase {
         super.tearDown()
     }
 
+    func test_config() {
+        let config = RealmS().configuration
+        do {
+            let origin = try Realm().configuration
+            XCTAssertEqual(config.fileURL, origin.fileURL)
+        } catch {
+            XCTAssertThrowsError(error)
+        }
+    }
+
     func test_schema() {
         var classes: [String] = []
         for cls in RealmS().schema.objectSchema {
             classes.append(cls.className)
         }
-        XCTAssertEqual(classes.joinWithSeparator(","), "Address,Dog,User")
+        classes.sortInPlace()
+        XCTAssertEqual(classes.joinWithSeparator(","), "Address,Dog,Phone,User")
+    }
+
+    func test_cancel() {
+        let realm = RealmS()
+        realm.beginWrite()
+        XCTAssertTrue(realm.inWriteTransaction)
+        realm.cancelWrite()
+        XCTAssertFalse(realm.inWriteTransaction)
+    }
+
+    func test_commitWrite() {
+        let realm = RealmS()
+        realm.beginWrite()
+        XCTAssertTrue(realm.inWriteTransaction)
+        realm.commitWrite()
+        XCTAssertFalse(realm.inWriteTransaction)
+    }
+
+    func test_map() {
+        let realm = RealmS()
+        realm.write {
+            realm.map(User.self, json: jsUser)
+        }
+        guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
+        let user: User! = realm.objects(User).filter("id = %@", userID).first
+        XCTAssertNotNil(user)
+        let addr: Address! = user.address
+        XCTAssertNotNil(addr)
+        XCTAssertNotNil(addr.phone)
+        XCTAssertEqual(user.dogs.count, 1)
+        realm.write {
+            realm.map(User.self, json: jsUser)
+        }
+        let users = realm.objects(User).filter("id = %@", userID)
+        XCTAssertEqual(users.count, 1)
     }
 
     func test_add() {
+        var dogs: [Dog] = []
+        for i in 1...3 {
+            let obj = Dog()
+            obj.id = "\(i)"
+            obj.name = "Pluto"
+            obj.color = "white"
+            dogs.append(obj)
+        }
         let realm = RealmS()
         realm.write {
-            realm.map(User.self, json: jsUser)
-            realm.map(User.self, json: jsUser)
+            realm.add(dogs)
+        }
+        XCTAssertEqual(RealmS().objects(Dog).count, 3)
+    }
+
+    func test_create() {
+        let realm = RealmS()
+        realm.write {
+            realm.create(User.self, value: jsUser)
         }
         guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
-        let user = realm.objects(User).filter("id = %@", userID).first
+        let user: User! = realm.objects(User).filter("id = %@", userID).first
         XCTAssertNotNil(user)
+        let addr: Address! = user.address
+        XCTAssertNotNil(addr)
+        XCTAssertNotNil(addr.phone)
+        XCTAssertEqual(user.dogs.count, 1)
         realm.write {
             realm.map(User.self, json: jsUser)
         }
-        XCTAssertEqual(realm.objects(User).count, 1)
+        let users = realm.objects(User).filter("id = %@", userID)
+        XCTAssertEqual(users.count, 1)
     }
 
-    func test_relation() {
-        let realm = RealmS()
-        realm.write {
-            realm.map(User.self, json: jsUser)
-        }
-        guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
-        if let user = realm.objects(User).filter("id = %@", userID).first {
-            let dog = user.dogs.first
-            XCTAssertNotNil(dog)
-        }
-    }
-
-    func test_delete() {
+    func test_delete_object() {
         let realm = RealmS()
         realm.write {
             realm.map(User.self, json: jsUser)
@@ -113,15 +170,27 @@ class Tests: XCTestCase {
                 realm.delete(user)
             }
             let users = realm.objects(User)
-            print("\(users)")
-            XCTAssertTrue(users.isEmpty, "User table must be empty")
+            XCTAssertTrue(users.isEmpty)
             let addrs = realm.objects(Address)
-            print("\(addrs)")
-            XCTAssertTrue(addrs.isEmpty, "Address table must be empty")
+            XCTAssertTrue(addrs.isEmpty)
+            let phones = realm.objects(Phone)
+            XCTAssertTrue(phones.isEmpty)
             let dogs = realm.objects(Dog)
-            print("\(dogs)")
-            XCTAssertTrue(dogs.isEmpty, "Dog table must be empty")
+            XCTAssertTrue(dogs.isEmpty)
         }
+    }
+
+    func test_delete_results() {
+        let realm = RealmS()
+        realm.write {
+            realm.map(User.self, json: jsUser)
+        }
+        let users = realm.objects(User)
+        XCTAssertEqual(users.count, 1)
+        realm.write {
+            realm.delete(users)
+        }
+        XCTAssertTrue(realm.isEmpty)
     }
 
     func test_relationChange() {
@@ -204,16 +273,15 @@ class Tests: XCTestCase {
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
         let group = dispatch_group_create()
 
-        for i in 0 ..< 10 {
+        for _ in 0 ..< 10 {
             dispatch_group_enter(group)
             dispatch_async(queue, {
                 let realm = RealmS()
                 realm.write {
                     realm.map(User.self, json: self.jsUser)
                 }
-                let thread = NSThread.currentThread()
-                let addr = unsafeAddressOf(thread)
-                print("thread \(addr), task \(i)")
+//                let thread = NSThread.currentThread()
+//                let addr = unsafeAddressOf(thread)
                 dispatch_group_leave(group)
             })
         }

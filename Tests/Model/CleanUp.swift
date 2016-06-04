@@ -18,9 +18,23 @@ extension User {
 }
 
 extension Address {
+    override class func relativedTypes() -> [Object.Type] {
+        return [Phone.self]
+    }
+
     override class func clean() {
         let realm = RealmS()
         let objs = realm.objects(self).filter("users.@count = 0")
+        realm.write {
+            realm.delete(objs)
+        }
+    }
+}
+
+extension Phone {
+    override class func clean() {
+        let realm = RealmS()
+        let objs = realm.objects(self).filter("addresses.@count = 0")
         realm.write {
             realm.delete(objs)
         }
