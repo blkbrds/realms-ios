@@ -67,13 +67,12 @@ public final class RealmS {
 
     private var deletedTypes: [Object.Type] = []
     private func clean() {
-        guard deletedTypes.count > 0 else { return }
-        for type in deletedTypes {
-            for ty in type.relativedTypes() {
-                ty.clean()
+        while deletedTypes.count > 0 {
+            let type = deletedTypes.removeFirst()
+            for relatived in type.relativedTypes() {
+                relatived.clean()
             }
         }
-        deletedTypes.removeAll()
     }
 
     // MARK: Properties

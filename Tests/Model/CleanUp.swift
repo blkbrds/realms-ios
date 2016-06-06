@@ -42,6 +42,10 @@ extension Phone {
 }
 
 extension Dog {
+    override class func relativedTypes() -> [Object.Type] {
+        return [Phone.self]
+    }
+
     override class func clean() {
         let realm = RealmS()
         let objs = realm.objects(self).filter("users.@count = 0")
