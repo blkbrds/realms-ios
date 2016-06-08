@@ -321,4 +321,10 @@ class Tests: XCTestCase {
         waitForExpectationsWithTimeout(10, handler: nil)
         token.stop()
     }
+
+    func JustTest() {
+        var a: Int? = 0
+        let b = a!
+        print("\(b)")
+    }
 }

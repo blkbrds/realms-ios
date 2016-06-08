@@ -1,11 +1,13 @@
-# reporter: xcode
+reporter: xcode
+enabled_rules:
+  - force_unwrapping
 disabled_rules:
   - todo
 excluded:
   - Carthage
   - Pods
   - vendor
-line_length: 300
+line_length: 200
 file_length: 1000
 function_body_length:
   - 50
@@ -16,3 +18,7 @@ type_body_length:
 variable_name:
   excluded:
     - id
+    - ok
+function_parameter_count:
+  - 6
+  - 8
