@@ -1,6 +1,7 @@
 language: objective-c
 osx_image: xcode7.3
 cache:
+    - bundler
     - cocoapods
 env:
     global:
@@ -11,13 +12,15 @@ env:
     - POD_LINT="YES"
 before_install:
     - set -o pipefail
-    - if [[ `pod --version` == 0.* ]]; then gem install cocoapods; pod repo update; fi
-    - pod install
+    - brew install swiftlint
 script:
-    # test Debug
+    # test    
     - xctool analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug
-    # pod lint if needs
-    - if [ $POD_LINT == "YES" ]; then pod lib lint --quick; fi
+    # lint
+    - swiftlint --reporter json > swiftlint-report.json || false
+    - linterbot $TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST < swiftlint-report.json; fi    
+    # pod lint
+    - if [ $POD_LINT == "YES" ]; then bundle exec pod lib lint --quick; fi
 notifications:
     email: false
 after_success:
