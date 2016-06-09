@@ -14,9 +14,7 @@ before_install:
   - set -o pipefail
   - brew install swiftlint
   - ln -s /Applications/Xcode-7.3.app /Applications/Xcode.app
-install:
-  - bundle install
-  - bundle exec pod install
+  - pod repo update
 script:
   # test
   - xctool analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug
