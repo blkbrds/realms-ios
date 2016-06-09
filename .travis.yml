@@ -17,7 +17,7 @@ install:
   - bundle install
   - pod setup --silent > /dev/null
   - bundle exec pod repo update --silent
-  - buddle exec pod install
+  - bundle exec pod install
 script:
   # test
   - xctool analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug
