@@ -19,12 +19,12 @@ before_install:
   - ln -s /Applications/Xcode-7.3.app /Applications/Xcode.app
 install:  
   - bundle install
-  - pod setup --silent > /dev/null
+  - bundle exec pod setup --silent > /dev/null
   - bundle exec pod repo update --silent
   - bundle exec pod install
 script:
-  # lint 
-  - linter
+  # lint
+  - bundle exec linter
   # analyze
   - xctool analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug
   # pod lint
