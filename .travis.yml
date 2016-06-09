@@ -23,10 +23,10 @@ install:
   - bundle exec pod repo update --silent
   - bundle exec pod install
 script:
-  # test
+  # lint 
+  - linter
+  # analyze
   - xctool analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug
-  # lint
-  - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then swiftlint lint --reporter json > swiftlint-report.json || false; bundle exec linterbot $TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST < swiftlint-report.json; fi
   # pod lint
   - if [ $POD_LINT == "YES" ]; then bundle exec pod lib lint --quick; fi
 notifications:
