@@ -1,27 +1,30 @@
 language: objective-c
 osx_image: xcode7.3
 cache:
-    - bundler
-    - cocoapods
+  - bundler
+  - cocoapods
 env:
-    global:
-    - WORKSPACE="RealmS.xcworkspace"
-    - SCHEME="RealmS"
-    - SDK="iphonesimulator9.3"
-    - DESTINATION="OS=9.3,name=iPhone 6"
-    - POD_LINT="YES"
+  global:
+  - WORKSPACE="RealmS.xcworkspace"
+  - SCHEME="RealmS"
+  - SDK="iphonesimulator9.3"
+  - DESTINATION="OS=9.3,name=iPhone 6"
+  - POD_LINT="YES"
 before_install:
-    - set -o pipefail
-    - brew install swiftlint
-    - ln -s /Applications/Xcode-7.3.app /Applications/Xcode.app
+  - set -o pipefail
+  - brew install swiftlint
+  - ln -s /Applications/Xcode-7.3.app /Applications/Xcode.app
+install:
+  - bundle install
+  - bundle exec pod install
 script:
-    # test    
-    - xctool analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug
-    # lint
-    - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then swiftlint --reporter json > swiftlint-report.json || false; linterbot $TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST < swiftlint-report.json; fi
-    # pod lint
-    - if [ $POD_LINT == "YES" ]; then bundle exec pod lib lint --quick; fi
+  # test
+  - xctool analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=YES GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug
+  # lint
+  - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then swiftlint --reporter json > swiftlint-report.json || false; linterbot $TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST < swiftlint-report.json; fi
+  # pod lint
+  - if [ $POD_LINT == "YES" ]; then bundle exec pod lib lint --quick; fi
 notifications:
-    email: false
+  email: false
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
