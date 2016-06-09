@@ -15,7 +15,8 @@ install:
   - brew install swiftlint
   - ln -s /Applications/Xcode-7.3.app /Applications/Xcode.app
   - bundle install
-  - bundle exec pod repo update
+  - pod setup --silent > /dev/null
+  - bundle exec pod repo update --silent
   - budnle exec pod install
 script:
   # test
