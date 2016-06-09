@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+  swiftlint lint --reporter json > swiftlint-report.json || false
+  linterbot $TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST < swiftlint-report.json
+fi
+
+xctool analyze \
+    -workspace "$WORKSPACE" \
+    -scheme "$SCHEME" \
+    -sdk "$SDK" \
+    -destination "$DESTINATION" \
+    ONLY_ACTIVE_ARCH=YES \
+    GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES \
+    GCC_GENERATE_TEST_COVERAGE_FILES=YES \
+    -configuration Debug
+
+if [ $POD_LINT == "YES" ]; then
+    pod lib lint --quick
+fi
