@@ -26,6 +26,6 @@ pod_lint() {
   fi
 }
 
-bundle exec lint
-bundle exec analyze
-bundle exec pod_lint
+lint
+analyze
+pod_lint

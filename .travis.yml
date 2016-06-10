@@ -11,6 +11,9 @@ env:
   - DESTINATION="OS=9.3,name=iPhone 6"
   - POD_LINT="YES"
 install:
+  - set -o pipefail
+  - gem install bundler
+  - bundle install
   - ./setup
 script:
   - ./analyze
