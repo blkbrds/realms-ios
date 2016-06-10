@@ -13,6 +13,7 @@
 		EC287A621C96BE0100FE7106 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC287A611C96BE0100FE7106 /* Model.swift */; };
 		ECB925821CF4086300716E8E /* CleanUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB925811CF4086300716E8E /* CleanUp.swift */; };
 		ECB925841CF408AC00716E8E /* CleanUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB925831CF408AC00716E8E /* CleanUp.swift */; };
+		ECEA20A81D0AFCBC00B6CDD3 /* CI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEA20A71D0AFCBC00B6CDD3 /* CI.swift */; };
 		F4095A101C68E3CB0077F92E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A0F1C68E3CB0077F92E /* UIKit.framework */; };
 		F4095A121C68E3D30077F92E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A111C68E3D30077F92E /* Foundation.framework */; };
 		F40AB1411C42B26D00C74C39 /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AB1401C42B26D00C74C39 /* RealmS.swift */; };
@@ -43,6 +44,7 @@
 		EC287A611C96BE0100FE7106 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		ECB925811CF4086300716E8E /* CleanUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanUp.swift; sourceTree = "<group>"; };
 		ECB925831CF408AC00716E8E /* CleanUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanUp.swift; sourceTree = "<group>"; };
+		ECEA20A71D0AFCBC00B6CDD3 /* CI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CI.swift; sourceTree = "<group>"; };
 		F401DF401C42A8F800870925 /* RealmS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F401DF451C42A8F800870925 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4095A0F1C68E3CB0077F92E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -148,6 +150,7 @@
 				EC287A601C96BDE600FE7106 /* Model */,
 				F4E9AF901C6639C6001559A1 /* Info.plist */,
 				EC287A5B1C96B80600FE7106 /* Tests.swift */,
+				ECEA20A71D0AFCBC00B6CDD3 /* CI.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				EC287A5C1C96B80600FE7106 /* Tests.swift in Sources */,
 				ECB925841CF408AC00716E8E /* CleanUp.swift in Sources */,
 				EC287A621C96BE0100FE7106 /* Model.swift in Sources */,
+				ECEA20A81D0AFCBC00B6CDD3 /* CI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
