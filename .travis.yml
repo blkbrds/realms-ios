@@ -14,10 +14,10 @@ install:
   - set -o pipefail
   - gem install bundler
   - bundle install
-  - ./setup
+  - ./scripts/setup
 script:
-  - ./analyze
+  - ./scripts/analyze
 notifications:
   email: false
 after_success:
-  - ./codecov
+  - ./scripts/codecov
