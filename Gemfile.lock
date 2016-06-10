@@ -1,3 +1,10 @@
+PATH
+  remote: ~/Documents/Dev/repo/linterbot
+  specs:
+    linterbot (0.2.3)
+      commander (~> 4.3.8)
+      octokit (~> 4.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -51,9 +58,6 @@ GEM
     highline (1.7.8)
     i18n (0.7.0)
     json (1.8.3)
-    linterbot (0.2.2)
-      commander (~> 4.3.8)
-      octokit (~> 4.2.0)
     minitest (5.9.0)
     molinillo (0.4.5)
     multipart-post (2.0.0)
@@ -77,7 +81,7 @@ PLATFORMS
 
 DEPENDENCIES
   cocoapods (~> 1.0.0)
-  linterbot (~> 0.2.2)
+  linterbot!
 
 BUNDLED WITH
-   1.12.3
+   1.12.5

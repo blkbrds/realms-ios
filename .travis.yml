@@ -16,7 +16,9 @@ install:
   - bundle install
   - ./scripts/setup
 script:
+  - ./scripts/linter
   - ./scripts/analyze
+  - ./scripts/pod_lint
 notifications:
   email: false
 after_success:
