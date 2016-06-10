@@ -1,11 +1,15 @@
 #!/bin/bash
 
-if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-  swiftlint lint --reporter json > swiftlint-report.json || false
-  linterbot $TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST < swiftlint-report.json
-fi
+# swiftlint
+lint() {
+  if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+    swiftlint --reporter json > swiftlint-report.json || false
+    linterbot $TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST < swiftlint-report.json
+  fi
+}
 
-xctool analyze \
+analyze() {
+  xctool analyze \
     -workspace "$WORKSPACE" \
     -scheme "$SCHEME" \
     -sdk "$SDK" \
@@ -14,7 +18,14 @@ xctool analyze \
     GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES \
     GCC_GENERATE_TEST_COVERAGE_FILES=YES \
     -configuration Debug
+}
 
-if [ $POD_LINT == "YES" ]; then
+pod_lint() {
+  if [ $POD_LINT == "YES" ]; then
     pod lib lint --quick
-fi
+  fi
+}
+
+bundle exec lint
+bundle exec analyze
+bundle exec pod_lint

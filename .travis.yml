@@ -10,21 +10,11 @@ env:
   - SDK="iphonesimulator9.3"
   - DESTINATION="OS=9.3,name=iPhone 6"
   - POD_LINT="YES"
-before_install:
-  - set -o pipefail
-  - gem install bundler
-  - brew update
-  - brew outdated xctool || brew upgrade xctool
-  - brew install swiftlint
-  - ln -s /Applications/Xcode-7.3.app /Applications/Xcode.app
-install:  
-  - bundle install
-  - bundle exec pod setup --silent > /dev/null
-  - bundle exec pod repo update --silent
-  - bundle exec pod install
+install:
+  - ./setup
 script:
-  - bundle exec ./analyze
+  - ./analyze
 notifications:
   email: false
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - ./codecov
