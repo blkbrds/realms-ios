@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# install dependences
+setup_pods() {
+  pod setup --silent > /dev/null
+  pod repo update --silent
+  pod install
+}
+
+setup_linter() {
+  brew update
+  brew outdated xctool || brew upgrade xctool
+  brew install swiftlint
+  ln -s /Applications/Xcode-7.3.app /Applications/Xcode.app
+}
+
+setup_pods
+setup_linter
