@@ -18,12 +18,8 @@ extension RealmS {
     // MARK: Import
 
     /*
-     Add object from json.
-
-     - warning: This method can only be called during a write transaction.
-
-     - parameter type:   The object type to create.
-     - parameter json:   The value used to populate the object.
+     Import JSON as Mappable Object.
+     - returns: mapped object
      */
     public func map<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
         if let obj = Mapper<T>().map(json) {
@@ -36,12 +32,8 @@ extension RealmS {
     }
 
     /*
-     Add array from json.
-
-     - warning: This method can only be called during a write transaction.
-
-     - parameter type:   The object type to create.
-     - parameter json:   The value used to populate the object.
+     Import JSON as array of Mappable Object.
+     - returns: mapped objects
      */
     public func map<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
         var objs = [T]()
@@ -61,30 +53,34 @@ extension Mappable {
 }
 
 extension Mapper where N: Object {
+    /*
+     Map JSON as Mappable Object.
+     - returns: mapped object
+     */
     public func map(json: JSObject) -> N? {
         let mapper = Mapper<N>()
         let map = Map(mappingType: .FromJSON, JSONDictionary: json, toObject: true)
-        if let key = N.primaryKey() {
-            if let obj = N.init(map: map) {
-                if let id = obj.valueForKey(key) {
-                    if let old = RealmS().objectForPrimaryKey(N.self, key: id) {
-                        return mapper.map(json, toObject: old)
-                    } else {
-                        return mapper.map(json, toObject: obj)
-                    }
-                } else {
-                    fatalError("\(N.self)'s primary key must be mapped in init?(_ map: Map)")
-                }
-            }
-            return nil
-        } else {
-            if let obj = N.init(map: map) {
-                return mapper.map(json, toObject: obj)
-            }
+
+        guard let key = N.primaryKey() else {
+            guard let obj = N.init(map: map) else { return nil }
+            return mapper.map(json, toObject: obj)
         }
-        return nil
+        guard let obj = N.init(map: map) else { return nil }
+        guard let id = obj.valueForKey(key) else {
+            fatalError("\(N.self)'s primary key must be mapped in init?(_ map: Map)")
+        }
+
+        if let old = RealmS().objectForPrimaryKey(N.self, key: id) {
+            return mapper.map(json, toObject: old)
+        } else {
+            return mapper.map(json, toObject: obj)
+        }
     }
 
+    /*
+     Map JSON as array of Mappable Object.
+     - returns: mapped objects
+     */
     public func map(jsArray: JSArray) -> [N] {
         var objs = [N]()
         for json in jsArray {
@@ -97,6 +93,10 @@ extension Mapper where N: Object {
 }
 
 // MARK: Operators
+
+/*
+ Map to optional Mappable Object.
+ */
 public func <- <T: Object where T: Mappable>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.FromJSON {
         if !right.isKeyPresent { return }
@@ -111,16 +111,25 @@ public func <- <T: Object where T: Mappable>(inout left: T?, right: Map) {
     }
 }
 
+/*
+ Map to implicitly unwrapped optional Mappable Object.
+ */
 public func <- <T: Object where T: Mappable>(inout left: T!, right: Map) {
-    var _left: T? = left
-    _left <- right
+    var object: T? = left
+    object <- right
 }
 
+/*
+ Relation must be marked as being optional or implicitly unwrapped optional.
+ */
 @available( *, deprecated = 1, message = "relation must be marked as being optional or implicitly unwrapped optional")
 public func <- <T: Object where T: Mappable>(inout left: T, right: Map) {
     fatalError("relation must be marked as being optional or implicitly unwrapped optional")
 }
 
+/*
+ Map to List of Mappable Object.
+ */
 public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
     if right.mappingType == MappingType.FromJSON {
         if !right.isKeyPresent { return }
@@ -136,6 +145,7 @@ public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
 
 // MARK: Transform
 
+/// Transform for Object, only support transform to JSON
 private class ObjectTransform<T: Object where T: Mappable>: TransformType {
     @available( *, deprecated = 1, message = "please use direct mapping without transform")
     func transformFromJSON(value: AnyObject?) -> T? {
@@ -152,6 +162,7 @@ private class ObjectTransform<T: Object where T: Mappable>: TransformType {
     }
 }
 
+/// Transform for List of Object, only support transform to JSON
 private class ListTransform<T: Object where T: Mappable>: TransformType {
     @available( *, deprecated = 1, message = "please use direct mapping without transform")
     func transformFromJSON(value: AnyObject?) -> List<T>? {

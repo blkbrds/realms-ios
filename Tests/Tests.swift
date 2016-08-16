@@ -110,7 +110,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUser)
         }
-        guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
+        let userID: String! = jsUser["id"] as? String
         let user: User! = realm.objects(User).filter("id = %@", userID).first
         XCTAssertNotNil(user)
         let addr: Address! = user.address
@@ -137,7 +137,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.add(dogs)
         }
-        XCTAssertEqual(RealmS().objects(Dog).count, 3)
+        XCTAssertEqual(realm.objects(Dog).count, 3)
     }
 
     func test_create() {
@@ -159,6 +159,7 @@ class Tests: XCTestCase {
         XCTAssertEqual(users.count, 1)
     }
 
+    // Also test clean
     func test_delete_object() {
         let realm = RealmS()
         realm.write {
@@ -180,6 +181,7 @@ class Tests: XCTestCase {
         }
     }
 
+    // Also test clean
     func test_delete_results() {
         let realm = RealmS()
         realm.write {
@@ -198,7 +200,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUser)
         }
-        guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
+        let userID: String! = jsUser["id"] as? String
         if let user = realm.objects(User).filter("id = %@", userID).first,
             dog = user.dogs.first,
             color = jsDogs.first?["color"] as? String {
@@ -280,8 +282,6 @@ class Tests: XCTestCase {
                 realm.write {
                     realm.map(User.self, json: self.jsUser)
                 }
-//                let thread = NSThread.currentThread()
-//                let addr = unsafeAddressOf(thread)
                 dispatch_group_leave(group)
             })
         }
@@ -296,7 +296,8 @@ class Tests: XCTestCase {
         let expect = expectationWithDescription("test_notif")
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
 
-        let users = RealmS().objects(User)
+        let realm = RealmS()
+        let users = realm.objects(User)
         let token = users.addNotificationBlock { (change: RealmCollectionChange<Results<(User)>>) in
             switch change {
             case .Update(_, let deletions, let insertions, let modifications):

@@ -41,7 +41,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'RealmS', '~> 1.6.0'
+pod 'RealmS', '~> 1.6.1'
 ```
 
 Then, run the following command:
