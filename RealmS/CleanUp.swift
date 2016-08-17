@@ -9,9 +9,9 @@
 import RealmSwift
 
 extension Object {
-    /*
+    /**
      The relatived types need to perform the cleanup after this type commit a deletion.
-     - returns: relatived types need to perform the cleanup
+     - returns: relatived types need to perform the cleanup.
      */
     public class func relativedTypes() -> [Object.Type] { return [] }
 

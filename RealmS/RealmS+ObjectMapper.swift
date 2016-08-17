@@ -17,9 +17,12 @@ extension RealmS {
 
     // MARK: Import
 
-    /*
+    /**
      Import JSON as Mappable Object.
-     - returns: mapped object
+     - parammeter T: Mappable Object.
+     - parameter type: mapped type.
+     - parameter json: JSON type is `[String: AnyObject]`.
+     - returns: mapped object.
      */
     public func map<T: Object where T: Mappable>(type: T.Type, json: JSObject) -> T? {
         if let obj = Mapper<T>().map(json) {
@@ -31,9 +34,12 @@ extension RealmS {
         return nil
     }
 
-    /*
+    /**
      Import JSON as array of Mappable Object.
-     - returns: mapped objects
+     - parammeter T: Mappable Object.
+     - parameter type: mapped type.
+     - parameter json: JSON type is `[[String: AnyObject]]`.
+     - returns: mapped objects.
      */
     public func map<T: Object where T: Mappable>(type: T.Type, json: JSArray) -> [T] {
         var objs = [T]()
@@ -53,9 +59,12 @@ extension Mappable {
 }
 
 extension Mapper where N: Object {
-    /*
+
+    /**
      Map JSON as Mappable Object.
-     - returns: mapped object
+     - parammeter N: Mappable Object.
+     - parameter json: JSON type is `[String: AnyObject]`.
+     - returns: mapped object.
      */
     public func map(json: JSObject) -> N? {
         let mapper = Mapper<N>()
@@ -77,9 +86,11 @@ extension Mapper where N: Object {
         }
     }
 
-    /*
-     Map JSON as array of Mappable Object.
-     - returns: mapped objects
+    /**
+     Map JSON as Mappable Object.
+     - parammeter N: Mappable Object.
+     - parameter jsArray: JSON type is `[[String: AnyObject]]`.
+     - returns: mapped objects.
      */
     public func map(jsArray: JSArray) -> [N] {
         var objs = [N]()
@@ -94,8 +105,11 @@ extension Mapper where N: Object {
 
 // MARK: Operators
 
-/*
+/**
  Map to optional Mappable Object.
+ - parammeter T: Mappable Object.
+ - parameter left: Optional variable.
+ - parameter right: Map object.
  */
 public func <- <T: Object where T: Mappable>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.FromJSON {
@@ -111,24 +125,33 @@ public func <- <T: Object where T: Mappable>(inout left: T?, right: Map) {
     }
 }
 
-/*
+/**
  Map to implicitly unwrapped optional Mappable Object.
+ - parammeter T: Mappable Object.
+ - parameter left: Implicitly unwrapped optional variable.
+ - parameter right: Map object.
  */
 public func <- <T: Object where T: Mappable>(inout left: T!, right: Map) {
     var object: T? = left
     object <- right
 }
 
-/*
+/**
  Relation must be marked as being optional or implicitly unwrapped optional.
+ - parammeter T: Mappable Object.
+ - parameter left: mapped variable.
+ - parameter right: Map object.
  */
 @available( *, deprecated = 1, message = "relation must be marked as being optional or implicitly unwrapped optional")
 public func <- <T: Object where T: Mappable>(inout left: T, right: Map) {
-    fatalError("relation must be marked as being optional or implicitly unwrapped optional")
+    fatalError("deprecated: relation must be marked as being optional or implicitly unwrapped optional")
 }
 
-/*
+/**
  Map to List of Mappable Object.
+ - parammeter T: Mappable Object.
+ - parameter left: mapped variable.
+ - parameter right: Map object.
  */
 public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
     if right.mappingType == MappingType.FromJSON {
@@ -145,7 +168,9 @@ public func <- <T: Object where T: Mappable>(left: List<T>, right: Map) {
 
 // MARK: Transform
 
-/// Transform for Object, only support transform to JSON
+/**
+ Transform for Object, only support transform to JSON.
+ */
 private class ObjectTransform<T: Object where T: Mappable>: TransformType {
     @available( *, deprecated = 1, message = "please use direct mapping without transform")
     func transformFromJSON(value: AnyObject?) -> T? {
@@ -162,7 +187,9 @@ private class ObjectTransform<T: Object where T: Mappable>: TransformType {
     }
 }
 
-/// Transform for List of Object, only support transform to JSON
+/**
+ Transform for List of Object, only support transform to JSON.
+ */
 private class ListTransform<T: Object where T: Mappable>: TransformType {
     @available( *, deprecated = 1, message = "please use direct mapping without transform")
     func transformFromJSON(value: AnyObject?) -> List<T>? {

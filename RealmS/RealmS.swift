@@ -33,21 +33,20 @@ import RealmSwift
 
 public final class RealmS {
 
-    /// RealmS error types
+    /// RealmS error types.
     public enum ErrorType: Swift.ErrorType {
-        case Init
-        case Write
-        case Encrypt
-        case Unresolved
+        case Init /// throwed while init Realm, almost cases are migrations.
+        case Write /// throwed while commit write transaction.
+        case Encrypt /// throwed by `writeCopyToURL(_:, encryptionKey:)`
     }
 
-    /// RealmS error handler block.
     public typealias ErrorHandler = (realm: RealmS!, error: NSError, type: ErrorType) -> Void
 
     private static var handler: ErrorHandler?
 
-    /*
+    /**
      Invoked after RealmS catched an exception.
+     - parameter handler: Error handler block.
      */
     public static func handleError(handler: ErrorHandler) {
         self.handler = handler
