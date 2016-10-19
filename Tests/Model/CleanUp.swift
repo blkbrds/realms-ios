@@ -10,6 +10,7 @@ import RealmSwift
 import RealmS
 
 extension User {
+
     override class func relativedTypes() -> [Object.Type] {
         return [Address.self, Dog.self]
     }

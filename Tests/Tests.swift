@@ -12,6 +12,7 @@ import ObjectMapper
 @testable import RealmS
 
 class Tests: XCTestCase {
+
     var jsUser: JSObject = [
         "id": "1",
         "name": "User",
@@ -46,20 +47,16 @@ class Tests: XCTestCase {
         ]
     ]
 
-    var token: dispatch_once_t = 0
-
-    func load() {
+    private lazy var load: () = {
         Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
-        RealmS.handleError { (realm, error, type) in
+        RealmS.onError { (realm, error, type) in
             XCTAssertThrowsError(error)
         }
-    }
+    }()
 
     override func setUp() {
         super.setUp()
-        dispatch_once(&token) {
-            self.load()
-        }
+        let _ = load
     }
 
     override func tearDown() {
@@ -85,24 +82,24 @@ class Tests: XCTestCase {
         for cls in RealmS().schema.objectSchema {
             classes.append(cls.className)
         }
-        classes.sortInPlace()
-        XCTAssertEqual(classes.joinWithSeparator(","), "Address,Dog,Phone,User")
+        classes.sort()
+        XCTAssertEqual(classes.joined(separator: ","), "Address,Dog,Phone,User")
     }
 
     func test_cancel() {
         let realm = RealmS()
         realm.beginWrite()
-        XCTAssertTrue(realm.inWriteTransaction)
+        XCTAssertTrue(realm.isInWriteTransaction)
         realm.cancelWrite()
-        XCTAssertFalse(realm.inWriteTransaction)
+        XCTAssertFalse(realm.isInWriteTransaction)
     }
 
     func test_commitWrite() {
         let realm = RealmS()
         realm.beginWrite()
-        XCTAssertTrue(realm.inWriteTransaction)
+        XCTAssertTrue(realm.isInWriteTransaction)
         realm.commitWrite()
-        XCTAssertFalse(realm.inWriteTransaction)
+        XCTAssertFalse(realm.isInWriteTransaction)
     }
 
     func test_map() {
@@ -202,8 +199,8 @@ class Tests: XCTestCase {
         }
         let userID: String! = jsUser["id"] as? String
         if let user = realm.objects(User).filter("id = %@", userID).first,
-            dog = user.dogs.first,
-            color = jsDogs.first?["color"] as? String {
+            let dog = user.dogs.first,
+            let color = jsDogs.first?["color"] as? String {
                 realm.write {
                     realm.map(Dog.self, json: jsDogs)
                 }
@@ -271,55 +268,55 @@ class Tests: XCTestCase {
     }
 
     func test_multiThread() {
-        let expect = expectationWithDescription("test_multiThread")
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
-        let group = dispatch_group_create()
+        let expect = expectation(description: "test_multiThread")
+        let queue = DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background)
+        let group = DispatchGroup()
 
         for _ in 0 ..< 10 {
-            dispatch_group_enter(group)
-            dispatch_async(queue, {
+            group.enter()
+            queue.async(execute: {
                 let realm = RealmS()
                 realm.write {
                     realm.map(User.self, json: self.jsUser)
                 }
-                dispatch_group_leave(group)
+                group.leave()
             })
         }
 
-        dispatch_group_notify(group, dispatch_get_main_queue()) {
+        group.notify(queue: DispatchQueue.main) {
             expect.fulfill()
         }
-        waitForExpectationsWithTimeout(10, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
     }
 
     func test_notif() {
-        let expect = expectationWithDescription("test_notif")
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
+        let expect = expectation(description: "test_notif")
+        let queue = DispatchQueue.global(qos: DispatchQoS.background.qosClass)
 
         let realm = RealmS()
-        let users = realm.objects(User)
-        let token = users.addNotificationBlock { (change: RealmCollectionChange<Results<(User)>>) in
+        let users = realm.objects(User.self)
+        let token = users.addNotificationBlock { change in
             switch change {
-            case .Update(_, let deletions, let insertions, let modifications):
+            case .update(_, let deletions, let insertions, let modifications):
                 XCTAssertEqual(deletions.count, 0)
                 XCTAssertEqual(insertions.count, 1)
                 XCTAssertEqual(modifications.count, 0)
                 expect.fulfill()
-            case .Error(let error):
+            case .error(let error):
                 XCTAssertThrowsError(error)
             default:
                 break
             }
         }
 
-        dispatch_async(queue, {
+        queue.async(execute: {
             let realm = RealmS()
             realm.write {
                 realm.map(User.self, json: self.jsUser)
             }
         })
 
-        waitForExpectationsWithTimeout(10, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         token.stop()
     }
 }

@@ -1,20 +1,29 @@
 PODS:
-  - ObjectMapper (1.2.0)
-  - Realm (1.0.0):
-    - Realm/Headers (= 1.0.0)
-  - Realm/Headers (1.0.0)
-  - RealmSwift (1.0.0):
-    - Realm (= 1.0.0)
+  - ObjectMapper (2.0.0)
+  - Realm (2.0.2):
+    - Realm/Headers (= 2.0.2)
+  - Realm/Headers (2.0.2)
+  - RealmS (2.0.0):
+    - ObjectMapper (~> 2.0.0)
+    - RealmSwift (~> 2.0.0)
+  - RealmSwift (2.0.2):
+    - Realm (= 2.0.2)
 
 DEPENDENCIES:
-  - ObjectMapper (~> 1.2.0)
-  - RealmSwift (~> 1.0)
+  - ObjectMapper (~> 2.0.0)
+  - RealmS (from `./`)
+  - RealmSwift (~> 2.0.0)
+
+EXTERNAL SOURCES:
+  RealmS:
+    :path: "./"
 
 SPEC CHECKSUMS:
-  ObjectMapper: b1e9c7c8a9f6400b72690c80072c131504caa66f
-  Realm: e15cd8e7c11d3e576f628ba0b7cb855269b4991c
-  RealmSwift: 3229306d020d96f83b335f87a0dcbf2cef0e6a2b
+  ObjectMapper: aed2570edabbd3c9b26c939e1cabdb6558f933e0
+  Realm: 0f5a194af0b7e6158b83db41b4ee1a00be7ddf1a
+  RealmS: b0e6c150a50ef56c2e74d76a70f13e3020b67a7f
+  RealmSwift: 0eb5070d851cba7c66e841ca756d83609dc78bc8
 
-PODFILE CHECKSUM: 4649450bdaae131741634a04cf69ca8937194472
+PODFILE CHECKSUM: 7bec3debac05d58d7100733bbd5300410dd266ec
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.3

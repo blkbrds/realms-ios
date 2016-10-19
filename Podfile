@@ -4,8 +4,8 @@ use_frameworks!
 platform :ios, '8.0'
 
 def shared_pods
-    pod 'RealmSwift', '~> 1.0'
-    pod 'ObjectMapper', '~> 1.2.0'
+    pod 'RealmSwift', '~> 2.0.0'
+    pod 'ObjectMapper', '~> 2.0.0'
 end
 
 target 'RealmS' do
@@ -14,4 +14,8 @@ target 'RealmS' do
         inherit! :search_paths
         shared_pods
     end
+end
+
+target 'PodTest' do
+    pod 'RealmS', :path => './'
 end
