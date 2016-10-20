@@ -20,7 +20,7 @@ class User: Object, Mappable {
         return "id"
     }
 
-    convenience required init?(_ map: Map) {
+    convenience required init?(map: Map) {
         self.init()
         id <- map["id"]
     }
@@ -41,7 +41,7 @@ class Address: Object, Mappable {
 
     let users = LinkingObjects(fromType: User.self, property: "address")
 
-    convenience required init?(_ map: Map) {
+    convenience required init?(map: Map) {
         self.init()
     }
 
@@ -54,17 +54,17 @@ class Address: Object, Mappable {
 }
 
 class Phone: Object, Mappable {
-    enum Type: String {
+    enum PhoneType: String {
         case Work = "Work"
         case Home = "Home"
     }
 
     dynamic var number = ""
-    dynamic var type = Type.Home.rawValue
+    dynamic var type = PhoneType.Home.rawValue
 
     let addresses = LinkingObjects(fromType: Address.self, property: "phone")
 
-    convenience required init?(_ map: Map) {
+    convenience required init?(map: Map) {
         self.init()
     }
 
@@ -85,7 +85,7 @@ class Dog: Object, Mappable {
         return "id"
     }
 
-    convenience required init?(_ map: Map) {
+    convenience required init?(map: Map) {
         self.init()
         id <- map["id"]
     }

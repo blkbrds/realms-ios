@@ -10,11 +10,12 @@ import RealmSwift
 import RealmS
 
 extension User {
-    override class func relativedTypes() -> [Object.Type] {
+
+    override public class func relativedTypes() -> [Object.Type] {
         return [Address.self, Dog.self]
     }
 
-    override class func clean() { }
+    override public class func clean() { }
 }
 
 extension Address {
