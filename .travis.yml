@@ -14,9 +14,6 @@ env:
     - SCHEME='Framework'
     - SDK='iphonesimulator10.0'
     - DESTINATION='OS=10.0,name=iPhone 6'
-branches:
-  except:
-    - /^[0-9\.bv]+/
 install:
   - set -o pipefail
   - brew update
