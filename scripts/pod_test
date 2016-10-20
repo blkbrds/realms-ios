@@ -1,0 +1,10 @@
+#!/bin/bash
+
+xcodebuild build \
+    -workspace "$WORKSPACE" \
+    -scheme "PodTest" \
+    -sdk "$SDK" \
+    -destination "$DESTINATION" \
+    -derivedDataPath build \
+    ONLY_ACTIVE_ARCH=YES \
+    -configuration Debug | bundle exec xcpretty; exit ${PIPESTATUS[0]}

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ "$CI" != 'true' ]]; then
+    echo 'Exporting build environment variables...'
+    export SDK='iphonesimulator10.0'
+    export SCHEME='Source'
+    export WORKSPACE='VideoEditor.xcworkspace'
+    export DESTINATION='OS=10.0,name=iPhone 6'
+fi
+
+rm -rf './build'
+
+xcodebuild build test \
+    -workspace "$WORKSPACE" \
+    -scheme "$SCHEME" \
+    -sdk "$SDK" \
+    -destination "$DESTINATION" \
+    -derivedDataPath build \
+    ONLY_ACTIVE_ARCH=YES \
+    -configuration Debug | bundle exec xcpretty; exit ${PIPESTATUS[0]}

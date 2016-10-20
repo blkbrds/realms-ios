@@ -1,0 +1,20 @@
+#!/bin/bash
+
+which rbenv > /dev/null && exit 0
+
+echo 'install rbenv'
+brew install rbenv
+eval "$(rbenv init -)"
+echo 'which rbenv > /dev/null && eval "$(rbenv init -)"' >> ~/.bashrc
+
+rbver="$(rbenv local)"
+[[ -z "$rbver" ]] && rbver=$(head -n 1 '.ruby-version')
+if [[ ! $(rbenv versions | grep "$rbver") ]]; then
+    echo "install gem $rbver"
+    rbenv install $rbver
+    rbenv rehash
+fi
+
+rbenv global "$rbver"
+
+gem install bundler

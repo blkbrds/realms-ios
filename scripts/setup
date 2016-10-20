@@ -1,0 +1,13 @@
+#!/bin/bash
+
+bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+
+if [[ ! `bundle exec pod install` ]]; then
+    echo "Setup cocoapods..."
+    bundle exec pod setup --silent > /dev/null
+    bundle exec pod repo update --silent
+    bundle exec pod install
+fi
+
+brew tap Homebrew/bundle
+brew bundle

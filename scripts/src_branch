@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "$TRAVIS_PULL_REQUEST" == 'false' ]]; then
+    echo "$TRAVIS_BRANCH"
+else
+    URL="https://api.github.com/repos/$TRAVIS_REPO_SLUG/pulls/$TRAVIS_PULL_REQUEST"
+    RESULT="$(curl -X GET -u $GITHUB_ACCESS_TOKEN:x-oauth-basic $URL | jq -r '.head.ref')"
+    [[ "$RESULT" == 'null' ]] && TRAVIS_BRANCH='' || TRAVIS_BRANCH="${RESULT//\"}"
+    echo "$TRAVIS_BRANCH"
+fi
