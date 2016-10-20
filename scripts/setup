@@ -1,14 +1,17 @@
 #!/bin/bash
 
-bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+bundle install --path=vendor/bundle --jobs 4 --retry 3
 
-echo 'Install dependences with Cocoapods'
-if [[ ! `bundle exec pod install` ]]; then
+brew tap Homebrew/bundle
+brew bundle
+
+echo 'Install dependences via Cocoapods'
+if [[ `bundle exec pod install` ]]; then
+    echo '`pod install` completed'
+else
     echo 'Setup cocoapods...'
     bundle exec pod setup --silent > /dev/null
     bundle exec pod repo update --silent
     bundle exec pod install
+    echo '`pod install` completed'
 fi
-
-brew tap Homebrew/bundle
-brew bundle
