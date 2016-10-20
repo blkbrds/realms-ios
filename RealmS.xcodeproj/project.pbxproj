@@ -142,10 +142,10 @@
 		ECBAE7B71DB7796400E520CE /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				ECBAE7B81DB7796400E520CE /* CleanUp.swift */,
 				ECBAE7B91DB7796400E520CE /* Info.plist */,
-				ECBAE7BA1DB7796400E520CE /* RealmS+ObjectMapper.swift */,
 				ECBAE7BB1DB7796400E520CE /* RealmS.swift */,
+				ECBAE7BA1DB7796400E520CE /* RealmS+ObjectMapper.swift */,
+				ECBAE7B81DB7796400E520CE /* CleanUp.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

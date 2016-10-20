@@ -36,7 +36,7 @@ public final class RealmS {
 
     public typealias ErrorHandler = (_ realm: RealmS, _ error: NSError, _ type: ErrorType) -> Void
 
-    fileprivate static var handleError: ErrorHandler?
+    private static var handleError: ErrorHandler?
 
     /**
      Invoked after RealmS catched an exception.
@@ -46,8 +46,8 @@ public final class RealmS {
         handleError = handler
     }
 
-    fileprivate var deletedTypes: [Object.Type] = []
-    fileprivate func clean() {
+    private var deletedTypes: [Object.Type] = []
+    private func clean() {
         while deletedTypes.count > 0 {
             let type = deletedTypes.removeFirst()
             for relatived in type.relativedTypes() {

@@ -13,8 +13,8 @@ extension Object {
      The relatived types need to perform the cleanup after this type commit a deletion.
      - returns: relatived types need to perform the cleanup.
      */
-    public class func relativedTypes() -> [Object.Type] { return [] }
+    open class func relativedTypes() -> [Object.Type] { return [] }
 
     /// Delete unnecessary, invalid objects... This function will be invoked after the commitWrite() called.
-    public class func clean() { }
+    open class func clean() { }
 }

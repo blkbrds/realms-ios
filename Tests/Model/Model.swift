@@ -10,7 +10,7 @@ import RealmSwift
 import ObjectMapper
 @testable import RealmS
 
-open class User: Object, Mappable {
+class User: Object, Mappable {
     dynamic var id: String!
     dynamic var name: String?
     dynamic var address: Address?

@@ -108,7 +108,7 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUser)
         }
         let userID: String! = jsUser["id"] as? String
-        let user: User! = realm.objects(User).filter("id = %@", userID).first
+        let user: User! = realm.objects(User.self).filter("id = %@", userID).first
         XCTAssertNotNil(user)
         let addr: Address! = user.address
         XCTAssertNotNil(addr)
@@ -117,7 +117,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUser)
         }
-        let users = realm.objects(User).filter("id = %@", userID)
+        let users = realm.objects(User.self).filter("id = %@", userID)
         XCTAssertEqual(users.count, 1)
     }
 
@@ -134,7 +134,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.add(dogs)
         }
-        XCTAssertEqual(realm.objects(Dog).count, 3)
+        XCTAssertEqual(realm.objects(Dog.self).count, 3)
     }
 
     func test_create() {
@@ -143,7 +143,7 @@ class Tests: XCTestCase {
             realm.create(User.self, value: jsUser)
         }
         guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
-        let user: User! = realm.objects(User).filter("id = %@", userID).first
+        let user: User! = realm.objects(User.self).filter("id = %@", userID).first
         XCTAssertNotNil(user)
         let addr: Address! = user.address
         XCTAssertNotNil(addr)
@@ -152,7 +152,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUser)
         }
-        let users = realm.objects(User).filter("id = %@", userID)
+        let users = realm.objects(User.self).filter("id = %@", userID)
         XCTAssertEqual(users.count, 1)
     }
 
@@ -163,17 +163,17 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUser)
         }
         guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
-        if let user = realm.objects(User).filter("id = %@", userID).first {
+        if let user = realm.objects(User.self).filter("id = %@", userID).first {
             realm.write {
                 realm.delete(user)
             }
-            let users = realm.objects(User)
+            let users = realm.objects(User.self)
             XCTAssertTrue(users.isEmpty)
-            let addrs = realm.objects(Address)
+            let addrs = realm.objects(Address.self)
             XCTAssertTrue(addrs.isEmpty)
-            let phones = realm.objects(Phone)
+            let phones = realm.objects(Phone.self)
             XCTAssertTrue(phones.isEmpty)
-            let dogs = realm.objects(Dog)
+            let dogs = realm.objects(Dog.self)
             XCTAssertTrue(dogs.isEmpty)
         }
     }
@@ -184,7 +184,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUser)
         }
-        let users = realm.objects(User)
+        let users = realm.objects(User.self)
         XCTAssertEqual(users.count, 1)
         realm.write {
             realm.delete(users)
@@ -198,7 +198,7 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUser)
         }
         let userID: String! = jsUser["id"] as? String
-        if let user = realm.objects(User).filter("id = %@", userID).first,
+        if let user = realm.objects(User.self).filter("id = %@", userID).first,
             let dog = user.dogs.first,
             let color = jsDogs.first?["color"] as? String {
                 realm.write {
@@ -214,7 +214,7 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUser)
         }
         guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
-        if let user = realm.objects(User).filter("id = %@", userID).first {
+        if let user = realm.objects(User.self).filter("id = %@", userID).first {
             jsUser["address"] = nil
             realm.write {
                 realm.map(User.self, json: jsUser)
@@ -229,7 +229,7 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUser)
         }
         guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
-        guard let user = realm.objects(User).filter("id = %@", userID).first else { return }
+        guard let user = realm.objects(User.self).filter("id = %@", userID).first else { return }
         jsUser["address"] = NSNull()
         realm.write {
             realm.map(User.self, json: jsUser)
@@ -243,7 +243,7 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUser)
         }
         guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
-        if let user = realm.objects(User).filter("id = %@", userID).first {
+        if let user = realm.objects(User.self).filter("id = %@", userID).first {
             jsUser["dogs"] = nil
             realm.write {
                 realm.map(User.self, json: jsUser)
@@ -258,7 +258,7 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUser)
         }
         guard let userID = jsUser["id"] else { assertionFailure("jsUser has no id"); return }
-        if let user = realm.objects(User).filter("id = %@", userID).first {
+        if let user = realm.objects(User.self).filter("id = %@", userID).first {
             jsUser["dogs"] = NSNull()
             realm.write {
                 realm.map(User.self, json: jsUser)
@@ -269,7 +269,7 @@ class Tests: XCTestCase {
 
     func test_multiThread() {
         let expect = expectation(description: "test_multiThread")
-        let queue = DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background)
+        let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.default)
         let group = DispatchGroup()
 
         for _ in 0 ..< 10 {
