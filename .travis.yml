@@ -24,6 +24,7 @@ script:
   - ./scripts/validate_branch
   - ./scripts/lint
   - ./scripts/test
+  - ./scripts/pod_test
   - bundle exec pod lib lint --quick
 notifications:
   email: false
