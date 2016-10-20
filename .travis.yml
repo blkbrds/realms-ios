@@ -2,10 +2,11 @@ language: objective-c
 osx_image: xcode8
 cache:
   bundler: true
-  cocoapods: true
+  cocoapods: false
   directories:
     - ~/.rvm
     - ~/.cocoapods
+    - ~/Library/Caches/CocoaPods
     - .bundle
     - vendor
 env:
