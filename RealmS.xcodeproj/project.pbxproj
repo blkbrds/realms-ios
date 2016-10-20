@@ -34,6 +34,13 @@
 			remoteGlobalIDString = F401DF3F1C42A8F800870925;
 			remoteInfo = RealmS;
 		};
+		ECE5D8A41DB875E400193DD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F401DF371C42A8F800870925 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F401DF3F1C42A8F800870925;
+			remoteInfo = RealmS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -238,6 +245,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				ECE5D8A51DB875E400193DD5 /* PBXTargetDependency */,
 			);
 			name = PodTest;
 			productName = PodTest;
@@ -511,6 +519,11 @@
 			isa = PBXTargetDependency;
 			target = F401DF3F1C42A8F800870925 /* RealmS */;
 			targetProxy = EC11DD0F1DB0BA340008E58B /* PBXContainerItemProxy */;
+		};
+		ECE5D8A51DB875E400193DD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F401DF3F1C42A8F800870925 /* RealmS */;
+			targetProxy = ECE5D8A41DB875E400193DD5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
