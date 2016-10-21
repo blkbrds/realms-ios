@@ -1,16 +1,16 @@
 PODS:
-  - ObjectMapper (2.0.0)
+  - ObjectMapper (2.1.0)
   - Realm (2.0.2):
     - Realm/Headers (= 2.0.2)
   - Realm/Headers (2.0.2)
   - RealmS (2.0.0):
-    - ObjectMapper (~> 2.0.0)
+    - ObjectMapper (~> 2.1.0)
     - RealmSwift (~> 2.0.0)
   - RealmSwift (2.0.2):
     - Realm (= 2.0.2)
 
 DEPENDENCIES:
-  - ObjectMapper (~> 2.0.0)
+  - ObjectMapper (~> 2.1.0)
   - RealmS (from `./`)
   - RealmSwift (~> 2.0.0)
 
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  ObjectMapper: aed2570edabbd3c9b26c939e1cabdb6558f933e0
+  ObjectMapper: e5e0f8aef8590fc2ddcde7f27eddb255863ee6e9
   Realm: 0f5a194af0b7e6158b83db41b4ee1a00be7ddf1a
   RealmS: b0e6c150a50ef56c2e74d76a70f13e3020b67a7f
   RealmSwift: 0eb5070d851cba7c66e841ca756d83609dc78bc8
