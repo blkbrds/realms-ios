@@ -5,10 +5,11 @@ bundle install --path=vendor/bundle --jobs 4 --retry 3
 brew tap Homebrew/bundle
 brew bundle
 
-bundle exec pod install
-if [[ $? -ne 0 ]]; then
+setup_cocoapods() {
     echo 'Setup cocoapods...'
     bundle exec pod setup --silent > /dev/null
     bundle exec pod repo update --silent
     bundle exec pod install
-fi
+}
+
+bundle exec pod install || setup_cocoapods
