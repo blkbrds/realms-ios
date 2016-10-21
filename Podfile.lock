@@ -10,7 +10,7 @@ PODS:
     - Realm (= 2.0.2)
 
 DEPENDENCIES:
-  - ObjectMapper (~> 2.0.0)
+  - ObjectMapper (~> 2.1.0)
   - RealmS (from `./`)
   - RealmSwift (~> 2.0.0)
 
