@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ "$CIRCLECI" == 'true' ]]; then
+    echo "$CIRCLE_BRANCH"
+    exit 0
+fi
+
 if [[ "$TRAVIS_PULL_REQUEST" == 'false' ]]; then
     echo "$TRAVIS_BRANCH"
 else

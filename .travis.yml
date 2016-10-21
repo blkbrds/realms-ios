@@ -22,7 +22,9 @@ install:
   # workaround https://github.com/realm/SwiftLint/issues/13
   - ln -s /Applications/Xcode-8.app /Applications/Xcode.app
 script:
-  - ./scripts/validate_branch
+  - export REPO_SLUG="$TRAVIS_REPO_SLUG"
+  - export SRC_BRANCH="$(./scripts/src_branch)"
+  - export PR_NUMBER="$(./scripts/pr_number)"
   - ./scripts/lint
   - ./scripts/test
   - ./scripts/pod_test

@@ -1,13 +1,5 @@
 #!/bin/bash
 
-if [[ "$CIRCLECI" == 'true' ]]; then
-    REPO_SLUG="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
-    PR_NUMBER="$(./scripts/pr_number)"
-else
-    REPO_SLUG="$TRAVIS_REPO_SLUG"
-    [[ "$TRAVIS_PULL_REQUEST" != 'false' ]] && PR_NUMBER="$TRAVIS_PULL_REQUEST"
-fi
-
 echo "REPO_SLUG = $REPO_SLUG"
 echo "PR_NUMBER = $PR_NUMBER"
 
