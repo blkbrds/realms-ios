@@ -25,7 +25,6 @@ script:
   - export REPO_SLUG="$TRAVIS_REPO_SLUG"
   - export SRC_BRANCH="$(./scripts/src_branch)"
   - export PR_NUMBER="$(./scripts/pr_number)"
-  - ./scripts/validate_branch
   - ./scripts/lint
   - ./scripts/test
   - ./scripts/pod_test
