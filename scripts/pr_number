@@ -1,12 +1,8 @@
 #!/bin/bash
 
-if [[ -z "$CIRCLE_PR_NUMBER" ]]; then
-    if [[ -z "$CI_PULL_REQUEST" ]]; then
-        URL="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls?head=$CIRCLE_PROJECT_USERNAME:$CIRCLE_BRANCH"
-        RESULT="$(curl -X GET -u $GITHUB_ACCESS_TOKEN:x-oauth-basic $URL | jq -r '.[0].url')"
-        [[ "$RESULT" == 'null' ]] && CI_PULL_REQUEST='' || CI_PULL_REQUEST="${RESULT//\"}"
-    fi
-    CIRCLE_PR_NUMBER="$(basename "$CI_PULL_REQUEST")"
-fi
-
-echo "$CIRCLE_PR_NUMBER"
+USERNAME="$(echo ${REPO_SLUG%/*})"
+URL="https://api.github.com/repos/$REPO_SLUG/pulls?head=$USERNAME:$SRC_BRANCH"
+RESULT="$(curl -X GET -u $GITHUB_ACCESS_TOKEN:x-oauth-basic $URL | jq -r '.[0].url')"
+[[ "$RESULT" == 'null' ]] && PR_NUMBER='' || PR_NUMBER="${RESULT//\"}"
+PR_NUMBER="$(basename "$PR_NUMBER")"
+echo "$PR_NUMBER"
