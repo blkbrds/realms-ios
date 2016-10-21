@@ -1,19 +1,11 @@
 #!/bin/bash
 
-[[ "$CI" == 'true' ]] || exit 0
+echo "Branch name: $SRC_BRANCH"
 
-if [[ "$CIRCLECI" == 'true' ]]; then
-    BRANCH="$CIRCLE_BRANCH"
-else
-    BRANCH="$(./scripts/src_branch)"
-fi
-
-echo "branch name: $BRANCH"
-
-[[ "$BRANCH" == master ]] && exit 0
+[[ "$SRC_BRANCH" == master ]] && exit 0
 
 for PREFIX in feature bugfix hotfix release; do
-    [[ "$BRANCH" == $PREFIX/* ]] && exit 0
+    [[ "$SRC_BRANCH" == $PREFIX/* ]] && exit 0
 done
 
 echo "Branch name does not pass convention."
