@@ -280,7 +280,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Apple Inc";
 				TargetAttributes = {
 					EC11DD081DB0BA330008E58B = {
@@ -588,6 +588,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 363EEB1CDB9D9D2D071DAE30 /* Pods-PodTest.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -606,6 +607,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 358FDA7A52E35590DE467242 /* Pods-PodTest.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
