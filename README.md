@@ -3,16 +3,16 @@
 [![Platform](https://img.shields.io/cocoapods/p/RealmS.svg?style=flat)](http://cocoadocs.org/docsets/RealmS)
 [![Coverage Status](https://codecov.io/github/zendobk/RealmS/coverage.svg?branch=master)](https://codecov.io/github/zendobk/RealmS?branch=master)
 
-[![RealmSwift](https://img.shields.io/badge/RealmSwift-~%3E%201.0-brightgreen.svg)](https://img.shields.io/badge/RealmSwift-~%3E%201.0-brightgreen.svg)
-[![ObjectMapper](https://img.shields.io/badge/ObjectMapper-~%3E%201.2.0-brightgreen.svg)](https://img.shields.io/badge/ObjectMapper-~%3E%201.2.0-brightgreen.svg)
+[![RealmSwift](https://img.shields.io/badge/RealmSwift-~%3E%202.1.0-brightgreen.svg)](https://img.shields.io/badge/RealmSwift-~%3E%201.0-brightgreen.svg)
+[![ObjectMapper](https://img.shields.io/badge/ObjectMapper-~%3E%202.2.0-brightgreen.svg)](https://img.shields.io/badge/ObjectMapper-~%3E%201.2.0-brightgreen.svg)
 
 [RealmS](https://github.com/zendobk/RealmS)
 ============
 
-A RealmSwift extension.
+A RealmSwift wrapper.
 
 ## Features:
-- Data importing from JSON with truly update.
+- Data importing from JSON with correct updating.
 - Object, List mapping with ObjectMapper.
 
 ## Requirements
@@ -41,7 +41,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'RealmS', '~> 2.0.0'
+pod 'RealmS', '~> 2.1.0'
 ```
 
 Then, run the following command:
