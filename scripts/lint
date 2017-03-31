@@ -6,6 +6,6 @@ echo "PR_NUMBER = $PR_NUMBER"
 if [[ -z "$PR_NUMBER" ]]; then
     echo 'Not in a Pull Request, skip Linter'
 else
-    swiftlint lint --reporter json > swiftlint-report.json || false
+    ./Pods/SwiftLint/swiftlint lint --reporter json > swiftlint-report.json || false
     bundle exec linterbot $REPO_SLUG $PR_NUMBER < swiftlint-report.json
 fi

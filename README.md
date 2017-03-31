@@ -3,22 +3,22 @@
 [![Platform](https://img.shields.io/cocoapods/p/RealmS.svg?style=flat)](http://cocoadocs.org/docsets/RealmS)
 [![Coverage Status](https://codecov.io/github/zendobk/RealmS/coverage.svg?branch=master)](https://codecov.io/github/zendobk/RealmS?branch=master)
 
-[![RealmSwift](https://img.shields.io/badge/RealmSwift-~%3E%202.1.0-brightgreen.svg)](https://img.shields.io/badge/RealmSwift-~%3E%201.0-brightgreen.svg)
-[![ObjectMapper](https://img.shields.io/badge/ObjectMapper-~%3E%202.2.0-brightgreen.svg)](https://img.shields.io/badge/ObjectMapper-~%3E%201.2.0-brightgreen.svg)
+[![RealmSwift](https://img.shields.io/badge/RealmSwift-~%3E%201.0-brightgreen.svg)](https://img.shields.io/badge/RealmSwift-~%3E%201.0-brightgreen.svg)
+[![ObjectMapper](https://img.shields.io/badge/ObjectMapper-~%3E%201.2.0-brightgreen.svg)](https://img.shields.io/badge/ObjectMapper-~%3E%201.2.0-brightgreen.svg)
 
 [RealmS](https://github.com/zendobk/RealmS)
+
 ============
 
-A RealmSwift wrapper.
-
 ## Features:
-- Data importing from JSON with correct updating.
+
+- Data importing from JSON with truly update.
 - Object, List mapping with ObjectMapper.
 
 ## Requirements
 
  - iOS 8.0+
- - Xcode 8 (Swift 3.0)
+ - Xcode 8.3 (Swift 3.1)
 
 ## Installation
  
@@ -32,7 +32,7 @@ A RealmSwift wrapper.
 $ gem install cocoapods
  ```
 
-> CocoaPods 1.1.0+ is required to build RealmS 2.0.0+
+> CocoaPods 1.2+ is required to build RealmS 2.2+
 
 To integrate RealmS into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -41,7 +41,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'RealmS', '~> 2.1.0'
+pod 'RealmS', '~> 2.2'
 ```
 
 Then, run the following command:

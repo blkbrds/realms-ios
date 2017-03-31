@@ -55,12 +55,12 @@ class Address: Object, Mappable {
 
 class Phone: Object, Mappable {
     enum PhoneType: String {
-        case Work = "Work"
-        case Home = "Home"
+        case work
+        case home
     }
 
     dynamic var number = ""
-    dynamic var type = PhoneType.Home.rawValue
+    dynamic var type = PhoneType.home.rawValue
 
     let addresses = LinkingObjects(fromType: Address.self, property: "phone")
 

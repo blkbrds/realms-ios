@@ -73,12 +73,59 @@ extension Mapper where N: Object, N: Mappable {
         let map = Map(mappingType: .fromJSON, JSON: json, toObject: true)
 
         guard let key = N.primaryKey() else {
-            guard let obj = N.init(map) else { return nil }
+            guard let obj = N(map) else { return nil }
             return mapper.map(JSON: json, toObject: obj)
         }
-        guard let obj = N.init(map) else { return nil }
+        guard let obj = N(map) else { return nil }
         guard let id = obj.value(forKey: key) else {
-            fatalError("\(N.self)'s primary key must be mapped in init?(_ map: Map)")
+            assertionFailure("\(N.self)'s primary key must be mapped in init?(_ map: Map).")
+            return nil
+        }
+
+        if let old = RealmS().object(ofType: N.self, forPrimaryKey: id) {
+            return mapper.map(JSON: json, toObject: old)
+        } else {
+            return mapper.map(JSON: json, toObject: obj)
+        }
+    }
+
+    /**
+     Map JSON as Mappable Object.
+     - parammeter N: Mappable Object.
+     - parameter jsArray: JSON type is `[[String: AnyObject]]`.
+     - returns: mapped objects.
+     */
+    public func map(_ jsArray: JSArray) -> [N] {
+        var objs = [N]()
+        for json in jsArray {
+            if let obj = map(json) {
+                objs.append(obj)
+            }
+        }
+        return objs
+    }
+}
+
+extension Mapper where N: Object, N: Mappable, N: StaticMappable {
+
+    /**
+     Map JSON as Mappable Object.
+     - parammeter N: Mappable Object.
+     - parameter json: JSON type is `[String: AnyObject]`.
+     - returns: mapped object.
+     */
+    public func map(_ json: JSObject) -> N? {
+        let mapper = Mapper<N>()
+        let map = Map(mappingType: .fromJSON, JSON: json, toObject: true)
+
+        guard let key = N.primaryKey() else {
+            guard let obj = N.objectForMapping(map: map) as? N else { return nil }
+            return mapper.map(JSON: json, toObject: obj)
+        }
+        guard let obj = N(map) else { return nil }
+        guard let id = obj.value(forKey: key) else {
+            assert(false, "\(N.self)'s primary key must be mapped in init?(_ map: Map)")
+            return nil
         }
 
         if let old = RealmS().object(ofType: N.self, forPrimaryKey: id) {
@@ -144,9 +191,9 @@ public func <- <T: Object>(left: inout T!, right: Map) where T: Mappable {
  - parameter left: mapped variable.
  - parameter right: Map object.
  */
-@available( *, deprecated : 1, message : "relation must be marked as being optional or implicitly unwrapped optional")
+@available( *, deprecated : 1, message : "Relation must be marked as being optional or implicitly unwrapped optional.")
 public func <- <T: Object>(left: inout T, right: Map) where T: Mappable {
-    fatalError("deprecated: relation must be marked as being optional or implicitly unwrapped optional")
+    assertionFailure("Deprecated: Relation must be marked as being optional or implicitly unwrapped optional.")
 }
 
 /**
@@ -174,9 +221,10 @@ public func <- <T: Object>(left: List<T>, right: Map) where T: Mappable {
  Transform for Object, only support transform to JSON.
  */
 private class ObjectTransform<T: Object>: TransformType where T: Mappable {
-    @available( *, deprecated: 1, message: "please use direct mapping without transform")
+    @available( *, deprecated: 1, message: "Please use direct mapping without transform.")
     func transformFromJSON(_ value: Any?) -> T? {
-        fatalError("please use direct mapping without transform")
+        assertionFailure("Deprecated: Please use direct mapping without transform.")
+        return nil
     }
 
     func transformToJSON(_ value: T?) -> Any? {
@@ -193,9 +241,10 @@ private class ObjectTransform<T: Object>: TransformType where T: Mappable {
  Transform for List of Object, only support transform to JSON.
  */
 private class ListTransform<T: Object>: TransformType where T: Mappable {
-    @available( *, deprecated: 1, message: "please use direct mapping without transform")
+    @available( *, deprecated: 1, message: "Please use direct mapping without transform.")
     func transformFromJSON(_ value: Any?) -> List<T>? {
-        fatalError("please use direct mapping without transform")
+        assertionFailure("Deprecated: Please use direct mapping without transform.")
+        return nil
     }
 
     func transformToJSON(_ value: List<T>?) -> Any? {

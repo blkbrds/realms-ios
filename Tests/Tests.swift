@@ -49,7 +49,7 @@ class Tests: XCTestCase {
 
     private lazy var load: () = {
         Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
-        RealmS.onError { (realm, error, type) in
+        RealmS.onError { (_, error, _) in
             XCTAssertThrowsError(error)
         }
     }()

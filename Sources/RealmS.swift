@@ -85,7 +85,7 @@ public final class RealmS {
             let realm = try Realm()
             self.init(realm)
         } catch {
-            fatalError((error as NSError).localizedDescription)
+            fatalError(error.localizedDescription)
         }
     }
 
@@ -101,7 +101,7 @@ public final class RealmS {
             let realm = try Realm(configuration: configuration)
             self.init(realm)
         } catch {
-            fatalError((error as NSError).localizedDescription)
+            fatalError(error.localizedDescription)
         }
     }
 
@@ -259,8 +259,8 @@ public final class RealmS {
      - parameter update: If `true`, objects that are already in the Realm will be updated instead of added anew.
      */
     public func add<S: Sequence>(_ objects: S) where S.Iterator.Element: Object {
-        typealias T = S.Iterator.Element
-        let update = T.primaryKey() != nil
+        typealias Element = S.Iterator.Element
+        let update = Element.primaryKey() != nil
         for obj in objects {
             realm.add(obj, update: update)
         }
