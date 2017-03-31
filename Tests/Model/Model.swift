@@ -74,7 +74,7 @@ class Phone: Object, Mappable {
     }
 }
 
-class Dog: Object, Mappable {
+class Dog: Object, Mappable, StaticMappable {
     dynamic var id: String!
     dynamic var name: String?
     dynamic var color: String?
@@ -93,5 +93,12 @@ class Dog: Object, Mappable {
     func mapping(map: Map) {
         name <- map["name"]
         color <- map["color"]
+    }
+
+    static func objectForMapping(map: Map) -> BaseMappable? {
+        var id: String!
+        id <- map["id"]
+        guard id != nil else { return nil }
+        return RealmS().object(ofType: self, forPrimaryKey: id)
     }
 }

@@ -10,7 +10,7 @@
 		046A1F2BE6907B3C4537C761 /* Pods_RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F16AF5D32A50AA0238750C /* Pods_RealmS.framework */; };
 		EC11DD0E1DB0BA340008E58B /* RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F401DF401C42A8F800870925 /* RealmS.framework */; };
 		ECBAE7BC1DB7796400E520CE /* CleanUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7B81DB7796400E520CE /* CleanUp.swift */; };
-		ECBAE7BE1DB7796400E520CE /* RealmS+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7BA1DB7796400E520CE /* RealmS+ObjectMapper.swift */; };
+		ECBAE7BE1DB7796400E520CE /* Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7BA1DB7796400E520CE /* Mapping.swift */; };
 		ECBAE7BF1DB7796400E520CE /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7BB1DB7796400E520CE /* RealmS.swift */; };
 		ECBAE7C71DB779CD00E520CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7C61DB779CD00E520CE /* AppDelegate.swift */; };
 		ECBAE7C91DB779CD00E520CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7C81DB779CD00E520CE /* ViewController.swift */; };
@@ -59,7 +59,7 @@
 		ECB925831CF408AC00716E8E /* CleanUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanUp.swift; sourceTree = "<group>"; };
 		ECBAE7B81DB7796400E520CE /* CleanUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanUp.swift; sourceTree = "<group>"; };
 		ECBAE7B91DB7796400E520CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ECBAE7BA1DB7796400E520CE /* RealmS+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RealmS+ObjectMapper.swift"; sourceTree = "<group>"; };
+		ECBAE7BA1DB7796400E520CE /* Mapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapping.swift; sourceTree = "<group>"; };
 		ECBAE7BB1DB7796400E520CE /* RealmS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmS.swift; sourceTree = "<group>"; };
 		ECBAE7C41DB779CD00E520CE /* PodTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECBAE7C61DB779CD00E520CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 			children = (
 				ECBAE7B91DB7796400E520CE /* Info.plist */,
 				ECBAE7BB1DB7796400E520CE /* RealmS.swift */,
-				ECBAE7BA1DB7796400E520CE /* RealmS+ObjectMapper.swift */,
+				ECBAE7BA1DB7796400E520CE /* Mapping.swift */,
 				ECBAE7B81DB7796400E520CE /* CleanUp.swift */,
 			);
 			path = Sources;
@@ -508,7 +508,7 @@
 			files = (
 				ECBAE7BC1DB7796400E520CE /* CleanUp.swift in Sources */,
 				ECBAE7BF1DB7796400E520CE /* RealmS.swift in Sources */,
-				ECBAE7BE1DB7796400E520CE /* RealmS+ObjectMapper.swift in Sources */,
+				ECBAE7BE1DB7796400E520CE /* Mapping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

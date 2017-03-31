@@ -52,6 +52,44 @@ extension RealmS {
         }
         return objs
     }
+
+    // MARK: Import
+
+    /**
+     Import JSON as Mappable Object.
+     - parammeter T: Mappable Object.
+     - parameter type: mapped type.
+     - parameter json: JSON type is `[String: AnyObject]`.
+     - returns: mapped object.
+     */
+    @discardableResult
+    public func map<T: Object>(_ type: T.Type, json: JSObject) -> T? where T: Mappable, T: StaticMappable {
+        if let obj = Mapper<T>().map(json) {
+            if obj.realm == nil {
+                add(obj)
+            }
+            return obj
+        }
+        return nil
+    }
+
+    /**
+     Import JSON as array of Mappable Object.
+     - parammeter T: Mappable Object.
+     - parameter type: mapped type.
+     - parameter json: JSON type is `[[String: AnyObject]]`.
+     - returns: mapped objects.
+     */
+    @discardableResult
+    public func map<T: Object>(_ type: T.Type, json: JSArray) -> [T] where T: Mappable, T: StaticMappable {
+        var objs = [T]()
+        for js in json {
+            if let obj = map(type, json: js) {
+                objs.append(obj)
+            }
+        }
+        return objs
+    }
 }
 
 extension Mappable {
@@ -117,21 +155,10 @@ extension Mapper where N: Object, N: Mappable, N: StaticMappable {
     public func map(_ json: JSObject) -> N? {
         let mapper = Mapper<N>()
         let map = Map(mappingType: .fromJSON, JSON: json, toObject: true)
-
-        guard let key = N.primaryKey() else {
-            guard let obj = N.objectForMapping(map: map) as? N else { return nil }
-            return mapper.map(JSON: json, toObject: obj)
-        }
-        guard let obj = N(map) else { return nil }
-        guard let id = obj.value(forKey: key) else {
-            assert(false, "\(N.self)'s primary key must be mapped in init?(_ map: Map)")
-            return nil
-        }
-
-        if let old = RealmS().object(ofType: N.self, forPrimaryKey: id) {
+        if let old = N.objectForMapping(map: map) as? N {
             return mapper.map(JSON: json, toObject: old)
         } else {
-            return mapper.map(JSON: json, toObject: obj)
+            return mapper.map(JSON: json)
         }
     }
 
