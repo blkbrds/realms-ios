@@ -19,8 +19,6 @@ install:
   - set -o pipefail
   - brew update
   - ./scripts/setup
-  # workaround https://github.com/realm/SwiftLint/issues/13
-  - ln -s /Applications/Xcode-8.app /Applications/Xcode.app
 script:
   - export REPO_SLUG="$TRAVIS_REPO_SLUG"
   - export SRC_BRANCH="$(./scripts/src_branch)"
