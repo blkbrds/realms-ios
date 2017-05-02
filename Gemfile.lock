@@ -66,7 +66,6 @@ GEM
     octokit (4.6.2)
       sawyer (~> 0.8.0, >= 0.5.3)
     public_suffix (2.0.5)
-    rouge (1.11.1)
     ruby-macho (0.2.6)
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
@@ -80,8 +79,6 @@ GEM
       claide (>= 1.0.1, < 2.0)
       colored (~> 1.2)
       nanaimo (~> 0.2.3)
-    xcpretty (0.2.4)
-      rouge (~> 1.8)
 
 PLATFORMS
   ruby
@@ -89,7 +86,6 @@ PLATFORMS
 DEPENDENCIES
   cocoapods (~> 1.2.0)
   linterbot (~> 0.2.5)
-  xcpretty (~> 0.2.2)
 
 RUBY VERSION
    ruby 2.4.0p0

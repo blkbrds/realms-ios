@@ -13,7 +13,7 @@ import ObjectMapper
 
 class Tests: XCTestCase {
 
-    var jsUsers: JSArray = [
+    var jsUsers: [[String: Any]] = [
         [
             "id": "1",
             "name": "User A",
@@ -66,8 +66,8 @@ class Tests: XCTestCase {
         ]
     ]
 
-    var jsUser: JSObject {
-        let jsUser: JSObject! = jsUsers.first
+    var jsUser: [String: Any] {
+        let jsUser: [String: Any]! = jsUsers.first
         XCTAssertNotNil(jsUser)
         return jsUser
     }
@@ -78,7 +78,7 @@ class Tests: XCTestCase {
         return userId
     }
 
-    let jsDogs: JSArray = [
+    let jsDogs: [[String: Any]] = [
         [
             "id": "1",
             "name": "Pluto",

@@ -3,7 +3,7 @@ PODS:
   - Realm (2.5.0):
     - Realm/Headers (= 2.5.0)
   - Realm/Headers (2.5.0)
-  - RealmS (2.2.0):
+  - RealmS (2.3.0):
     - ObjectMapper (~> 2.2)
     - RealmSwift (~> 2.2)
   - RealmSwift (2.5.0):
@@ -23,7 +23,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
   Realm: 62abce501668580092d2be9b6ba7324a3d5f906a
-  RealmS: 87d7d0de3bfd228dfbb50ad182afd084db9eb641
+  RealmS: 908fed5c684a451a4184022d7ed0ff23ac435662
   RealmSwift: 9f1a8f624f2f153410115c2cb7d486be9976565d
   SwiftLint: b8b683208cc09640898f16318a7a452274e91f61
 

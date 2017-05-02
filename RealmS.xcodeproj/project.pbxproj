@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		046A1F2BE6907B3C4537C761 /* Pods_RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F16AF5D32A50AA0238750C /* Pods_RealmS.framework */; };
 		EC11DD0E1DB0BA340008E58B /* RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F401DF401C42A8F800870925 /* RealmS.framework */; };
+		ECB592931EB03BC600ACB99F /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB592921EB03BC600ACB99F /* Operator.swift */; };
+		ECB592951EB03C0000ACB99F /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB592941EB03C0000ACB99F /* Transform.swift */; };
 		ECBAE7BC1DB7796400E520CE /* CleanUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7B81DB7796400E520CE /* CleanUp.swift */; };
 		ECBAE7BE1DB7796400E520CE /* Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7BA1DB7796400E520CE /* Mapping.swift */; };
 		ECBAE7BF1DB7796400E520CE /* RealmS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7BB1DB7796400E520CE /* RealmS.swift */; };
@@ -57,6 +59,8 @@
 		EC11DD091DB0BA330008E58B /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC287A5B1C96B80600FE7106 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		EC287A611C96BE0100FE7106 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		ECB592921EB03BC600ACB99F /* Operator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		ECB592941EB03C0000ACB99F /* Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		ECB925831CF408AC00716E8E /* CleanUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanUp.swift; sourceTree = "<group>"; };
 		ECBAE7B81DB7796400E520CE /* CleanUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanUp.swift; sourceTree = "<group>"; };
 		ECBAE7B91DB7796400E520CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -148,8 +152,10 @@
 			children = (
 				ECBAE7B91DB7796400E520CE /* Info.plist */,
 				ECBAE7BB1DB7796400E520CE /* RealmS.swift */,
-				ECBAE7BA1DB7796400E520CE /* Mapping.swift */,
 				ECBAE7B81DB7796400E520CE /* CleanUp.swift */,
+				ECBAE7BA1DB7796400E520CE /* Mapping.swift */,
+				ECB592921EB03BC600ACB99F /* Operator.swift */,
+				ECB592941EB03C0000ACB99F /* Transform.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -515,7 +521,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECBAE7BC1DB7796400E520CE /* CleanUp.swift in Sources */,
+				ECB592931EB03BC600ACB99F /* Operator.swift in Sources */,
 				ECBAE7BF1DB7796400E520CE /* RealmS.swift in Sources */,
+				ECB592951EB03C0000ACB99F /* Transform.swift in Sources */,
 				ECBAE7BE1DB7796400E520CE /* Mapping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

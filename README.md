@@ -3,17 +3,11 @@
 [![Platform](https://img.shields.io/cocoapods/p/RealmS.svg?style=flat)](http://cocoadocs.org/docsets/RealmS)
 [![Coverage Status](https://codecov.io/github/zendobk/RealmS/coverage.svg?branch=master)](https://codecov.io/github/zendobk/RealmS?branch=master)
 
-[![RealmSwift](https://img.shields.io/badge/RealmSwift-~%3E%201.0-brightgreen.svg)](https://img.shields.io/badge/RealmSwift-~%3E%201.0-brightgreen.svg)
-[![ObjectMapper](https://img.shields.io/badge/ObjectMapper-~%3E%201.2.0-brightgreen.svg)](https://img.shields.io/badge/ObjectMapper-~%3E%201.2.0-brightgreen.svg)
+[![RealmSwift](https://img.shields.io/badge/RealmSwift-~%3E%202.2-brightgreen.svg)](https://img.shields.io/badge/RealmSwift-~%3E%202.2-brightgreen.svg)
+[![ObjectMapper](https://img.shields.io/badge/ObjectMapper-~%3E%202.2-brightgreen.svg)](https://img.shields.io/badge/ObjectMapper-~%3E%202.2-brightgreen.svg)
 
-[RealmS](https://github.com/zendobk/RealmS)
-
-============
-
-## Features:
-
-- Data importing from JSON with truly update.
-- Object, List mapping with ObjectMapper.
+Realm + ObjectMapper
+====================
 
 ## Requirements
 
@@ -32,7 +26,7 @@
 $ gem install cocoapods
  ```
 
-> CocoaPods 1.2+ is required to build RealmS 2.2+
+> CocoaPods 1.2+ is required to build RealmS 2.3+
 
 To integrate RealmS into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -41,7 +35,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'RealmS', '~> 2.2'
+pod 'RealmS', '~> 2.3'
 ```
 
 Then, run the following command:
@@ -53,12 +47,18 @@ $ pod install
 ## Usage
 
 ### Mapping
+
+**Rule:**
+- Object has `primaryKey` must be StaticMappable (i)
+- Object has no `primaryKey` should be Mappable (ii)
+
 ```swift
 import RealmSwift
 import ObjectMapper
 import RealmS
 
-class User: Object, Mappable {
+// (i)
+final class User: Object, StaticMappable {
     dynamic var id: String!
     dynamic var name: String?
     dynamic var address: Address?
@@ -68,26 +68,28 @@ class User: Object, Mappable {
         return "id"
     }
 
-    convenience required init?(_ map: Map) {
-        self.init()
-        id <- map["id"]
-    }
-
     func mapping(map: Map) {
         name <- map["name"]
         address <- map["address"]
         dogs <- map["dogs"]
     }
+
+    static func objectForMapping(map: Map) -> BaseMappable? {
+        return RealmS().object(ofType: self, forMapping: map)
+    }
 }
 
-class Address: Object, Mappable {
+// (ii)
+final class Address: Object, Mappable {
     dynamic var street = ""
     dynamic var city = ""
     dynamic var country = ""
 
+    dynamic var phone: Phone?
+
     let users = LinkingObjects(fromType: User.self, property: "address")
 
-    convenience required init?(_ map: Map) {
+    convenience required init?(map: Map) {
         self.init()
     }
 
@@ -95,64 +97,39 @@ class Address: Object, Mappable {
         street <- map["street"]
         city <- map["city"]
         country <- map["country"]
-    }
-}
-
-class Dog: Object, Mappable {
-    dynamic var id: String!
-    dynamic var name: String?
-    dynamic var color: String?
-
-    let users = LinkingObjects(fromType: User.self, property: "dogs")
-
-    override class func primaryKey() -> String? {
-        return "id"
-    }
-
-    convenience required init?(_ map: Map) {
-        self.init()
-        id <- map["id"]
-    }
-
-    func mapping(map: Map) {
-        name <- map["name"]
-        color <- map["color"]
+        phone <- map["phone"]
     }
 }
 ```
+
 ### Import JSON to Realm
+
 ```swift
 let realm = RealmS()
 realm.write {
-  realm.map(User.self, jsUser)
-  realm.map(Shop.self, jsShops)
+  realm.map(User.self, jsUser) // map JSON object
+  realm.map(Shop.self, jsShops) // map JSON array
 }
 ```
 
 > nil value will be bypass, if you want set `nil` please use `NSNull()` instead
- 
+
 ### Clean Up
 
 ```swift
 extension User {
-    override class func relativedTypes() -> [Object.Type] {
+    override public class func relativedTypes() -> [Object.Type] {
         return [Address.self, Dog.self]
     }
 
-    override class func clean() { }
+    override public class func clean() { }
 }
 
 extension Address {
-    override class func clean() {
-        let realm = RealmS()
-        let objs = realm.objects(self).filter("users.@count = 0")
-        realm.write {
-            realm.delete(objs)
-        }
+    override class func relativedTypes() -> [Object.Type] {
+        return [Phone.self]
     }
-}
 
-extension Dog {
     override class func clean() {
         let realm = RealmS()
         let objs = realm.objects(self).filter("users.@count = 0")
@@ -163,4 +140,4 @@ extension Dog {
 }
 ```
 
-`Address`, `Dog` will be clean-up after a user was deleted from Realm.
+`Address` table will be clean-up after a `User` is deleted from Realm.
