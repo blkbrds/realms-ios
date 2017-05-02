@@ -8,9 +8,9 @@
 
 import RealmSwift
 import ObjectMapper
-@testable import RealmS
+import RealmS
 
-class User: Object, Mappable {
+final class User: Object, StaticMappable {
     dynamic var id: String!
     dynamic var name: String?
     dynamic var address: Address?
@@ -20,19 +20,18 @@ class User: Object, Mappable {
         return "id"
     }
 
-    convenience required init?(map: Map) {
-        self.init()
-        id <- map["id"]
-    }
-
     func mapping(map: Map) {
         name <- map["name"]
         address <- map["address"]
         dogs <- map["dogs"]
     }
+
+    static func objectForMapping(map: Map) -> BaseMappable? {
+        return RealmS().object(ofType: self, forMapping: map)
+    }
 }
 
-class Address: Object, Mappable {
+final class Address: Object, Mappable {
     dynamic var street = ""
     dynamic var city = ""
     dynamic var country = ""
@@ -53,7 +52,7 @@ class Address: Object, Mappable {
     }
 }
 
-class Phone: Object, Mappable {
+final class Phone: Object, Mappable {
     enum PhoneType: String {
         case work
         case home
@@ -74,7 +73,7 @@ class Phone: Object, Mappable {
     }
 }
 
-class Dog: Object, Mappable, StaticMappable {
+final class Dog: Object, StaticMappable {
     dynamic var id: String!
     dynamic var name: String?
     dynamic var color: String?
@@ -85,20 +84,12 @@ class Dog: Object, Mappable, StaticMappable {
         return "id"
     }
 
-    convenience required init?(map: Map) {
-        self.init()
-        id <- map["id"]
-    }
-
     func mapping(map: Map) {
         name <- map["name"]
         color <- map["color"]
     }
 
     static func objectForMapping(map: Map) -> BaseMappable? {
-        var id: String!
-        id <- map["id"]
-        guard id != nil else { return nil }
-        return RealmS().object(ofType: self, forPrimaryKey: id)
+        return RealmS().object(ofType: self, forMapping: map)
     }
 }
