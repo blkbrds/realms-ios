@@ -14,4 +14,6 @@ xcodebuild build \
     -destination "$DESTINATION" \
     -derivedDataPath build \
     ONLY_ACTIVE_ARCH=YES \
-    -configuration Debug | bundle exec xcpretty; exit ${PIPESTATUS[0]}
+    -configuration Debug
+
+exit ${PIPESTATUS[0]}
