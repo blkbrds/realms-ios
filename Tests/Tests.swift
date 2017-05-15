@@ -28,12 +28,12 @@ class Tests: XCTestCase {
             ],
             "dogs": [
                 [
-                    "id": "1",
+                    "pk": "1",
                     "name": "Pluto",
                     "color": "Black"
                 ],
                 [
-                    "id": "2",
+                    "pk": "2",
                     "name": "Gome",
                     "color": "Brown"
                 ]
@@ -53,12 +53,12 @@ class Tests: XCTestCase {
             ],
             "dogs": [
                 [
-                    "id": "1",
+                    "pk": "1",
                     "name": "Pluto",
                     "color": "Black"
                 ],
                 [
-                    "id": "2",
+                    "pk": "2",
                     "name": "Gozer",
                     "color": "White"
                 ]
@@ -80,12 +80,12 @@ class Tests: XCTestCase {
 
     let jsDogs: [[String: Any]] = [
         [
-            "id": "1",
+            "pk": "1",
             "name": "Pluto",
             "color": "Black new"
         ],
         [
-            "id": "2",
+            "pk": "2",
             "name": "Lux",
             "color": "White"
         ]
@@ -250,7 +250,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUsers)
         }
-        let user: User! = realm.objects(User.self).filter("id = %@", userId).first
+        let user: User! = realm.object(ofType: User.self, forPrimaryKey: userId)
         XCTAssertNotNil(user)
         let dog: Dog! = user.dogs.first
         XCTAssertNotNil(dog)
@@ -267,7 +267,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUsers)
         }
-        let user: User! = realm.objects(User.self).filter("id = %@", userId).first
+        let user: User! = realm.object(ofType: User.self, forPrimaryKey: userId)
         XCTAssertNotNil(user)
         var jsUser = self.jsUser
         jsUser["address"] = nil
@@ -282,7 +282,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUsers)
         }
-        let user: User! = realm.objects(User.self).filter("id = %@", userId).first
+        let user: User! = realm.object(ofType: User.self, forPrimaryKey: userId)
         XCTAssertNotNil(user)
         var jsUser = self.jsUser
         jsUser["address"] = NSNull()
@@ -297,7 +297,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUsers)
         }
-        let user: User! = realm.objects(User.self).filter("id = %@", userId).first
+        let user: User! = realm.object(ofType: User.self, forPrimaryKey: userId)
         XCTAssertNotNil(user)
         var jsUser = self.jsUser
         jsUser["dogs"] = nil
@@ -312,7 +312,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUsers)
         }
-        let user: User! = realm.objects(User.self).filter("id = %@", userId).first
+        let user: User! = realm.object(ofType: User.self, forPrimaryKey: userId)
         XCTAssertNotNil(user)
         var jsUser = self.jsUser
         jsUser["dogs"] = NSNull()

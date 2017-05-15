@@ -90,6 +90,6 @@ final class Dog: Object, StaticMappable {
     }
 
     static func objectForMapping(map: Map) -> BaseMappable? {
-        return RealmS().object(ofType: self, forMapping: map)
+        return RealmS().object(ofType: self, forMapping: map, jsonPrimaryKey: "pk")
     }
 }

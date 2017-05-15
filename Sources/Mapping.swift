@@ -53,11 +53,11 @@ extension RealmS {
 
 // MARK: - StaticMappable pre-implement
 extension RealmS {
-    public func object<T: Object>(ofType: T.Type, forMapping map: Map) -> T? where T: BaseMappable {
-        guard let key = T.primaryKey() else {
+    public func object<T: Object>(ofType: T.Type, forMapping map: Map, jsonPrimaryKey jsKey: String? = T.primaryKey()) -> T? where T: BaseMappable {
+        guard let key = T.primaryKey(), let jsKey = jsKey else {
             return T()
         }
-        guard let id: Any = map[key].value() else { return nil }
+        guard let id: Any = map[jsKey].value() else { return nil }
         if let exist = object(ofType: T.self, forPrimaryKey: id) {
             return exist
         }
