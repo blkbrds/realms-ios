@@ -112,7 +112,6 @@ realm.write {
 }
 ```
 
-> - Only use `RealmS().object(ofType: self, forMapping: map)` if the primaryKey is same in JSON.
 > - `nil` value will be bypass, if you want set `nil` please use `NSNull()` instead.
 
 ### Clean Up

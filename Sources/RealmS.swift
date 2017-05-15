@@ -623,10 +623,10 @@ extension RealmS {
     public var inWriteTransaction: Bool { fatalError() }
 
     @available( *, unavailable, renamed: "object(ofType:forPrimaryKey:)")
-    public func objectForPrimaryKey<T: Object>(_ type: T.Type, key: AnyObject) -> T? { fatalError() }
+    public func objectForPrimaryKey<T: Object>(_ type: T.Type, key: Any) -> T? { fatalError() }
 
     @available( *, unavailable, renamed: "dynamicObject(ofType:forPrimaryKey:)")
-    public func dynamicObjectForPrimaryKey(_ className: String, key: AnyObject) -> DynamicObject? { fatalError() }
+    public func dynamicObjectForPrimaryKey(_ className: String, key: Any) -> DynamicObject? { fatalError() }
 
     @available( *, unavailable, renamed: "writeCopy(toFile:encryptionKey:)")
     public func writeCopyToURL(_ fileURL: NSURL, encryptionKey: Data? = nil) throws { fatalError() }
