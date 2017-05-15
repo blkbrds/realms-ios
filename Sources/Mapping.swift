@@ -15,10 +15,10 @@ extension RealmS {
     // MARK: Map
 
     /**
-     Import JSON as Mappable Object.
-     - parammeter T: Mappable Object.
+     Import JSON as BaseMappable Object.
+     - parammeter T: BaseMappable Object.
      - parameter type: mapped type.
-     - parameter json: JSON type is `[String: AnyObject]`.
+     - parameter json: JSON type is `[String: Any]`.
      - returns: mapped object.
      */
     @discardableResult
@@ -33,10 +33,10 @@ extension RealmS {
     }
 
     /**
-     Import JSON as array of Mappable Object.
-     - parammeter T: Mappable Object.
+     Import JSON as array of BaseMappable Object.
+     - parammeter T: BaseMappable Object.
      - parameter type: mapped type.
-     - parameter json: JSON type is `[[String: AnyObject]]`.
+     - parameter json: JSON type is `[[String: Any]]`.
      - returns: mapped objects.
      */
     @discardableResult
@@ -53,16 +53,24 @@ extension RealmS {
 
 // MARK: - StaticMappable pre-implement
 extension RealmS {
-    public func object<T: Object>(ofType: T.Type, forMapping map: Map) -> T? where T: BaseMappable {
-        guard let key = T.primaryKey() else {
+    /**
+     Find cached BaseMappable Object.
+     - parammeter T: BaseMappable Object.
+     - parameter type: object type.
+     - parameter map: Map object contains JSON.
+     - parameter jsPk: primary key of JSON, default is equal to `primaryKey`.
+     - returns: cached object.
+     */
+    public func object<T: Object>(ofType type: T.Type, forMapping map: Map, jsonPrimaryKey jsPk: String? = T.primaryKey()) -> T? where T: BaseMappable {
+        guard let pk = T.primaryKey(), let jsPk = jsPk else {
             return T()
         }
-        guard let id: Any = map[key].value() else { return nil }
+        guard let id: Any = map[jsPk].value() else { return nil }
         if let exist = object(ofType: T.self, forPrimaryKey: id) {
             return exist
         }
         let new = T()
-        new.setValue(id, forKey: key)
+        new.setValue(id, forKey: pk)
         return new
     }
 }
