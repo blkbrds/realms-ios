@@ -1,8 +1,0 @@
-#!/bin/bash
-
-USERNAME="$(echo ${REPO_SLUG%/*})"
-URL="https://api.github.com/repos/$REPO_SLUG/pulls?head=$USERNAME:$SRC_BRANCH"
-RESULT="$(curl -X GET -u $GITHUB_ACCESS_TOKEN:x-oauth-basic $URL | jq -r '.[0].url')"
-[[ "$RESULT" == 'null' ]] && PR_NUMBER='' || PR_NUMBER="${RESULT//\"}"
-PR_NUMBER="$(basename "$PR_NUMBER")"
-echo "$PR_NUMBER"
