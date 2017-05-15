@@ -43,7 +43,7 @@ internal final class ListTransform<T: Object>: TransformType where T: BaseMappab
 
     func transformToJSON(_ value: List<T>?) -> Any? {
         guard let list = value else { return NSNull() }
-        var json = [[String: Any]]()
+        var json: [[String: Any]] = []
         let mapper = Mapper<T>()
         for obj in list {
             json.append(mapper.toJSON(obj))

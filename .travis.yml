@@ -16,9 +16,7 @@ env:
     - SDK='iphonesimulator10.2'
     - DESTINATION='OS=10.2,name=iPhone 7'
 install:
-  - set -o pipefail
-  - brew update
-  - ./scripts/setup
+  - ./scripts/install
 script:
   - export REPO_SLUG="$TRAVIS_REPO_SLUG"
   - export SRC_BRANCH="$(./scripts/src_branch)"
