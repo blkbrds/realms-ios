@@ -12,12 +12,12 @@ import ObjectMapper
 // MARK: - Operators
 
 /**
- Map to optional Mappable Object.
- - parammeter T: Mappable Object.
+ Map to optional BaseMappable Object.
+ - parammeter T: BaseMappable Object.
  - parameter left: Optional variable.
  - parameter right: Map object.
  */
-public func <- <T: Object>(left: inout T?, right: Map) where T: Mappable {
+public func <- <T: Object>(left: inout T?, right: Map) where T: BaseMappable {
     if right.mappingType == MappingType.fromJSON {
         if !right.isKeyPresent { return }
         guard let value = right.currentValue else {
@@ -33,19 +33,19 @@ public func <- <T: Object>(left: inout T?, right: Map) where T: Mappable {
 }
 
 /**
- Map to implicitly unwrapped optional Mappable Object.
- - parammeter T: Mappable Object.
+ Map to implicitly unwrapped optional BaseMappable Object.
+ - parammeter T: BaseMappable Object.
  - parameter left: Implicitly unwrapped optional variable.
  - parameter right: Map object.
  */
-public func <- <T: Object>(left: inout T!, right: Map) where T: Mappable {
+public func <- <T: Object>(left: inout T!, right: Map) where T: BaseMappable {
     var object: T? = left
     object <- right
 }
 
 /**
- Map to List of Mappable Object.
- - parammeter T: Mappable Object.
+ Map to List of BaseMappable Object.
+ - parammeter T: BaseMappable Object.
  - parameter left: mapped variable.
  - parameter right: Map object.
  */
@@ -66,11 +66,11 @@ public func <- <T: Object>(left: List<T>, right: Map) where T: BaseMappable {
 
 /**
  Relation must be marked as being optional or implicitly unwrapped optional.
- - parammeter T: Mappable Object.
+ - parammeter T: BaseMappable Object.
  - parameter left: mapped variable.
  - parameter right: Map object.
  */
 @available( *, deprecated: 1, message: "Relation must be marked as being optional or implicitly unwrapped optional.")
-public func <- <T: Object>(left: inout T, right: Map) where T: Mappable {
+public func <- <T: Object>(left: inout T, right: Map) where T: BaseMappable {
     assertionFailure("Deprecated: Relation must be marked as being optional or implicitly unwrapped optional.")
 }

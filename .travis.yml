@@ -13,18 +13,17 @@ env:
   global:
     - WORKSPACE='RealmS.xcworkspace'
     - SCHEME='RealmS'
-    - SDK='iphonesimulator10.2'
-    - DESTINATION='OS=10.2,name=iPhone 7'
+    - SDK='iphonesimulator10.3'
+    - DESTINATION='OS=10.3,name=iPhone 7'
+    - CONFIGURATION='Debug'
 install:
   - ./scripts/install
 script:
   - export REPO_SLUG="$TRAVIS_REPO_SLUG"
   - export SRC_BRANCH="$(./scripts/src_branch)"
   - export PR_NUMBER="$(./scripts/pr_number)"
-  - ./scripts/lint
-  - ./scripts/test
-  - ./scripts/pod_test
-  - bundle exec pod lib lint --quick
+  - ./scripts/tests/lint
+  - ./scripts/tests/pod
 notifications:
   email: false
 after_success:
