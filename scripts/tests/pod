@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ -z "$SDK" ]]; then
+    echo 'Exporting build environment variables...'
+    SDK='iphonesimulator10.3'
+    SCHEME='RealmS'
+    WORKSPACE='RealmS.xcworkspace'
+    DESTINATION='OS=10.3,name=iPhone 7'
+    CONFIGURATION='Debug'
+fi
+
+xcodebuild test \
+    -workspace "$WORKSPACE" \
+    -scheme "$SCHEME" \
+    -sdk "$SDK" \
+    -destination "$DESTINATION" \
+    -derivedDataPath build \
+    ONLY_ACTIVE_ARCH=YES \
+    -configuration "$CONFIGURATION"
+
+exit "${PIPESTATUS[0]}"
