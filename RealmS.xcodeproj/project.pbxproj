@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		046A1F2BE6907B3C4537C761 /* Pods_RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F16AF5D32A50AA0238750C /* Pods_RealmS.framework */; };
 		EC11DD0E1DB0BA340008E58B /* RealmS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F401DF401C42A8F800870925 /* RealmS.framework */; };
+		EC90912F1ECC296900FEC9BE /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = EC90912E1ECC296900FEC9BE /* users.json */; };
+		EC9091361ECC299900FEC9BE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9091321ECC299900FEC9BE /* Utils.m */; };
 		ECB592931EB03BC600ACB99F /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB592921EB03BC600ACB99F /* Operator.swift */; };
 		ECB592951EB03C0000ACB99F /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB592941EB03C0000ACB99F /* Transform.swift */; };
 		ECBAE7BC1DB7796400E520CE /* CleanUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBAE7B81DB7796400E520CE /* CleanUp.swift */; };
@@ -22,7 +24,6 @@
 		ECD21E351DB12028009757A6 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC287A5B1C96B80600FE7106 /* Tests.swift */; };
 		ECD21E361DB12B65009757A6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC287A611C96BE0100FE7106 /* Model.swift */; };
 		ECD21E371DB12B68009757A6 /* CleanUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB925831CF408AC00716E8E /* CleanUp.swift */; };
-		ECF42F161EA5B36000715028 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF42F151EA5B36000715028 /* Utils.m */; };
 		F4095A101C68E3CB0077F92E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A0F1C68E3CB0077F92E /* UIKit.framework */; };
 		F4095A121C68E3D30077F92E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4095A111C68E3D30077F92E /* Foundation.framework */; };
 		FA69D86E4BE63BED32F3BD80 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11200FAB505E4C830826843F /* Pods_Tests.framework */; };
@@ -59,6 +60,11 @@
 		EC11DD091DB0BA330008E58B /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC287A5B1C96B80600FE7106 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		EC287A611C96BE0100FE7106 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		EC90912E1ECC296900FEC9BE /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
+		EC9091311ECC299900FEC9BE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		EC9091321ECC299900FEC9BE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		EC9091341ECC299900FEC9BE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC9091351ECC299900FEC9BE /* Tests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		ECB592921EB03BC600ACB99F /* Operator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
 		ECB592941EB03C0000ACB99F /* Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		ECB925831CF408AC00716E8E /* CleanUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanUp.swift; sourceTree = "<group>"; };
@@ -73,13 +79,9 @@
 		ECBAE7CD1DB779CD00E520CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ECBAE7D01DB779CD00E520CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ECBAE7D21DB779CD00E520CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ECF42F131EA5B35F00715028 /* Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Bridging-Header.h"; sourceTree = "<group>"; };
-		ECF42F141EA5B36000715028 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
-		ECF42F151EA5B36000715028 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		F401DF401C42A8F800870925 /* RealmS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4095A0F1C68E3CB0077F92E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F4095A111C68E3D30077F92E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F4E9AF901C6639C6001559A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,32 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		EC90912D1ECC296900FEC9BE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EC90912E1ECC296900FEC9BE /* users.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EC9091301ECC299900FEC9BE /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				EC9091311ECC299900FEC9BE /* Utils.h */,
+				EC9091321ECC299900FEC9BE /* Utils.m */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		EC9091331ECC299900FEC9BE /* Supports */ = {
+			isa = PBXGroup;
+			children = (
+				EC9091341ECC299900FEC9BE /* Info.plist */,
+				EC9091351ECC299900FEC9BE /* Tests-Bridging-Header.h */,
+			);
+			path = Supports;
+			sourceTree = "<group>";
+		};
 		ECBAE7B71DB7796400E520CE /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,12 +228,11 @@
 		F4E9AF8D1C6639C6001559A1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				EC287A601C96BDE600FE7106 /* Model */,
 				EC287A5B1C96B80600FE7106 /* Tests.swift */,
-				F4E9AF901C6639C6001559A1 /* Info.plist */,
-				ECF42F141EA5B36000715028 /* Utils.h */,
-				ECF42F151EA5B36000715028 /* Utils.m */,
-				ECF42F131EA5B35F00715028 /* Tests-Bridging-Header.h */,
+				EC9091301ECC299900FEC9BE /* Library */,
+				EC287A601C96BDE600FE7106 /* Model */,
+				EC90912D1ECC296900FEC9BE /* Resources */,
+				EC9091331ECC299900FEC9BE /* Supports */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -307,7 +334,7 @@
 					};
 					F401DF3F1C42A8F800870925 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -336,6 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC90912F1ECC296900FEC9BE /* users.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,7 +531,7 @@
 				ECD21E351DB12028009757A6 /* Tests.swift in Sources */,
 				ECD21E371DB12B68009757A6 /* CleanUp.swift in Sources */,
 				ECD21E361DB12B65009757A6 /* Model.swift in Sources */,
-				ECF42F161EA5B36000715028 /* Utils.m in Sources */,
+				EC9091361ECC299900FEC9BE /* Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,13 +601,13 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/Supports/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.asiantech.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Tests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Supports/Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -595,12 +623,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/Supports/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.asiantech.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Tests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Supports/Tests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

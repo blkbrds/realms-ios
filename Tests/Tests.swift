@@ -13,58 +13,22 @@ import ObjectMapper
 
 class Tests: XCTestCase {
 
-    var jsUsers: [[String: Any]] = [
-        [
-            "id": "1",
-            "name": "User A",
-            "address": [
-                "street": "123 Street",
-                "city": "City Abc",
-                "country": "Country Q",
-                "phone": [
-                    "number": "+849876543210",
-                    "type": "Work"
-                ]
-            ],
-            "dogs": [
-                [
-                    "pk": "1",
-                    "name": "Pluto",
-                    "color": "Black"
-                ],
-                [
-                    "pk": "2",
-                    "name": "Gome",
-                    "color": "Brown"
-                ]
-            ]
-        ],
-        [
-            "id": "2",
-            "name": "User B",
-            "address": [
-                "street": "456 Street",
-                "city": "City Xyz",
-                "country": "Country W",
-                "phone": [
-                    "number": "+849876543211",
-                    "type": "Work"
-                ]
-            ],
-            "dogs": [
-                [
-                    "pk": "1",
-                    "name": "Pluto",
-                    "color": "Black"
-                ],
-                [
-                    "pk": "2",
-                    "name": "Gozer",
-                    "color": "White"
-                ]
-            ]
-        ]
-    ]
+    let jsUsers: [[String: Any]] = {
+        guard let url = Bundle(for: Tests.self).url(forResource: "users", withExtension: "json") else {
+            fatalError("Missing resource.")
+        }
+
+        do {
+            let data = try Data(contentsOf: url)
+            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            guard let array = json as? [[String: Any]] else {
+                fatalError("Wrong JSON format.")
+            }
+            return array
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }()
 
     var jsUser: [String: Any] {
         let jsUser: [String: Any]! = jsUsers.first
@@ -78,18 +42,30 @@ class Tests: XCTestCase {
         return userId
     }
 
-    let jsDogs: [[String: Any]] = [
+    let jsPets: [[String: Any]] = [
         [
             "pk": "1",
             "name": "Pluto",
-            "color": "Black new"
+            "color": [
+                "hex": "ff0000",
+                "name": "red new"
+            ]
         ],
         [
             "pk": "2",
             "name": "Lux",
-            "color": "White"
+            "color": [
+                "hex": "ffffff",
+                "name": "white new"
+            ]
         ]
     ]
+
+    var jsPet: [String: Any] {
+        let jsPet: [String: Any]! = jsPets.first
+        XCTAssertNotNil(jsPet)
+        return jsPet
+    }
 
     override func setUp() {
         super.setUp()
@@ -125,12 +101,12 @@ class Tests: XCTestCase {
     }
 
     func test_schema() {
-        var classes: [String] = []
+        var names: [String] = []
         for cls in RealmS().schema.objectSchema {
-            classes.append(cls.className)
+            names.append(cls.className)
         }
-        classes.sort()
-        XCTAssertEqual(classes.joined(separator: ","), "Address,Dog,Phone,User")
+        names.sort()
+        XCTAssertEqual(names.joined(separator: ","), "Address,Color,Pet,Phone,User")
     }
 
     func test_cancel() {
@@ -158,36 +134,39 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUsers)
         }
         let users = realm.objects(User.self)
-        XCTAssertEqual(users.count, 2)
-        let dogs = realm.objects(Dog.self)
-        XCTAssertEqual(dogs.count, 2)
+        XCTAssertGreaterThan(users.count, 0)
+        let dogs = realm.objects(Pet.self)
+        XCTAssertGreaterThan(dogs.count, 0)
         let addrs = realm.objects(Address.self)
-        XCTAssertEqual(addrs.count, 4)
+        XCTAssertGreaterThan(addrs.count, 0)
         let user: User! = users.filter("id = %@", userId).first
         XCTAssertNotNil(user)
         let addr: Address! = user.address
         XCTAssertNotNil(addr)
-        XCTAssertNotNil(addr.phone)
-        XCTAssertEqual(user.dogs.count, 2)
+        XCTAssertGreaterThan(addr.phones.count, 0)
+        XCTAssertGreaterThan(user.dogs.count, 0)
         realm.write {
             realm.map(User.self, json: jsUsers)
         }
     }
 
     func test_add() {
-        var dogs: [Dog] = []
+        var dogs: [Pet] = []
         for i in 1...3 {
-            let obj = Dog()
+            let obj = Pet()
             obj.id = "\(i)"
             obj.name = "Pluto \(i)"
-            obj.color = "White \(i)"
+            let color = Color()
+            color.hex = "ffffff"
+            color.name = "white"
+            obj.color = color
             dogs.append(obj)
         }
         let realm = RealmS()
         realm.write {
             realm.add(dogs)
         }
-        XCTAssertEqual(realm.objects(Dog.self).count, 3)
+        XCTAssertGreaterThan(realm.objects(Pet.self).count, 0)
     }
 
     func test_create() {
@@ -198,16 +177,16 @@ class Tests: XCTestCase {
             }
         }
         let users = realm.objects(User.self).filter("id = %@", userId)
-        XCTAssertEqual(users.count, 1)
+        XCTAssertGreaterThan(users.count, 0)
         let user: User! = users.first
         let addr: Address! = user.address
         XCTAssertNotNil(addr)
-        XCTAssertNotNil(addr.phone)
-        XCTAssertEqual(user.dogs.count, 2)
+        XCTAssertGreaterThan(addr.phones.count, 0)
+        XCTAssertGreaterThan(user.dogs.count, 0)
         realm.write {
             realm.map(User.self, json: jsUsers)
         }
-        XCTAssertEqual(users.count, 1)
+        XCTAssertGreaterThan(users.count, 0)
     }
 
     // Also test clean
@@ -217,18 +196,18 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUsers)
         }
         let users = realm.objects(User.self)
-        XCTAssertEqual(users.count, 2)
+        XCTAssertGreaterThan(users.count, 0)
         let user: User! = users.first
         realm.write {
             realm.delete(user)
         }
-        XCTAssertEqual(users.count, 1)
+        XCTAssertGreaterThan(users.count, 0)
         let addrs = realm.objects(Address.self)
-        XCTAssertEqual(addrs.count, 1)
+        XCTAssertGreaterThan(addrs.count, 0)
         let phones = realm.objects(Phone.self)
-        XCTAssertEqual(phones.count, 1)
-        let dogs = realm.objects(Dog.self)
-        XCTAssertEqual(dogs.count, 2)
+        XCTAssertGreaterThan(phones.count, 0)
+        let dogs = realm.objects(Pet.self)
+        XCTAssertGreaterThan(dogs.count, 0)
     }
 
     // Also test clean
@@ -238,7 +217,7 @@ class Tests: XCTestCase {
             realm.map(User.self, json: jsUsers)
         }
         let users = realm.objects(User.self)
-        XCTAssertEqual(users.count, 2)
+        XCTAssertGreaterThan(users.count, 0)
         realm.write {
             realm.delete(users)
         }
@@ -252,14 +231,17 @@ class Tests: XCTestCase {
         }
         let user: User! = realm.object(ofType: User.self, forPrimaryKey: userId)
         XCTAssertNotNil(user)
-        let dog: Dog! = user.dogs.first
+        let dog: Pet! = user.dogs.first
         XCTAssertNotNil(dog)
-        let color: String! = jsDogs.first?["color"] as? String
-        XCTAssertNotNil(color)
-        realm.write {
-            realm.map(Dog.self, json: jsDogs)
+        guard let jsColor = jsPet["color"] as? [String: Any],
+            let hex = jsColor["hex"] as? String else {
+                XCTFail()
+                return
         }
-        XCTAssertEqual(dog.color, color)
+        realm.write {
+            realm.map(Pet.self, json: jsPets)
+        }
+        XCTAssertEqual(dog.color?.hex, hex)
     }
 
     func test_addNilObject() {
@@ -304,7 +286,7 @@ class Tests: XCTestCase {
         realm.write {
             realm.map(User.self, json: jsUser)
         }
-        XCTAssertEqual(user.dogs.count, 2)
+        XCTAssertGreaterThan(user.dogs.count, 0)
     }
 
     func test_addNullList() {
@@ -317,9 +299,9 @@ class Tests: XCTestCase {
         var jsUser = self.jsUser
         jsUser["dogs"] = NSNull()
         realm.write {
-            realm.map(User.self, json: jsUsers)
+            realm.map(User.self, json: jsUser)
         }
-        XCTAssertEqual(user.dogs.count, 2)
+        XCTAssertTrue(user.dogs.isEmpty)
     }
 
     func test_multiThread() {
@@ -354,9 +336,9 @@ class Tests: XCTestCase {
         let token = users.addNotificationBlock { change in
             switch change {
             case .update(_, let deletions, let insertions, let modifications):
-                XCTAssertEqual(deletions.count, 0)
-                XCTAssertEqual(insertions.count, 2)
-                XCTAssertEqual(modifications.count, 0)
+                XCTAssertTrue(deletions.isEmpty)
+                XCTAssertGreaterThan(insertions.count, 0)
+                XCTAssertTrue(modifications.isEmpty)
                 expect.fulfill()
             case .error(let error):
                 XCTAssertThrowsError(error)

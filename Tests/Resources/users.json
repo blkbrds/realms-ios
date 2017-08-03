@@ -1,0 +1,85 @@
+ [{
+     "id": "1",
+     "name": "User A",
+     "address": {
+         "street": "123 Street",
+         "city": "City Abc",
+         "country": "Country Q",
+         "phones": [{
+             "number": "+849876543210",
+             "type": "Work"
+         }]
+     },
+     "dogs": [{
+         "pk": "1",
+         "name": "Jan",
+         "color": {
+             "hex": "000000",
+             "name": "black"
+         }
+     }, {
+         "pk": "2",
+         "name": "Feb",
+         "color": {
+             "hex": "ffffff",
+             "name": "white"
+         }
+     }],
+     "cats": [{
+         "pk": "1",
+         "name": "Jan",
+         "color": {
+             "hex": "000000",
+             "name": "black"
+         }
+     }, {
+         "pk": "3",
+         "name": "Mar",
+         "color": {
+             "hex": "ffffff",
+             "name": "white"
+         }
+     }]
+ }, {
+     "id": "2",
+     "name": "User B",
+     "address": {
+         "street": "456 Street",
+         "city": "City Xyz",
+         "country": "Country W",
+         "phones": [{
+             "number": "+849876543211",
+             "type": "Work"
+         }]
+     },
+     "dogs": [{
+         "pk": "1",
+         "name": "Pluto",
+         "color": {
+             "hex": "000000",
+             "name": "black"
+         }
+     }, {
+         "pk": "2",
+         "name": "Gozer",
+         "color": {
+             "hex": "d3d3d3",
+             "name": "gray"
+         }
+     }],
+     "cats": [{
+         "pk": "2",
+         "name": "Feb",
+         "color": {
+             "hex": "000000",
+             "name": "black"
+         }
+     }, {
+         "pk": "4",
+         "name": "Apr",
+         "color": {
+             "hex": "000000",
+             "name": "black"
+         }
+     }]
+ }]
