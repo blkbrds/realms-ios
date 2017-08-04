@@ -62,7 +62,7 @@ final class User: Object, StaticMappable {
     dynamic var id: String!
     dynamic var name: String?
     dynamic var address: Address?
-    let dogs = List<Dog>()
+    let dogs = List<Pet>()
 
     override class func primaryKey() -> String? {
         return "id"
@@ -119,7 +119,7 @@ realm.write {
 ```swift
 extension User {
     override public class func relativedTypes() -> [Object.Type] {
-        return [Address.self, Dog.self]
+        return [Address.self, Pet.self]
     }
 
     override public class func clean() { }

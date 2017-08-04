@@ -11,10 +11,11 @@ import ObjectMapper
 import RealmS
 
 final class User: Object, StaticMappable {
-    dynamic var id: String!
+    dynamic var id = ""
     dynamic var name: String?
     dynamic var address: Address?
-    let dogs = List<Dog>()
+    let dogs = List<Pet>()
+    let cats = List<Pet>()
 
     override class func primaryKey() -> String? {
         return "id"
@@ -24,6 +25,7 @@ final class User: Object, StaticMappable {
         name <- map["name"]
         address <- map["address"]
         dogs <- map["dogs"]
+        cats <- map["cats"]
     }
 
     static func objectForMapping(map: Map) -> BaseMappable? {
@@ -36,7 +38,7 @@ final class Address: Object, Mappable {
     dynamic var city = ""
     dynamic var country = ""
 
-    dynamic var phone: Phone?
+    let phones = List<Phone>()
 
     let users = LinkingObjects(fromType: User.self, property: "address")
 
@@ -48,11 +50,11 @@ final class Address: Object, Mappable {
         street <- map["street"]
         city <- map["city"]
         country <- map["country"]
-        phone <- map["phone"]
+        phones <- map["phones"]
     }
 }
 
-final class Phone: Object, Mappable {
+final class Phone: Object, StaticMappable {
     enum PhoneType: String {
         case work
         case home
@@ -61,22 +63,25 @@ final class Phone: Object, Mappable {
     dynamic var number = ""
     dynamic var type = PhoneType.home.rawValue
 
-    let addresses = LinkingObjects(fromType: Address.self, property: "phone")
+    let addresses = LinkingObjects(fromType: Address.self, property: "phones")
 
-    convenience required init?(map: Map) {
-        self.init()
+    override static func primaryKey() -> String {
+        return "number"
     }
 
     func mapping(map: Map) {
-        number <- map["number"]
         type <- map["type"]
+    }
+
+    static func objectForMapping(map: Map) -> BaseMappable? {
+        return RealmS().object(ofType: self, forMapping: map)
     }
 }
 
-final class Dog: Object, StaticMappable {
-    dynamic var id: String!
+final class Pet: Object, StaticMappable {
+    dynamic var id = ""
     dynamic var name: String?
-    dynamic var color: String?
+    dynamic var color: Color?
 
     let users = LinkingObjects(fromType: User.self, property: "dogs")
 
@@ -91,5 +96,24 @@ final class Dog: Object, StaticMappable {
 
     static func objectForMapping(map: Map) -> BaseMappable? {
         return RealmS().object(ofType: self, forMapping: map, jsonPrimaryKey: "pk")
+    }
+}
+
+final class Color: Object, StaticMappable {
+    dynamic var hex: String!
+    dynamic var name: String?
+
+    let dogs = LinkingObjects(fromType: Pet.self, property: "color")
+
+    override class func primaryKey() -> String? {
+        return "hex"
+    }
+
+    func mapping(map: Map) {
+        name <- map["name"]
+    }
+
+    static func objectForMapping(map: Map) -> BaseMappable? {
+        return RealmS().object(ofType: self, forMapping: map)
     }
 }

@@ -11,7 +11,7 @@ import RealmS
 
 extension User {
     override public class func relativedTypes() -> [Object.Type] {
-        return [Address.self, Dog.self]
+        return [Address.self, Pet.self]
     }
 
     override public class func clean() { }
@@ -41,14 +41,24 @@ extension Phone {
     }
 }
 
-extension Dog {
+extension Pet {
     override class func relativedTypes() -> [Object.Type] {
-        return [Phone.self]
+        return [Color.self]
     }
 
     override class func clean() {
         let realm = RealmS()
         let objs = realm.objects(self).filter("users.@count = 0")
+        realm.write {
+            realm.delete(objs)
+        }
+    }
+}
+
+extension Color {
+    override class func clean() {
+        let realm = RealmS()
+        let objs = realm.objects(self).filter("dogs.@count = 0")
         realm.write {
             realm.delete(objs)
         }
