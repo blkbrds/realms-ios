@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/zendobk/RealmS.svg?branch=master)](https://travis-ci.org/zendobk/RealmS)
+[![Build Status](https://travis-ci.org/tsrnd/realms-ios.svg?branch=master)](https://travis-ci.org/tsrnd/realms-ios)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/RealmS.svg)](https://img.shields.io/cocoapods/v/RealmS.svg)
 [![Platform](https://img.shields.io/cocoapods/p/RealmS.svg?style=flat)](http://cocoadocs.org/docsets/RealmS)
-[![Coverage Status](https://codecov.io/github/zendobk/RealmS/coverage.svg?branch=master)](https://codecov.io/github/zendobk/RealmS?branch=master)
+[![Coverage Status](https://codecov.io/github/tsrnd/realms-ios/coverage.svg?branch=master)](https://codecov.io/github/tsrnd/realms-ios?branch=master)
 
 [![RealmSwift](https://img.shields.io/badge/RealmSwift-~%3E%202.2-brightgreen.svg)](https://img.shields.io/badge/RealmSwift-~%3E%202.2-brightgreen.svg)
 [![ObjectMapper](https://img.shields.io/badge/ObjectMapper-~%3E%202.2-brightgreen.svg)](https://img.shields.io/badge/ObjectMapper-~%3E%202.2-brightgreen.svg)
