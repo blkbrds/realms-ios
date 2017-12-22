@@ -11,9 +11,9 @@ import ObjectMapper
 import RealmS
 
 final class User: Object, StaticMappable {
-    dynamic var id = ""
-    dynamic var name: String?
-    dynamic var address: Address?
+    @objc dynamic var id = ""
+    @objc dynamic var name: String?
+    @objc dynamic var address: Address?
     let dogs = List<Pet>()
     let cats = List<Pet>()
 
@@ -34,9 +34,9 @@ final class User: Object, StaticMappable {
 }
 
 final class Address: Object, Mappable {
-    dynamic var street = ""
-    dynamic var city = ""
-    dynamic var country = ""
+    @objc dynamic var street = ""
+    @objc dynamic var city = ""
+    @objc dynamic var country = ""
 
     let phones = List<Phone>()
 

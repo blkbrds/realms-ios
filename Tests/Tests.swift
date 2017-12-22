@@ -346,7 +346,6 @@ class Tests: XCTestCase {
                 break
             }
         }
-
         queue.async(execute: {
             let realm = RealmS()
             realm.write {
