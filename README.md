@@ -12,7 +12,7 @@ Realm + ObjectMapper
 ## Requirements
 
  - iOS 8.0+
- - Xcode 8.3 (Swift 3.1)
+ - Xcode 9.2 (Swift 4.0+)
 
 ## Installation
  
@@ -35,7 +35,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'RealmS', '~> 2.3'
+pod 'RealmS', '~> 4.0.0'
 ```
 
 Then, run the following command:
