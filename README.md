@@ -12,7 +12,7 @@ Realm + ObjectMapper
 ## Requirements
 
  - iOS 8.0+
- - Xcode 8.3 (Swift 3.1)
+ - Xcode 9.2 (Swift 4.0+)
 
 ## Installation
  
@@ -35,7 +35,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'RealmS', '~> 2.3'
+pod 'RealmS', '~> 4.0.0'
 ```
 
 Then, run the following command:
@@ -59,9 +59,9 @@ import RealmS
 
 // (i)
 final class User: Object, StaticMappable {
-    dynamic var id: String!
-    dynamic var name: String?
-    dynamic var address: Address?
+    @objc dynamic var id: String!
+    @objc dynamic var name: String?
+    @objc dynamic var address: Address?
     let dogs = List<Pet>()
 
     override class func primaryKey() -> String? {
@@ -81,11 +81,11 @@ final class User: Object, StaticMappable {
 
 // (ii)
 final class Address: Object, Mappable {
-    dynamic var street = ""
-    dynamic var city = ""
-    dynamic var country = ""
+    @objc dynamic var street = ""
+    @objc dynamic var city = ""
+    @objc dynamic var country = ""
 
-    dynamic var phone: Phone?
+    @objc dynamic var phone: Phone?
 
     let users = LinkingObjects(fromType: User.self, property: "address")
 
