@@ -235,7 +235,7 @@ class Tests: XCTestCase {
         XCTAssertNotNil(dog)
         guard let jsColor = jsPet["color"] as? [String: Any],
             let hex = jsColor["hex"] as? String else {
-                XCTFail()
+                XCTFail("Fail with hex color")
                 return
         }
         realm.write {
@@ -333,7 +333,7 @@ class Tests: XCTestCase {
 
         let realm = RealmS()
         let users = realm.objects(User.self)
-        let token = users.addNotificationBlock { change in
+        let token = users.observe { change in
             switch change {
             case .update(_, let deletions, let insertions, let modifications):
                 XCTAssertTrue(deletions.isEmpty)
@@ -355,6 +355,6 @@ class Tests: XCTestCase {
         })
 
         waitForExpectations(timeout: 10, handler: nil)
-        token.stop()
+        token.invalidate()
     }
 }

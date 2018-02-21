@@ -2,10 +2,10 @@
 
 if [[ -z "$SDK" ]]; then
     echo 'Exporting build environment variables...'
-    SDK='iphonesimulator10.3'
+    SDK='iphonesimulator11.2'
     SCHEME='RealmS'
     WORKSPACE='RealmS.xcworkspace'
-    DESTINATION='OS=10.3,name=iPhone 7'
+    DESTINATION='OS=11.2,name=iPhone 7'
     CONFIGURATION='Debug'
 fi
 
