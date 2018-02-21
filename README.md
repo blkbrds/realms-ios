@@ -59,9 +59,9 @@ import RealmS
 
 // (i)
 final class User: Object, StaticMappable {
-    dynamic var id: String!
-    dynamic var name: String?
-    dynamic var address: Address?
+    @objc dynamic var id: String!
+    @objc dynamic var name: String?
+    @objc dynamic var address: Address?
     let dogs = List<Pet>()
 
     override class func primaryKey() -> String? {
@@ -81,11 +81,11 @@ final class User: Object, StaticMappable {
 
 // (ii)
 final class Address: Object, Mappable {
-    dynamic var street = ""
-    dynamic var city = ""
-    dynamic var country = ""
+    @objc dynamic var street = ""
+    @objc dynamic var city = ""
+    @objc dynamic var country = ""
 
-    dynamic var phone: Phone?
+    @objc dynamic var phone: Phone?
 
     let users = LinkingObjects(fromType: User.self, property: "address")
 
