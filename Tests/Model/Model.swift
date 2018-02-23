@@ -11,9 +11,9 @@ import ObjectMapper
 import RealmS
 
 final class User: Object, StaticMappable {
-    dynamic var id = ""
-    dynamic var name: String?
-    dynamic var address: Address?
+    @objc dynamic var id = ""
+    @objc dynamic var name: String?
+    @objc dynamic var address: Address?
     let dogs = List<Pet>()
     let cats = List<Pet>()
 
@@ -34,9 +34,9 @@ final class User: Object, StaticMappable {
 }
 
 final class Address: Object, Mappable {
-    dynamic var street = ""
-    dynamic var city = ""
-    dynamic var country = ""
+    @objc dynamic var street = ""
+    @objc dynamic var city = ""
+    @objc dynamic var country = ""
 
     let phones = List<Phone>()
 
@@ -60,8 +60,8 @@ final class Phone: Object, StaticMappable {
         case home
     }
 
-    dynamic var number = ""
-    dynamic var type = PhoneType.home.rawValue
+    @objc dynamic var number = ""
+    @objc dynamic var type = PhoneType.home.rawValue
 
     let addresses = LinkingObjects(fromType: Address.self, property: "phones")
 
@@ -79,9 +79,9 @@ final class Phone: Object, StaticMappable {
 }
 
 final class Pet: Object, StaticMappable {
-    dynamic var id = ""
-    dynamic var name: String?
-    dynamic var color: Color?
+    @objc dynamic var id = ""
+    @objc dynamic var name: String?
+    @objc dynamic var color: Color?
 
     let users = LinkingObjects(fromType: User.self, property: "dogs")
 
@@ -100,8 +100,8 @@ final class Pet: Object, StaticMappable {
 }
 
 final class Color: Object, StaticMappable {
-    dynamic var hex: String!
-    dynamic var name: String?
+    @objc dynamic var hex: String!
+    @objc dynamic var name: String?
 
     let dogs = LinkingObjects(fromType: Pet.self, property: "color")
 

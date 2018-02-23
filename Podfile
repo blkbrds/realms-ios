@@ -4,13 +4,13 @@ use_frameworks!
 platform :ios, '8.0'
 
 def shared_pods
-    pod 'RealmSwift', '~> 2.2'
-    pod 'ObjectMapper', '~> 2.2'
+    pod 'RealmSwift', '~> 3.0'
+    pod 'ObjectMapper', '~> 3.0'
 end
 
 target 'RealmS' do
     shared_pods
-    pod 'SwiftLint', '~> 0.16.1'
+    pod 'SwiftLint', '~> 0.25.0'
     target 'Tests' do
         inherit! :search_paths
         shared_pods

@@ -8,7 +8,7 @@
 
 #import "Utils.h"
 
-void DispatchOnce(void(^block)()) {
+void DispatchOnce(void(^block)(void)) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         block();
