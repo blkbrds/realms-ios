@@ -32,6 +32,7 @@ public func <- <T: Object>(left: inout T?, right: Map) where T: BaseMappable {
     }
 }
 
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /**
  Map to implicitly unwrapped optional BaseMappable Object.
  - parammeter T: BaseMappable Object.
@@ -42,6 +43,7 @@ public func <- <T: Object>(left: inout T!, right: Map) where T: BaseMappable {
     var object: T? = left
     object <- right
 }
+#endif
 
 /**
  Map to List of BaseMappable Object.
