@@ -11,10 +11,10 @@ cache:
     - vendor
 env:
   global:
-    - SDK='iphonesimulator11.2'
+    - SDK='iphonesimulator12.2'
     - SCHEME='RealmS'
     - WORKSPACE='RealmS.xcworkspace'
-    - DESTINATION='OS=11.2,name=iPhone 7'
+    - DESTINATION='OS=12.2,name=iPhone 7'
     - CONFIGURATION='Debug'
 install:
   - set -o pipefail
