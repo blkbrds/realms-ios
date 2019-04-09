@@ -60,8 +60,8 @@ public func <- <T: Object>(left: List<T>, right: Map) where T: BaseMappable {
         guard let objs = objects else { return }
         left.append(objectsIn: objs)
     } else {
-        var _left = left
-        _left <- (right, ListTransform<T>())
+        var left = left
+        left <- (right, ListTransform<T>())
     }
 }
 

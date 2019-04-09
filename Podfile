@@ -5,7 +5,7 @@ platform :ios, '8.0'
 
 def shared_pods
     pod 'RealmSwift', '~> 3.0'
-    pod 'ObjectMapper', '~> 3.0'
+    pod 'ObjectMapper', '3.3.0'
 end
 
 target 'RealmS' do
