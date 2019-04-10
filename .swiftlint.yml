@@ -1,4 +1,5 @@
-# reporter: xcode
+# Swift 5.0, SwiftLint 0.25.1
+reporter: xcode
 disabled_rules:
   - todo
 excluded:
@@ -13,6 +14,21 @@ function_body_length:
 type_body_length:
   - 300
   - 500
-variable_name:
-  excluded:
-    - id
+type_name:
+  min_length:
+    warning: 2
+  max_length:
+    warning: 40
+    error: 60
+identifier_name:
+  min_length:
+    warning: 1
+  max_length:
+    warning: 40
+    error: 60
+identifier_name:
+  min_length:
+    warning: 1
+  max_length:
+    warning: 41
+    error: 60
