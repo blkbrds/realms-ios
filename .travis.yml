@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9.2
+osx_image: xcode10.2
 cache:
   bundler: true
   cocoapods: true
@@ -11,10 +11,10 @@ cache:
     - vendor
 env:
   global:
-    - SDK='iphonesimulator11.2'
+    - SDK='iphonesimulator12.2'
     - SCHEME='RealmS'
     - WORKSPACE='RealmS.xcworkspace'
-    - DESTINATION='OS=11.2,name=iPhone 7'
+    - DESTINATION='OS=12.2,name=iPhone 7'
     - CONFIGURATION='Debug'
 install:
   - set -o pipefail
@@ -24,7 +24,7 @@ script:
   - export SRC_BRANCH="$(./scripts/src_branch)"
   - export PR_NUMBER="$(./scripts/pr_number)"
   - ./scripts/tests/lint
-  - ./scripts/tests/pod
+  - bundle exec fastlane test
 notifications:
   email: false
 after_success:
