@@ -24,7 +24,7 @@ script:
   - export SRC_BRANCH="$(./scripts/src_branch)"
   - export PR_NUMBER="$(./scripts/pr_number)"
   - ./scripts/tests/lint
-  - ./scripts/tests/pod
+  - bundle exec fastlane test 
 notifications:
   email: false
 after_success:
