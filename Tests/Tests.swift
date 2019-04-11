@@ -70,9 +70,11 @@ class Tests: XCTestCase {
     override func setUp() {
         super.setUp()
         DispatchOnce {
-            var config = Realm.Configuration.defaultConfiguration
-            config.deleteRealmIfMigrationNeeded = true
-            Realm.Configuration.defaultConfiguration = config
+            Realm.Configuration.defaultConfiguration.inMemoryIdentifier = "XCTestCase database"
+            let realm = RealmS()
+            realm.write {
+                realm.deleteAll()
+            }
             RealmS.onError { (_, error, _) in
                 XCTAssertThrowsError(error)
             }
@@ -106,7 +108,7 @@ class Tests: XCTestCase {
             names.append(cls.className)
         }
         names.sort()
-        XCTAssertEqual(names.joined(separator: ","), "Address,Color,Pet,Phone,User")
+        XCTAssertEqual(names.joined(separator: ","), "Address,Color,Pet,Phone,RLMClassPermission,RLMPermission,RLMPermissionRole,RLMPermissionUser,RLMRealmPermission,RealmSwiftClassPermission,RealmSwiftPermission,RealmSwiftPermissionRole,RealmSwiftPermissionUser,RealmSwiftRealmPermission,User")
     }
 
     func test_cancel() {
@@ -152,10 +154,10 @@ class Tests: XCTestCase {
 
     func test_add() {
         var dogs: [Pet] = []
-        for i in 1...3 {
+        for index in 1...3 {
             let obj = Pet()
-            obj.id = "\(i)"
-            obj.name = "Pluto \(i)"
+            obj.id = "\(index)"
+            obj.name = "Pluto \(index)"
             let color = Color()
             color.hex = "ffffff"
             color.name = "white"

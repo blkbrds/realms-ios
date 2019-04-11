@@ -1,4 +1,4 @@
-# reporter: xcode
+# reporter: xcode10.2 and swift 5.0
 disabled_rules:
   - todo
 excluded:
