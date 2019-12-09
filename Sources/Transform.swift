@@ -15,7 +15,7 @@ import ObjectMapper
  Transform for Object, only support transform to JSON.
  */
 internal final class ObjectTransform<T: Object>: TransformType where T: BaseMappable {
-    @available( *, deprecated: 1, message: "Please use direct mapping without transform.")
+    @available( *, deprecated, message: "Please use direct mapping without transform.")
     func transformFromJSON(_ value: Any?) -> T? {
         assertionFailure("Deprecated: Please use direct mapping without transform.")
         return nil
@@ -35,7 +35,7 @@ internal final class ObjectTransform<T: Object>: TransformType where T: BaseMapp
  Transform for List of Object, only support transform to JSON.
  */
 internal final class ListTransform<T: Object>: TransformType where T: BaseMappable {
-    @available( *, deprecated: 1, message: "Please use direct mapping without transform.")
+    @available( *, deprecated, message: "Please use direct mapping without transform.")
     func transformFromJSON(_ value: Any?) -> List<T>? {
         assertionFailure("Deprecated: Please use direct mapping without transform.")
         return nil

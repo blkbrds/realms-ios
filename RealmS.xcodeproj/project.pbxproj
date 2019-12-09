@@ -259,7 +259,6 @@
 				EC11DD061DB0BA330008E58B /* Frameworks */,
 				EC11DD071DB0BA330008E58B /* Resources */,
 				3A5901E2F4ACE543FB3AC92D /* [CP] Embed Pods Frameworks */,
-				CC1B497784E5F23784E71835 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -280,7 +279,6 @@
 				ECBAE7C11DB779CD00E520CE /* Frameworks */,
 				ECBAE7C21DB779CD00E520CE /* Resources */,
 				B2458F19756614F90428111E /* [CP] Embed Pods Frameworks */,
-				50CA0C6940FA0848EDDC3020 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,7 +300,6 @@
 				F401DF3D1C42A8F800870925 /* Headers */,
 				F401DF3E1C42A8F800870925 /* Resources */,
 				ECEBF5821CA285D90025CB91 /* SwiftLint */,
-				81752033136F7B506FBEE77B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -320,7 +317,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Apple Inc";
 				TargetAttributes = {
 					EC11DD081DB0BA330008E58B = {
@@ -343,6 +340,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -429,7 +427,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -442,37 +440,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		50CA0C6940FA0848EDDC3020 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PodTest/Pods-PodTest-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		81752033136F7B506FBEE77B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RealmS/Pods-RealmS-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9040D4B90C07C73F843479D9 /* [CP] Check Pods Manifest.lock */ = {
@@ -499,7 +467,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PodTest/Pods-PodTest-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PodTest/Pods-PodTest-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -514,22 +482,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PodTest/Pods-PodTest-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CC1B497784E5F23784E71835 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PodTest/Pods-PodTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ECEBF5821CA285D90025CB91 /* SwiftLint */ = {
@@ -699,6 +652,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_CODE_COVERAGE = YES;
@@ -708,12 +662,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -757,6 +713,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_CODE_COVERAGE = YES;
@@ -766,12 +723,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

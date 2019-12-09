@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name   = 'RealmS'
-    s.version  = '4.0.1'
+    s.version  = '4.0.2'
     s.license  = 'MIT'
     s.summary  = 'RealmS'
     s.homepage = 'https://github.com/tsrnd/realms-ios'
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.ios.deployment_target = '8.0'
     s.ios.frameworks = 'Foundation', 'UIKit'
-    s.dependency 'RealmSwift', '~> 3.0'
-    s.dependency 'ObjectMapper', '~> 3.0'
+    s.dependency 'RealmSwift', '~> 3.18.0'
+    s.dependency 'ObjectMapper', '~> 3.5.1'
     s.source_files = 'Sources/*.swift'
 end

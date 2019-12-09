@@ -152,10 +152,10 @@ class Tests: XCTestCase {
 
     func test_add() {
         var dogs: [Pet] = []
-        for i in 1...3 {
+        for index in 1...3 {
             let obj = Pet()
-            obj.id = "\(i)"
-            obj.name = "Pluto \(i)"
+            obj.id = "\(index)"
+            obj.name = "Pluto \(index)"
             let color = Color()
             color.hex = "ffffff"
             color.name = "white"

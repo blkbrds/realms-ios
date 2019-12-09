@@ -12,7 +12,7 @@ Realm + ObjectMapper
 ## Requirements
 
  - iOS 8.0+
- - Xcode 9.2 (Swift 4.0+)
+ - Xcode 11.2.1 (Swift 4.0+)
 
 ## Installation
  

@@ -22,12 +22,12 @@ extension RealmS {
      - returns: mapped object.
      */
     @discardableResult
-    public func map<T: Object>(_ type: T.Type, json: [String: Any]) -> T? where T: BaseMappable {
+    public func map<T: Object>(_ type: T.Type, json: [String: Any], updatePolicy: Realm.UpdatePolicy? = nil) -> T? where T: BaseMappable {
         guard let obj = Mapper<T>().map(JSON: json) else {
             return nil
         }
         if obj.realm == nil {
-            add(obj)
+            add(obj, updatePolicy: updatePolicy)
         }
         return obj
     }
@@ -40,10 +40,10 @@ extension RealmS {
      - returns: mapped objects.
      */
     @discardableResult
-    public func map<T: Object>(_ type: T.Type, json: [[String: Any]]) -> [T] where T: BaseMappable {
+    public func map<T: Object>(_ type: T.Type, json: [[String: Any]], updatePolicy: Realm.UpdatePolicy? = nil) -> [T] where T: BaseMappable {
         var objs = [T]()
-        for js in json {
-            if let obj = map(type, json: js) {
+        for jso in json {
+            if let obj = map(type, json: jso, updatePolicy: updatePolicy) {
                 objs.append(obj)
             }
         }
@@ -62,7 +62,7 @@ extension RealmS {
      - returns: cached object.
      */
     public func object<T: Object>(ofType type: T.Type, forMapping map: Map, jsonPrimaryKey jsPk: String? = T.primaryKey()) -> T? where T: BaseMappable {
-        guard let pk = T.primaryKey(), let jsPk = jsPk else {
+        guard let prikey = T.primaryKey(), let jsPk = jsPk else {
             return T()
         }
         guard let id: Any = map[jsPk].value() else { return nil }
@@ -70,7 +70,7 @@ extension RealmS {
             return exist
         }
         let new = T()
-        new.setValue(id, forKey: pk)
+        new.setValue(id, forKey: prikey)
         return new
     }
 }

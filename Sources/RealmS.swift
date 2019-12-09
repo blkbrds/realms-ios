@@ -243,9 +243,13 @@ public final class RealmS {
      - parameter update: If `true`, the Realm will try to find an existing copy of the object (with the same primary
      key), and update it. Otherwise, the object will be added.
      */
-    public func add<T: Object>(_ object: T) {
-        let update = T.primaryKey() != nil
-        realm.add(object, update: update)
+    public func add<T: Object>(_ object: T, updatePolicy: Realm.UpdatePolicy? = nil) {
+        if updatePolicy == nil {
+            let update = T.primaryKey() != nil ? Realm.UpdatePolicy.all : Realm.UpdatePolicy.error
+            realm.add(object, update: update)
+        } else {
+            realm.add(object, update: updatePolicy!)
+        }
     }
 
     /**
@@ -258,11 +262,15 @@ public final class RealmS {
      - parameter objects: A sequence which contains objects to be added to the Realm.
      - parameter update: If `true`, objects that are already in the Realm will be updated instead of added anew.
      */
-    public func add<S: Sequence>(_ objects: S) where S.Iterator.Element: Object {
-        typealias Element = S.Iterator.Element
-        let update = Element.primaryKey() != nil
-        for obj in objects {
-            realm.add(obj, update: update)
+    public func add<S: Sequence>(_ objects: S, updatePolicy: Realm.UpdatePolicy? = nil) where S.Iterator.Element: Object {
+        if updatePolicy == nil {
+            typealias Element = S.Iterator.Element
+            let update = Element.primaryKey() != nil ? Realm.UpdatePolicy.all : Realm.UpdatePolicy.error
+            for obj in objects {
+                realm.add(obj, update: update)
+            }
+        } else {
+            realm.add(objects, update: updatePolicy!)
         }
     }
 
@@ -291,10 +299,13 @@ public final class RealmS {
      - returns: The newly created object.
      */
     @discardableResult
-    public func create<T: Object>(_ type: T.Type, value: Any = [:]) -> T {
-        let typeName = (type as Object.Type).className()
-        let update = schema[typeName]?.primaryKeyProperty != nil
-        return realm.create(type, value: value, update: update)
+    public func create<T: Object>(_ type: T.Type, value: Any = [:], updatePolicy: Realm.UpdatePolicy? = nil) -> T {
+        if updatePolicy == nil {
+            let typeName = (type as Object.Type).className()
+            let update = schema[typeName]?.primaryKeyProperty != nil ? Realm.UpdatePolicy.all : Realm.UpdatePolicy.error
+            return realm.create(type, value: value, update: update)
+        }
+        return realm.create(type, value: value, update: updatePolicy!)
     }
 
     /**
@@ -328,9 +339,12 @@ public final class RealmS {
      :nodoc:
      */
     @discardableResult
-    public func dynamicCreate(_ typeName: String, value: Any = [:]) -> DynamicObject! {
-        let update = schema[typeName]?.primaryKeyProperty != nil
-        return realm.dynamicCreate(typeName, value: value, update: update)
+    public func dynamicCreate(_ typeName: String, value: Any = [:], updatePolicy: Realm.UpdatePolicy? = nil) -> DynamicObject! {
+        if updatePolicy == nil {
+            let update = schema[typeName]?.primaryKeyProperty != nil ? Realm.UpdatePolicy.all : Realm.UpdatePolicy.error
+            return realm.dynamicCreate(typeName, value: value, update: update)
+        }
+        return realm.dynamicCreate(typeName, value: value, update: updatePolicy!)
     }
 
     // MARK: Deleting objects
@@ -619,15 +633,15 @@ public typealias NotificationBlock = (_ notification: Realm.Notification, _ real
 
 extension RealmS {
 
-    @available( *, unavailable, renamed: "isInWriteTransaction")
+    @available(*, unavailable, renamed: "isInWriteTransaction")
     public var inWriteTransaction: Bool { fatalError() }
 
-    @available( *, unavailable, renamed: "object(ofType:forPrimaryKey:)")
+    @available(*, unavailable, renamed: "object(ofType:forPrimaryKey:)")
     public func objectForPrimaryKey<T: Object>(_ type: T.Type, key: Any) -> T? { fatalError() }
 
-    @available( *, unavailable, renamed: "dynamicObject(ofType:forPrimaryKey:)")
+    @available(*, unavailable, renamed: "dynamicObject(ofType:forPrimaryKey:)")
     public func dynamicObjectForPrimaryKey(_ className: String, key: Any) -> DynamicObject? { fatalError() }
 
-    @available( *, unavailable, renamed: "writeCopy(toFile:encryptionKey:)")
+    @available(*, unavailable, renamed: "writeCopy(toFile:encryptionKey:)")
     public func writeCopyToURL(_ fileURL: NSURL, encryptionKey: Data? = nil) throws { fatalError() }
 }

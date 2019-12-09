@@ -60,8 +60,8 @@ public func <- <T: Object>(left: List<T>, right: Map) where T: BaseMappable {
         guard let objs = objects else { return }
         left.append(objectsIn: objs)
     } else {
-        var _left = left
-        _left <- (right, ListTransform<T>())
+        var newLeft = left
+        newLeft <- (right, ListTransform<T>())
     }
 }
 
@@ -73,7 +73,7 @@ public func <- <T: Object>(left: List<T>, right: Map) where T: BaseMappable {
  - parameter left: mapped variable.
  - parameter right: Map object.
  */
-@available( *, deprecated: 1, message: "Relation must be marked as being optional or implicitly unwrapped optional.")
+@available( *, deprecated, message: "Relation must be marked as being optional or implicitly unwrapped optional.")
 public func <- <T: Object>(left: inout T, right: Map) where T: BaseMappable {
     assertionFailure("Deprecated: Relation must be marked as being optional or implicitly unwrapped optional.")
 }
